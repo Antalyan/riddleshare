@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 export const Header = () => {
     const navigate = useNavigate();
     const pageItems = <>
-        <MenuItem key={'home'} onClick={() => navigate('/todo')}>
+        <MenuItem key={'home'} onClick={() => navigate('/')}>
             Home
         </MenuItem>
         <MenuItem key={'public'} onClick={() => navigate('/public-riddles')}>
@@ -27,7 +27,7 @@ export const Header = () => {
             <Box display={{xs: "block", md: "none"}}>
                 <PageMenu> {pageItems}</PageMenu>
             </Box>
-            <Box display={{xs: "none", md: "flex"}} flexDirection={"row"} gap={2}>
+            <Box display={{xs: "none", md: "flex"}} sx={{color: "secondary.light"}} flexDirection={"row"} gap={2}>
                 {pageItems}
             </Box>
         </Toolbar>

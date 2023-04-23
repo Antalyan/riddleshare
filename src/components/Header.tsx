@@ -7,26 +7,46 @@ import {
 	Typography
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useMemo } from 'react';
 
 import { PageMenu } from './PageMenu.tsx';
 
 export const Header = () => {
 	const navigate = useNavigate();
-	const pageItems = (
-		<>
-			<MenuItem key="home" onClick={() => navigate('/')}>
-				Home
-			</MenuItem>
-			<MenuItem key="public" onClick={() => navigate('/public-riddles')}>
-				Public riddles
-			</MenuItem>
-			<MenuItem key="public" onClick={() => navigate('/received-riddles')}>
-				Received riddles
-			</MenuItem>
-			<MenuItem key="public" onClick={() => navigate('/my-riddles')}>
-				My riddles
-			</MenuItem>
-		</>
+	const pageItems = useMemo(
+		() => (
+			<>
+				<MenuItem
+					key="home"
+					onClick={() => navigate('/')}
+					sx={{ borderRadius: 5 }}
+				>
+					Home
+				</MenuItem>
+				<MenuItem
+					key="public"
+					onClick={() => navigate('/public-riddles')}
+					sx={{ borderRadius: 5 }}
+				>
+					Public riddles
+				</MenuItem>
+				<MenuItem
+					key="public"
+					onClick={() => navigate('/received-riddles')}
+					sx={{ borderRadius: 5 }}
+				>
+					Received riddles
+				</MenuItem>
+				<MenuItem
+					key="public"
+					onClick={() => navigate('/my-riddles')}
+					sx={{ borderRadius: 5 }}
+				>
+					My riddles
+				</MenuItem>
+			</>
+		),
+		[]
 	);
 
 	return (

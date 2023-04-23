@@ -1,35 +1,61 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import {
+    AppBar, Box, Button,
+    Container,
+    createTheme,
+    CssBaseline,
+    IconButton,
+    Menu,
+    MenuItem,
+    ThemeProvider,
+    Toolbar
+} from "@mui/material";
+import {BrowserRouter, Route, Routes, useNavigate} from "react-router-dom";
+import {HomePage} from "./pages/HomePage.tsx";
+import {NotFound} from "./pages/NotFound.tsx";
+import MenuIcon from '@mui/icons-material/Menu';
+import {useState} from "react";
+import {PageMenu} from "./components/PageMenu.tsx";
+import {Header} from "./components/Header.tsx";
+import {PublicRiddlesPage} from "./pages/PublicRiddlesPage.tsx";
+import {ReceivedRiddlesPage} from "./pages/ReceivedRiddlesPage.tsx";
+import {MyRiddlesPage} from "./pages/MyRiddlesPage.tsx";
 
-function App() {
-  const [count, setCount] = useState(0)
+export const theme = createTheme({
+    palette: {
+        mode: 'dark'
+    }
+});
 
-  return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+export const App = () => {
+    const x = "aoj éo";
+
+    return (<ThemeProvider theme={theme}>
+        <CssBaseline>
+            <BrowserRouter>
+                <Header></Header>
+            <Container
+                maxWidth="md"
+                component="main"
+                sx={{
+                    alignItems: 'center',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flexGrow: 1,
+                    gap: 2,
+                    justifyContent: 'center',
+                    my: 4,
+                }}
+            >
+                {x}
+                    <Routes>
+                        <Route path="/" element={<HomePage/>}/>
+                        <Route path="/my-riddles" element={<MyRiddlesPage/>}/>
+                        <Route path="/public-riddles" element={<PublicRiddlesPage/>}/>
+                        <Route path="/received-riddles" element={<ReceivedRiddlesPage/>}/>
+                        <Route path="*" element={<NotFound/>}/>
+                    </Routes>
+            </Container>
+            </BrowserRouter>
+        </CssBaseline>
+    </ThemeProvider>)
 }
-
-export default App

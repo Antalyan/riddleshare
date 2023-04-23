@@ -1,4 +1,4 @@
-import {AppBar, Box, Button, MenuItem, Toolbar} from "@mui/material";
+import {AppBar, Box, Button, MenuItem, Toolbar, Typography} from "@mui/material";
 import {PageMenu} from "./PageMenu.tsx";
 import {useNavigate} from "react-router-dom";
 
@@ -21,7 +21,9 @@ export const Header = () => {
 
     return(<AppBar sx={{ position: 'sticky'}}>
         <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
-            RiddleShare
+            <Typography color={"secondary"}>
+                RiddleShare
+            </Typography>
             <Box display={{xs: "block", md: "none"}}>
                 <PageMenu> {pageItems}</PageMenu>
             </Box>

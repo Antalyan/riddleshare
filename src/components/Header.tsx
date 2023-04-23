@@ -19,9 +19,9 @@ export const Header = () => {
         </MenuItem>
     </>
 
-    return(<AppBar sx={{ position: 'sticky'}}>
+    return(<AppBar sx={{ position: 'sticky', backgroundColor: "background.default"}}>
         <Toolbar sx={{display: "flex", justifyContent: "space-between"}}>
-            <Typography color={"secondary"}>
+            <Typography color={"secondary"} variant={"h5"} fontWeight={"bold"}>
                 RiddleShare
             </Typography>
             <Box display={{xs: "block", md: "none"}}>

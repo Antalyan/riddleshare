@@ -19,11 +19,14 @@ import {Header} from "./components/Header.tsx";
 import {PublicRiddlesPage} from "./pages/PublicRiddlesPage.tsx";
 import {ReceivedRiddlesPage} from "./pages/ReceivedRiddlesPage.tsx";
 import {MyRiddlesPage} from "./pages/MyRiddlesPage.tsx";
-import {deepOrange, red} from "@mui/material/colors";
+import {indigo, deepOrange, red} from "@mui/material/colors";
 
 export const theme = createTheme({
     palette: {
         mode: 'dark',
+        background: {
+            default: "#001233"
+        },
         primary: {
             main: deepOrange[500], //TODO: replace
         },

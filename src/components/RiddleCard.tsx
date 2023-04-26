@@ -1,10 +1,16 @@
 import {
+	Box,
+	Button,
 	Card,
 	CardActions,
 	CardContent,
 	CardHeader,
 	CardMedia,
-	Chip
+	Chip,
+	Container,
+	Grid,
+	Stack,
+	Typography
 } from '@mui/material';
 import {
 	CancelRounded,
@@ -31,14 +37,14 @@ type Props = {
 	difficulty: Difficulty;
 };
 
-const getIcon = (state: RiddleStatus) => {
+const getStateIcon = (state: RiddleStatus) => {
 	switch (state) {
 		case RiddleStatus.Unfinished:
-			return <HelpOutlineRounded />;
+			return <HelpOutlineRounded color="warning" />;
 		case RiddleStatus.Solved:
-			return <CheckCircleOutlineRounded />;
+			return <CheckCircleOutlineRounded color="success" />;
 		default:
-			return <CancelRounded />;
+			return <CancelRounded color="error" />;
 	}
 };
 
@@ -54,22 +60,62 @@ export const RiddleCard: FC<Props> = ({
 	// 	[difficultyType]
 	// ); //TODO: Move to data fetching parent
 
-	<Card>
-		<CardHeader action={getIcon(state)} />
-		<CardMedia component="img" image={image} alt={name} />
-		{/*//TODO: image fetching from db*/}
-		<CardContent>
-			{name}
-			<Chip
-				icon={<CircleFlag countryCode={countryCode} height={35} />}
-				label="Country name" //TODO: Replace with localized country name
-				variant="outlined"
-			/>
-			<Chip
-				icon={<LensIcon sx={{ color: difficulty?.color }} />}
-				label={difficulty?.name} //TODO: Replace with localized difficulty name
-				variant="outlined"
-			/>
-		</CardContent>
+	<Card sx={{ width: '100%', backgroundColor: 'background.default' }}>
+		<CardHeader action={getStateIcon(state)} sx={{ pb: 0 }} />
+		<Grid container>
+			<Grid
+				item
+				xs={12}
+				sm={6}
+				container
+				justifyContent="center"
+				alignItems="center"
+			>
+				<CardMedia
+					component="img"
+					image={image}
+					alt={name}
+					sx={{ maxWidth: 200, px: 2, pb: { xs: 2, sm: 4 } }}
+				/>
+				{/*//TODO: image fetching from db*/}
+			</Grid>
+			<Grid item xs={12} sm={6}>
+				<CardContent>
+					<Stack spacing={2}>
+						<Typography variant="h3" fontWeight="bold">
+							{name}
+						</Typography>
+						<Stack spacing={1} direction="row">
+							<Chip
+								icon={
+									<CircleFlag
+										countryCode={countryCode.toLowerCase()}
+										height="70%"
+									/>
+								}
+								label="Country name" //TODO: Replace with localized country name
+								variant="outlined"
+							/>
+							<Chip
+								icon={
+									<LensIcon color="disabled" sx={{ color: difficulty.color }} />
+								}
+								label={difficulty.name} //TODO: Replace with localized difficulty name
+								variant="outlined"
+							/>
+						</Stack>
+						<Button
+							variant="outlined"
+							sx={{
+								borderRadius: 5,
+								maxWidth: 200
+							}}
+						>
+							DETAIL
+						</Button>
+					</Stack>
+				</CardContent>
+			</Grid>
+		</Grid>
 	</Card>
 );

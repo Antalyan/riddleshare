@@ -26,7 +26,7 @@ import { MyRiddlesPage } from './pages/MyRiddlesPage.tsx';
 import { theme } from './theme.ts';
 
 export const App = () => {
-	const x = 'AOJ ÉO!';
+	const x = 'RIDDLESHARE';
 
 	return (
 		<ThemeProvider theme={theme}>

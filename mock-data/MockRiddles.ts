@@ -1,31 +1,43 @@
-import {CountryCode} from "../src/utils/CountryCodes";
-import {Difficulty, DifficultyType, getDifficultyObject} from "../src/utils/Difficulty";
-import {RiddleStatus} from "../src/utils/Enums";
+import { CountryCode } from '../src/utils/CountryCodes';
+import {
+	Difficulty,
+	DifficultyType,
+	getDifficultyObject
+} from '../src/utils/Difficulty';
+import { RiddleStatus } from '../src/utils/Enums';
 
 type Riddle = {
-    name: string;
-    image: string;
-    state: RiddleStatus;
-    country: CountryCode;
-    difficulty: Difficulty;
+	id: number;
+	name: string;
+	image: string;
+	state: RiddleStatus;
+	countryCode: CountryCode;
+	difficulty: Difficulty;
 };
 
-const Riddles = [{
-    name: "Anagram",
-    image: "public/vite.svg",
-    state: RiddleStatus.Solved,
-    countryCode: 'CS',
-    difficulty: getDifficultyObject(1)
-}, {
-    name: "Monogram",
-    image: "public/vite.svg",
-    state: RiddleStatus.Unfinished,
-    countryCode: 'GB',
-    difficulty: getDifficultyObject(3)
-}, {
-    name: "Diagram",
-    image: "public/vite.svg",
-    state: RiddleStatus.Untouched,
-    countryCode: 'CO',
-    difficulty: getDifficultyObject(2)
-}];
+export const MockRiddles: Riddle[] = [
+	{
+		id: 1,
+		name: 'Anagram',
+		image: 'public/vite.svg',
+		state: RiddleStatus.Solved,
+		countryCode: 'CZ',
+		difficulty: getDifficultyObject(1)
+	},
+	{
+		id: 2,
+		name: 'Monogram',
+		image: 'public/vite.svg',
+		state: RiddleStatus.Unfinished,
+		countryCode: 'GB',
+		difficulty: getDifficultyObject(3)
+	},
+	{
+		id: 3,
+		name: 'Diagram',
+		image: 'public/vite.svg',
+		state: RiddleStatus.Untouched,
+		countryCode: 'CO',
+		difficulty: getDifficultyObject(2)
+	}
+];

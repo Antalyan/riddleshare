@@ -16,5 +16,10 @@ export type DifficultyType = (typeof Difficulties)[number]['value'];
 
 export const getDifficultyObject = (
 	difficultyValue: DifficultyType
-): Difficulty | undefined =>
-	Difficulties.find(diff => diff.value === difficultyValue) ?? undefined;
+): Difficulty => {
+	const diff = Difficulties.find(diff => diff.value === difficultyValue);
+	if (diff === undefined) {
+		throw new Error(`Invalid difficulty value ${difficultyValue} provided.`);
+	}
+	return diff;
+};

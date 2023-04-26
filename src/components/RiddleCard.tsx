@@ -13,7 +13,7 @@ import {
 } from '@mui/icons-material';
 import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
-import { useMemo } from 'react';
+import { FC, useMemo } from 'react';
 
 import { CountryCode } from '../utils/CountryCodes.ts';
 import {
@@ -42,7 +42,7 @@ const getIcon = (state: RiddleStatus) => {
 	}
 };
 
-export const RiddleCard = ({
+export const RiddleCard: FC<Props> = ({
 	name,
 	image,
 	state,

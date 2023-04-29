@@ -1,13 +1,10 @@
 import {
-	Box,
 	Button,
 	Card,
-	CardActions,
 	CardContent,
 	CardHeader,
 	CardMedia,
 	Chip,
-	Container,
 	Grid,
 	Stack,
 	Typography
@@ -19,14 +16,10 @@ import {
 } from '@mui/icons-material';
 import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
-import { FC, useMemo } from 'react';
+import type { FC } from 'react';
 
-import { CountryCode } from '../utils/CountryCodes.ts';
-import {
-	Difficulty,
-	DifficultyType,
-	getDifficultyObject
-} from '../utils/Difficulty.ts';
+import type { CountryCode } from '../utils/CountryCodes.ts';
+import type { Difficulty } from '../utils/Difficulty.ts';
 import { RiddleStatus } from '../utils/Enums.ts';
 
 type Props = {

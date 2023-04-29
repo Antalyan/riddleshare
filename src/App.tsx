@@ -1,24 +1,8 @@
-import {
-	AppBar,
-	Box,
-	Button,
-	Container,
-	createTheme,
-	CssBaseline,
-	IconButton,
-	Menu,
-	MenuItem,
-	ThemeProvider,
-	Toolbar
-} from '@mui/material';
-import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
-import MenuIcon from '@mui/icons-material/Menu';
-import { useState } from 'react';
-import { indigo, deepOrange, red } from '@mui/material/colors';
+import { Container, CssBaseline, ThemeProvider } from '@mui/material';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { HomePage } from './pages/HomePage.tsx';
 import { NotFound } from './pages/NotFound.tsx';
-import { PageMenu } from './components/PageMenu.tsx';
 import { Header } from './components/Header.tsx';
 import { PublicRiddlesPage } from './pages/PublicRiddlesPage.tsx';
 import { ReceivedRiddlesPage } from './pages/ReceivedRiddlesPage.tsx';

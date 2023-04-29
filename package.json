@@ -40,7 +40,12 @@
     "vite": "^4.3.0"
   },
   "eslintConfig": {
-    "extends": "@haaxor1689/eslint-config"
+    "extends": "@haaxor1689/eslint-config",
+    "rules": {
+      "@typescript-eslint/no-unused-vars": "error",
+      "@typescript-eslint/consistent-type-exports": "error",
+      "@typescript-eslint/consistent-type-imports": "error"
+    }
   },
   "prettier": "@haaxor1689/prettier-config"
 }

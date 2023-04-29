@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 
 import { MockRiddles } from '../../mock-data/MockRiddles.ts';
 import { RiddleCard } from '../components/RiddleCard.tsx';

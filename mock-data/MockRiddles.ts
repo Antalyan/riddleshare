@@ -1,9 +1,6 @@
-import { CountryCode } from '../src/utils/CountryCodes';
-import {
-	Difficulty,
-	DifficultyType,
-	getDifficultyObject
-} from '../src/utils/Difficulty';
+import type { CountryCode } from '../src/utils/CountryCodes';
+import type { Difficulty } from '../src/utils/Difficulty';
+import { getDifficultyObject } from '../src/utils/Difficulty';
 import { RiddleStatus } from '../src/utils/Enums';
 
 //TODO: Move type declaration to types

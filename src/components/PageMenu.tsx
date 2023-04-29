@@ -1,10 +1,10 @@
-import { IconButton, Menu, MenuItem } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { FC, PropsWithChildren, useEffect, useState } from 'react';
+import { IconButton, Menu } from '@mui/material';
+import type { FC, PropsWithChildren } from 'react';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 
 export const PageMenu: FC<PropsWithChildren> = ({ children }) => {
-	const navigate = useNavigate();
 	const location = useLocation();
 
 	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);

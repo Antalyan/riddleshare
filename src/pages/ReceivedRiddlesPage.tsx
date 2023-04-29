@@ -1,7 +1,3 @@
-import {FC} from "react";
+import type { FC } from 'react';
 
-export const ReceivedRiddlesPage: FC = () => {
-    return (<div>
-        Received riddles
-    </div>);
-}
+export const ReceivedRiddlesPage: FC = () => <div>Received riddles</div>;

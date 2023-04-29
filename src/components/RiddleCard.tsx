@@ -21,14 +21,7 @@ import type { FC } from 'react';
 import type { CountryCode } from '../utils/CountryCodes';
 import type { Difficulty } from '../utils/Difficulty';
 import { RiddleStatus } from '../utils/Enums';
-
-type Props = {
-	name: string;
-	image?: string;
-	state: RiddleStatus;
-	countryCode: CountryCode;
-	difficulty: Difficulty;
-};
+import type { RiddlePreview } from '../utils/Types.ts';
 
 const getStateIcon = (state: RiddleStatus) => {
 	switch (state) {
@@ -41,13 +34,13 @@ const getStateIcon = (state: RiddleStatus) => {
 	}
 };
 
-export const RiddleCard: FC<Props> = ({
+export const RiddleCard: FC<RiddlePreview> = ({
 	name,
 	image,
 	state,
 	countryCode,
 	difficulty
-}: Props) => (
+}) => (
 	// const difficulty = useMemo(
 	// 	() => getDifficultyObject(difficultyType),
 	// 	[difficultyType]

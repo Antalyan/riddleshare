@@ -52,7 +52,7 @@ export const Header = () => {
 	return (
 		<AppBar sx={{ position: 'sticky', backgroundColor: 'background.default' }}>
 			<Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-				<Typography color="secondary" variant="h5" fontWeight="bold">
+				<Typography color="primary" variant="h5" fontWeight="bold">
 					RiddleShare
 				</Typography>
 				<Box display={{ xs: 'block', md: 'none' }}>

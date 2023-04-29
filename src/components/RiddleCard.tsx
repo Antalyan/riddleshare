@@ -62,7 +62,7 @@ export const RiddleCard: FC<Props> = ({
 
 	<Card sx={{ width: '100%', backgroundColor: 'background.default' }}>
 		<CardHeader action={getStateIcon(state)} sx={{ pb: 0 }} />
-		<Grid container>
+		<Grid container justifyContent="center" alignItems="center">
 			<Grid
 				item
 				xs={12}
@@ -81,7 +81,7 @@ export const RiddleCard: FC<Props> = ({
 			</Grid>
 			<Grid item xs={12} sm={6}>
 				<CardContent>
-					<Stack spacing={2}>
+					<Stack spacing={2} alignItems={{ xs: 'center', sm: 'start' }}>
 						<Typography variant="h3" fontWeight="bold">
 							{name}
 						</Typography>

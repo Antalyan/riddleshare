@@ -23,7 +23,7 @@ export const MockRiddles: Riddle[] = [
 		name: 'Anagram',
 		image: 'public/vite.svg',
 		state: RiddleStatus.Solved,
-		countryCode: 'CZ',
+		countryCode: 'cz',
 		difficulty: getDifficultyObject(1)
 	},
 	{
@@ -31,7 +31,7 @@ export const MockRiddles: Riddle[] = [
 		name: 'Monogram',
 		image: 'public/vite.svg',
 		state: RiddleStatus.Unfinished,
-		countryCode: 'GB',
+		countryCode: 'uk',
 		difficulty: getDifficultyObject(3)
 	},
 	{
@@ -39,7 +39,7 @@ export const MockRiddles: Riddle[] = [
 		name: 'Diagram',
 		image: 'public/vite.svg',
 		state: RiddleStatus.Untouched,
-		countryCode: 'CO',
+		countryCode: 'de',
 		difficulty: getDifficultyObject(2)
 	}
 ];

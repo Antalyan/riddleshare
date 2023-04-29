@@ -87,12 +87,7 @@ export const RiddleCard: FC<Props> = ({
 						</Typography>
 						<Stack spacing={1} direction="row">
 							<Chip
-								icon={
-									<CircleFlag
-										countryCode={countryCode.toLowerCase()}
-										height="70%"
-									/>
-								}
+								icon={<CircleFlag countryCode={countryCode} height="70%" />}
 								label="Country name" //TODO: Replace with localized country name
 								variant="outlined"
 							/>

@@ -4,7 +4,6 @@ import {
 	CardContent,
 	CardHeader,
 	CardMedia,
-	Container,
 	Chip,
 	Grid,
 	Stack,
@@ -48,7 +47,7 @@ export const RiddleCard: FC<Props> = ({
 	state,
 	countryCode,
 	difficulty
-}: Props) => (
+}) => (
 	// const difficulty = useMemo(
 	// 	() => getDifficultyObject(difficultyType),
 	// 	[difficultyType]

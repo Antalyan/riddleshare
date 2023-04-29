@@ -4,7 +4,6 @@ import {
 	CardContent,
 	CardHeader,
 	CardMedia,
-	Container,
 	Chip,
 	Grid,
 	Stack,
@@ -25,7 +24,7 @@ import { RiddleStatus } from '../utils/Enums';
 
 type Props = {
 	name: string;
-	image: string;
+	image?: string;
 	state: RiddleStatus;
 	countryCode: CountryCode;
 	difficulty: Difficulty;
@@ -67,7 +66,7 @@ export const RiddleCard: FC<Props> = ({
 			>
 				<CardMedia
 					component="img"
-					image={image}
+					image={image === undefined ? '../../public/RiddlePreview.svg' : image}
 					alt={name}
 					sx={{ maxWidth: 200, px: 2, pb: { xs: 2, sm: 4 } }}
 				/>

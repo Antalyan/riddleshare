@@ -1,13 +1,13 @@
 import { Container, CssBaseline, ThemeProvider } from '@mui/material';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import { HomePage } from './pages/HomePage.tsx';
-import { NotFound } from './pages/NotFound.tsx';
-import { Header } from './components/Header.tsx';
-import { PublicRiddlesPage } from './pages/PublicRiddlesPage.tsx';
-import { ReceivedRiddlesPage } from './pages/ReceivedRiddlesPage.tsx';
-import { MyRiddlesPage } from './pages/MyRiddlesPage.tsx';
-import { theme } from './theme.ts';
+import { HomePage } from './pages/HomePage';
+import { NotFound } from './pages/NotFound';
+import { Header } from './components/Header';
+import { PublicRiddlesPage } from './pages/PublicRiddlesPage';
+import { ReceivedRiddlesPage } from './pages/ReceivedRiddlesPage';
+import { MyRiddlesPage } from './pages/MyRiddlesPage';
+import { theme } from './theme';
 
 export const App = () => {
 	const x = 'RIDDLESHARE';

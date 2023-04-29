@@ -18,9 +18,9 @@ import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
 import type { FC } from 'react';
 
-import type { CountryCode } from '../utils/CountryCodes.ts';
-import type { Difficulty } from '../utils/Difficulty.ts';
-import { RiddleStatus } from '../utils/Enums.ts';
+import type { CountryCode } from '../utils/CountryCodes';
+import type { Difficulty } from '../utils/Difficulty';
+import { RiddleStatus } from '../utils/Enums';
 
 type Props = {
 	name: string;

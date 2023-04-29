@@ -2,7 +2,7 @@ import { AppBar, Box, MenuItem, Toolbar, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useMemo } from 'react';
 
-import { PageMenu } from './PageMenu.tsx';
+import { PageMenu } from './PageMenu';
 
 export const Header = () => {
 	const navigate = useNavigate();

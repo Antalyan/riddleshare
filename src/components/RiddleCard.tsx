@@ -75,7 +75,18 @@ export const RiddleCard: FC<Props> = ({
 			<Grid item xs={12} sm={6}>
 				<CardContent>
 					<Stack spacing={2} alignItems={{ xs: 'center', sm: 'start' }}>
-						<Typography variant="h3" fontWeight="bold">
+						<Typography
+							variant="h3"
+							fontWeight="bold"
+							sx={{
+								width: '100%',
+								display: '-webkit-box',
+								overflow: 'hidden',
+								wordWrap: 'break-word',
+								WebkitBoxOrient: 'vertical',
+								WebkitLineClamp: 2
+							}}
+						>
 							{name}
 						</Typography>
 						<Stack spacing={1} direction="row">

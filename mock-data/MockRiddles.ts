@@ -17,7 +17,7 @@ type Riddle = {
 export const MockRiddles: Riddle[] = [
 	{
 		id: 1,
-		name: 'Anagram',
+		name: 'Anagrammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
 		image: 'public/vite.svg',
 		state: RiddleStatus.Solved,
 		countryCode: 'cz',

@@ -1,4 +1,5 @@
 import { AppBar, Box, MenuItem, Toolbar, Typography } from '@mui/material';
+import { useMemo } from 'react';
 
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { signOut } from '../firebase';
@@ -31,15 +32,19 @@ const navigationItems = [
 
 export const NavigationBar = () => {
 	const user = useLoggedInUser();
-	const pageItems = navigationItems
-		.filter(i => (!user ? i.public : true))
-		.map(item => (
-			<NavigationItem
-				key={item.name.replace(/\s+/g, '-').toLowerCase()}
-				name={item.name}
-				route={item.route}
-			/>
-		));
+	const pageItems = useMemo(
+		() =>
+			navigationItems
+				.filter(i => (!user ? i.public : true))
+				.map(item => (
+					<NavigationItem
+						key={item.name.replace(/\s+/g, '-').toLowerCase()}
+						name={item.name}
+						route={item.route}
+					/>
+				)),
+		[]
+	);
 
 	const authenticationItem = !user ? (
 		<NavigationItem name="Login" route="/login" />

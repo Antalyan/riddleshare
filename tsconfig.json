@@ -4,6 +4,9 @@
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
     "skipLibCheck": true,
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
 
     /* Bundler mode */
     "moduleResolution": "bundler",
@@ -19,6 +22,6 @@
     "noUnusedParameters": false,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"],
+  "include": ["src", "mock-data"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

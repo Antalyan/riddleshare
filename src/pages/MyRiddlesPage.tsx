@@ -1,7 +1,12 @@
-import {FC} from "react";
+import type { FC } from 'react';
 
-export const MyRiddlesPage: FC = () => {
-    return (<div>
-        My Riddle
-    </div>);
-}
+import { MockRiddles } from '../../mock-data/MockRiddles';
+import { RiddleCard } from '../components/RiddleCard';
+
+export const MyRiddlesPage: FC = () => (
+	<>
+		{MockRiddles.map(riddle => (
+			<RiddleCard key={riddle.id} {...riddle} />
+		))}
+	</>
+);

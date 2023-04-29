@@ -1,7 +1,3 @@
-import {FC} from "react";
+import type { FC } from 'react';
 
-export const NotFound: FC = () => {
-    return (<div>
-        Not Found
-    </div>);
-}
+export const NotFound: FC = () => <div>Not Found</div>;

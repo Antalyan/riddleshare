@@ -1,15 +1,8 @@
-import {
-	AppBar,
-	Box,
-	Button,
-	MenuItem,
-	Toolbar,
-	Typography
-} from '@mui/material';
+import { AppBar, Box, MenuItem, Toolbar, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useMemo } from 'react';
 
-import { PageMenu } from './PageMenu.tsx';
+import { PageMenu } from './PageMenu';
 
 export const Header = () => {
 	const navigate = useNavigate();
@@ -52,7 +45,7 @@ export const Header = () => {
 	return (
 		<AppBar sx={{ position: 'sticky', backgroundColor: 'background.default' }}>
 			<Toolbar sx={{ display: 'flex', justifyContent: 'space-between' }}>
-				<Typography color="secondary" variant="h5" fontWeight="bold">
+				<Typography color="primary" variant="h5" fontWeight="bold">
 					RiddleShare
 				</Typography>
 				<Box display={{ xs: 'block', md: 'none' }}>

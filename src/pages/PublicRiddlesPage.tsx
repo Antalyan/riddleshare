@@ -1,7 +1,3 @@
-import {FC} from "react";
+import type { FC } from 'react';
 
-export const PublicRiddlesPage: FC = () => {
-    return (<div>
-        Public riddles
-    </div>);
-}
+export const PublicRiddlesPage: FC = () => <div>Public riddles</div>;

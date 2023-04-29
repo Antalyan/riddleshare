@@ -6,6 +6,8 @@ import {
 } from '../src/utils/Difficulty';
 import { RiddleStatus } from '../src/utils/Enums';
 
+//TODO: Move type declaration to types
+
 type Riddle = {
 	id: number;
 	name: string;

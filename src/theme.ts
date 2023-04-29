@@ -30,7 +30,8 @@ export const theme = createTheme({
 			main: '#cac0b3'
 		},
 		text: {
-			primary: '#ffffff'
+			primary: '#ffffff',
+			secondary: '#000000'
 		}
 	},
 	typography: {

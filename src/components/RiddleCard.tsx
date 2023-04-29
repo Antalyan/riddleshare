@@ -4,6 +4,7 @@ import {
 	CardContent,
 	CardHeader,
 	CardMedia,
+	Container,
 	Chip,
 	Grid,
 	Stack,
@@ -107,7 +108,9 @@ export const RiddleCard: FC<Props> = ({
 							variant="outlined"
 							sx={{
 								borderRadius: 5,
-								maxWidth: 200
+								maxWidth: 200,
+								color: 'text.primary',
+								backgroundColor: 'primary.light'
 							}}
 						>
 							DETAIL

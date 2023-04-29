@@ -26,7 +26,8 @@ export const App = () => {
 						flexDirection: 'column',
 						flexGrow: 1,
 						gap: 2,
-						justifyContent: 'center'
+						justifyContent: 'center',
+						mb: 2
 					}}
 				>
 					{x}

@@ -23,12 +23,13 @@ export type RiddleDisplayDetail = Omit<RiddleUpsertDetail, 'questions'> & {
 };
 
 export type TextType = {
-	id: number;
+	id?: number;
 	text: string;
 };
 
 export type QuestionUpsertDetail = {
 	id?: number;
+	number: number;
 	text: string;
 	image?: string;
 	hints: HintUpsert[];
@@ -37,7 +38,7 @@ export type QuestionUpsertDetail = {
 
 export type QuestionDisplayDetail = Omit<QuestionUpsertDetail, 'hints'> & {
 	solved: boolean;
-	available: false;
+	available: boolean;
 	answers: UserAnswer[];
 	hints: HintDisplay[];
 };

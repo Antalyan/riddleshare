@@ -59,7 +59,7 @@ export const RiddleCard: FC<RiddlePreview> = ({
 			>
 				<CardMedia
 					component="img"
-					image={image === undefined ? '../../public/RiddlePreview.svg' : image}
+image={image ?? 'public/RiddlePreview.svg'}
 					alt={name}
 					sx={{ maxWidth: 200, px: 2, pb: { xs: 2, sm: 4 } }}
 				/>

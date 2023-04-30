@@ -29,7 +29,7 @@ export const App = () => (
 						flexDirection: 'column',
 						flexGrow: 1,
 						gap: 2,
-						p: '24px',
+            p: '24px',
 						justifyContent: 'center'
 					}}
 				>

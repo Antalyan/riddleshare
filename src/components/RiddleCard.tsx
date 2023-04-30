@@ -18,17 +18,8 @@ import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
 import type { FC } from 'react';
 
-import type { CountryCode } from '../utils/CountryCodes';
-import type { Difficulty } from '../utils/Difficulty';
 import { RiddleStatus } from '../utils/Enums';
-
-type Props = {
-	name: string;
-	image: string;
-	state: RiddleStatus;
-	countryCode: CountryCode;
-	difficulty: Difficulty;
-};
+import type { RiddlePreview } from '../utils/Types';
 
 const getStateIcon = (state: RiddleStatus) => {
 	switch (state) {
@@ -41,7 +32,7 @@ const getStateIcon = (state: RiddleStatus) => {
 	}
 };
 
-export const RiddleCard: FC<Props> = ({
+export const RiddleCard: FC<RiddlePreview> = ({
 	name,
 	image,
 	state,
@@ -66,7 +57,7 @@ export const RiddleCard: FC<Props> = ({
 			>
 				<CardMedia
 					component="img"
-					image={image}
+					image={image ?? 'public/RiddlePreview.svg'}
 					alt={name}
 					sx={{ maxWidth: 200, px: 2, pb: { xs: 2, sm: 4 } }}
 				/>

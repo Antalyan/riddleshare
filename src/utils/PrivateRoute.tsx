@@ -6,9 +6,10 @@ import useLoggedInUser from '../hooks/useLoggedInUser';
 export const PrivateRoute: FC<PropsWithChildren> = ({ children }) => {
 	const user = useLoggedInUser();
 
-	if (!user) {
-		return <Navigate to="/login" replace />;
-	}
-
-	return children;
+	return user === undefined ? (
+		<Navigate to="/login" replace />
+	) : (
+		// eslint-disable-next-line react/jsx-no-useless-fragment
+		<>{children}</>
+	);
 };

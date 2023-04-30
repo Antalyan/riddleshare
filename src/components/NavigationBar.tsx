@@ -34,11 +34,7 @@ export const NavigationBar = () => {
 	const pageItems = navigationItems
 		.filter(i => (!user ? i.public : true))
 		.map(item => (
-			<NavigationItem
-				key={item.name.replace(/\s+/g, '-').toLowerCase()}
-				name={item.name}
-				route={item.route}
-			/>
+			<NavigationItem key={item.name} name={item.name} route={item.route} />
 		));
 
 	const authenticationItem = !user ? (

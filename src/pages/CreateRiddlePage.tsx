@@ -1,3 +1,5 @@
 import type { FC } from 'react';
 
-export const CreateRiddlePage: FC = () => <>Create riddle page</>;
+import { CreateRiddleForm } from '../components/forms/CreateRiddleForm.tsx';
+
+export const CreateRiddlePage: FC = () => <CreateRiddleForm />;

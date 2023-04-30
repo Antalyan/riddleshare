@@ -8,6 +8,7 @@ import { PublicRiddlesPage } from './pages/PublicRiddlesPage';
 import { ReceivedRiddlesPage } from './pages/ReceivedRiddlesPage';
 import { MyRiddlesPage } from './pages/MyRiddlesPage';
 import { theme } from './theme';
+import { CreateRiddlePage } from './pages/CreateRiddlePage.tsx';
 
 export const App = () => {
 	const x = 'RIDDLESHARE';
@@ -33,6 +34,7 @@ export const App = () => {
 					{x}
 					<Routes>
 						<Route path="/" element={<HomePage />} />
+						<Route path="/create-riddle" element={<CreateRiddlePage />} />
 						<Route path="/my-riddles" element={<MyRiddlesPage />} />
 						<Route path="/public-riddles" element={<PublicRiddlesPage />} />
 						<Route path="/received-riddles" element={<ReceivedRiddlesPage />} />

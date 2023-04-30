@@ -1,6 +1,6 @@
-import type { RiddleStatus } from './Enums.ts';
-import type { CountryCode } from './CountryCodes.ts';
-import type { Difficulty } from './Difficulty.ts';
+import type { RiddleStatus } from './Enums';
+import type { CountryCode } from './CountryCodes';
+import type { Difficulty } from './Difficulty';
 
 export type RiddlePreview = {
 	id?: number;
@@ -22,30 +22,25 @@ export type RiddleDisplayDetail = Omit<RiddleUpsertDetail, 'questions'> & {
 	questions: QuestionDisplayDetail[];
 };
 
-export type TextType = {
-	id?: number;
-	text: string;
-};
-
 export type QuestionUpsertDetail = {
 	id?: number;
 	number: number;
-	text: string;
+	questionText: string;
 	image?: string;
 	hints: HintUpsert[];
-	correctAnswers: TextType[];
+	correctAnswers: string;
 };
 
 export type QuestionDisplayDetail = Omit<QuestionUpsertDetail, 'hints'> & {
 	solved: boolean;
 	available: boolean;
-	answers: UserAnswer[];
+	answers: UserAnswerDisplay[];
 	hints: HintDisplay[];
 };
 
 export type HintUpsert = {
 	id?: string;
-	text: string;
+	hintText: string;
 	order: number;
 };
 
@@ -53,11 +48,11 @@ export type HintDisplay = HintUpsert & {
 	taken: boolean;
 };
 
-export type UserAnswer = {
+export type UserAnswerDisplay = {
 	username: string;
 	date: Date;
 	correct: boolean;
-	text: string;
+	answerText: string;
 };
 
 export type SharingInformation = {};

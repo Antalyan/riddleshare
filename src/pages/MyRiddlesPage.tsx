@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 
-import { MockRiddlesPreviews } from '../../mock-data/MockRiddles.ts';
+import { MockRiddlesPreviews } from '../../mock-data/MockRiddles';
 import { RiddleCard } from '../components/RiddleCard';
 
 export const MyRiddlesPage: FC = () => (

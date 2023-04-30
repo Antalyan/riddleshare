@@ -11,6 +11,7 @@ import { theme } from './theme';
 import { LoginPage } from './pages/LoginPage';
 import { PrivateRoute } from './utils/PrivateRoute';
 import { UserProvider } from './hooks/useLoggedInUser';
+import { CreateRiddlePage } from './pages/CreateRiddlePage.tsx';
 
 export const App = () => (
 	<UserProvider>
@@ -29,12 +30,14 @@ export const App = () => (
 						flexDirection: 'column',
 						flexGrow: 1,
 						gap: 2,
-            p: '24px',
+						p: '24px',
 						justifyContent: 'center'
 					}}
 				>
 					<Routes>
 						<Route path="/" element={<HomePage />} />
+						<Route path="/create-riddle" element={<CreateRiddlePage />} />
+						<Route path="/my-riddles" element={<MyRiddlesPage />} />
 						<Route path="/public-riddles" element={<PublicRiddlesPage />} />
 						<Route
 							path="/my-riddles"

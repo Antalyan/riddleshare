@@ -2,21 +2,6 @@ import { createTheme } from '@mui/material';
 import { deepOrange, red } from '@mui/material/colors';
 
 export const theme = createTheme({
-	// palette: {
-	// 	mode: 'dark',
-	// 	background: {
-	// 		default: '#001233'
-	// 	},
-	// 	primary: {
-	// 		main: '#ff595a'
-	// 	},
-	// 	secondary: {
-	// 		main: red[400]
-	// 	},
-	// 	text: {
-	// 		// TODO
-	// 	}
-	// },
 	palette: {
 		mode: 'dark',
 		background: {
@@ -37,4 +22,18 @@ export const theme = createTheme({
 	typography: {
 		fontFamily: ['"Baloo 2"', 'Roboto'].join(', ')
 	}
+
+	// We could also override component style for the whole app like this:
+	// components: {
+	// 	MuiRadio: {
+	// 		styleOverrides: {
+	// 			root: {
+	// 				'color': 'magenta',
+	// 				'&.Mui-checked': {
+	// 					color: 'yellow'
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 });

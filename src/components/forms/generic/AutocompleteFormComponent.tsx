@@ -23,7 +23,6 @@ export const AutocompleteFormComponent = <T,>(props: Props<T>) => (
 		{...props}
 		textFieldProps={{
 			...props.textFieldProps,
-			placeholder: 'Some placeholder',
 			sx: {
 				'& .MuiOutlinedInput-root': {
 					'& fieldset': {
@@ -36,7 +35,7 @@ export const AutocompleteFormComponent = <T,>(props: Props<T>) => (
 					color: 'text.primary'
 				}
 			}
-			// TODO: Figure out how to get any image there
+			// TODO: Figure out how to get any image there (it would be then moved to the specific components)
 			// InputProps: {
 			// 	endAdornment: (
 			// 		<CircleFlag countryCode={selectedOption.value} height="20" />

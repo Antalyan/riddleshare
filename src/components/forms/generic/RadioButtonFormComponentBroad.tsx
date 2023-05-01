@@ -111,14 +111,12 @@ export const RadioButtonFormComponentBroad = <
 				{emptyOptionLabel && (
 					<FormControlLabel
 						{...labelProps}
-						control={
-							<Radio
-								sx={{
-									color: error ? theme.palette.error.main : undefined
-								}}
-								checked={!value}
-							/>
-						}
+						sx={{
+							'& .MuiRadio-root': {
+								color: 'primary.main'
+							}
+						}}
+						control={<Radio checked={!value} />}
 						label={emptyOptionLabel}
 						value=""
 					/>
@@ -139,15 +137,12 @@ export const RadioButtonFormComponentBroad = <
 					return (
 						<FormControlLabel
 							{...labelProps}
-							control={
-								<Radio
-									sx={{
-										color: error ? theme.palette.error.main : undefined
-									}}
-									disabled={disabled}
-									checked={isChecked}
-								/>
-							}
+							sx={{
+								'& .MuiRadio-root': {
+									color: 'primary.main'
+								}
+							}}
+							control={<Radio disabled={disabled} checked={isChecked} />}
 							value={optionKey}
 							label={option[labelKey]}
 							key={optionKey}

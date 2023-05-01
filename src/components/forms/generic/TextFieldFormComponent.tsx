@@ -16,7 +16,8 @@ export const TextFieldFormComponent: FC<TextFieldElementProps> = (
 					color: 'secondary',
 					borderRadius: 3
 				}
-			}
+			},
+			'm': 0
 		}}
 		InputLabelProps={{
 			sx: { color: 'text.primary' }

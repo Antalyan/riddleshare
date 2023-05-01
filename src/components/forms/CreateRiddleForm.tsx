@@ -22,7 +22,7 @@ export const CreateRiddleForm = () => {
 	);
 	return (
 		<FormContainer onSuccess={onSubmit} formContext={formContext}>
-			<Stack gap={0}>
+			<Stack gap={2}>
 				<TextFieldFormComponent name="lame" label="lame" required />
 				<TextFieldFormComponent name="lasme" label="lame" required />
 				<AutocompleteLanguages />

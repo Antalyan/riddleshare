@@ -23,8 +23,8 @@ export const AutocompleteUsers = () => (
 				'& .MuiAutocomplete-tagContainer': {
 					display: 'flex',
 					flexWrap: 'wrap'
-				}
-				// 'maxWidth': 300 -- Setup maxwidth when used
+				},
+				'maxWidth': { xs: 300, md: 500 }
 			}
 		}}
 	/>

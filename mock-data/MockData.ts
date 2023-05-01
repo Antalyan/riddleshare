@@ -140,3 +140,12 @@ const MockRiddleDisplayDetails: RiddleDisplayDetail[] =
 			questions: MockDisplayQuestions
 		};
 	});
+
+export const MockUsers: string[] = [
+	'adamAnanas',
+	'beatka123',
+	'cyrílek citrónek',
+	'daddy!',
+	'Emil',
+	'fialkafilip@seznam.cz'
+];

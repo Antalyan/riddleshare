@@ -100,8 +100,6 @@ export const RadioButtonFormComponentBroad = <
 				row
 				value={value || ''}
 				sx={{
-					display: 'flex',
-					justifyContent: 'space-between',
 					p: 2,
 					border: 2,
 					borderColor: 'secondary', //TODO: adjust colors on focus and hover

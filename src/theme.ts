@@ -21,4 +21,18 @@ export const theme = createTheme({
 	typography: {
 		fontFamily: ['"Baloo 2"', 'Roboto'].join(', ')
 	}
+
+	// We could also override component style for the whole app like this:
+	// components: {
+	// 	MuiRadio: {
+	// 		styleOverrides: {
+	// 			root: {
+	// 				'color': 'magenta',
+	// 				'&.Mui-checked': {
+	// 					color: 'yellow'
+	// 				}
+	// 			}
+	// 		}
+	// 	}
+	// }
 });

@@ -1,15 +1,14 @@
-import { FormContainer, TextFieldElement, useForm } from 'react-hook-form-mui';
+import { FormContainer, useForm } from 'react-hook-form-mui';
 import { useCallback } from 'react';
 import { Button, Stack } from '@mui/material';
-import { AddAlarm } from '@mui/icons-material';
 
 import type { RiddleUpsertDetail } from '../../utils/Types';
 
 import { TextFieldFormComponent } from './generic/TextFieldFormComponent';
-import { AutocompleteFormComponent } from './generic/AutocompleteFormComponent';
 import { AutocompleteLanguages } from './AutocompleteLanguages.tsx';
 import { AutocompleteDifficulties } from './AutocompleteDifficulties.tsx';
 import { AutocompleteUsers } from './AutocompleteUsers.tsx';
+import { RadioButtonFormComponent } from './generic/RadioButtonFormComponent.tsx';
 
 export const CreateRiddleForm = () => {
 	const formContext = useForm<RiddleUpsertDetail>();
@@ -27,6 +26,13 @@ export const CreateRiddleForm = () => {
 				<AutocompleteLanguages />
 				<AutocompleteDifficulties />
 				<AutocompleteUsers />
+				<RadioButtonFormComponent
+					options={[
+						{ id: '1', label: 'First' },
+						{ id: '2', label: 'Second' }
+					]}
+					name="randomName"
+				/>
 				<Button type="submit" color="primary" variant="contained">
 					Submit
 				</Button>

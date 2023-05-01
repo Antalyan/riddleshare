@@ -28,6 +28,7 @@ export const AutocompleteFormComponent = <T,>(props: Props<T>) => (
 					'& fieldset': {
 						borderColor: 'secondary',
 						borderWidth: 2,
+						borderRadius: 3,
 						color: 'text.primary'
 					}
 				},

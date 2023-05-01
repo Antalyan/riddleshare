@@ -12,28 +12,28 @@ export const Header = () => {
 				<MenuItem
 					key="home"
 					onClick={() => navigate('/')}
-					sx={{ borderRadius: 5 }}
+					sx={{ borderRadius: 3 }}
 				>
 					Home
 				</MenuItem>
 				<MenuItem
 					key="public"
 					onClick={() => navigate('/public-riddles')}
-					sx={{ borderRadius: 5 }}
+					sx={{ borderRadius: 3 }}
 				>
 					Public riddles
 				</MenuItem>
 				<MenuItem
 					key="public"
 					onClick={() => navigate('/received-riddles')}
-					sx={{ borderRadius: 5 }}
+					sx={{ borderRadius: 3 }}
 				>
 					Received riddles
 				</MenuItem>
 				<MenuItem
 					key="public"
 					onClick={() => navigate('/my-riddles')}
-					sx={{ borderRadius: 5 }}
+					sx={{ borderRadius: 3 }}
 				>
 					My riddles
 				</MenuItem>

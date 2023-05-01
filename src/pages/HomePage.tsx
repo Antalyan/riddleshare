@@ -12,14 +12,18 @@ export const HomePage: FC = () => {
 			<Button
 				variant="contained"
 				onClick={() => navigate('/create-riddle')}
-				sx={{ color: 'text.secondary', backgroundColor: 'primary.light' }}
+				sx={{
+					color: 'text.secondary',
+					backgroundColor: 'primary.light',
+					borderRadius: 3
+				}}
 			>
 				Create a riddle
 			</Button>
 			<Button
 				variant="contained"
 				onClick={() => navigate('/public-riddles')}
-				sx={{ color: 'text.secondary' }}
+				sx={{ color: 'text.secondary', borderRadius: 3 }}
 			>
 				Try to solve a riddle
 			</Button>

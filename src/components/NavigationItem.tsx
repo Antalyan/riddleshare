@@ -11,7 +11,7 @@ export const NavigationItem: FC<NavigationItemProps> = ({ name, route }) => {
 	const navigate = useNavigate();
 
 	return (
-		<MenuItem onClick={() => navigate(route)} sx={{ borderRadius: 5 }}>
+		<MenuItem onClick={() => navigate(route)} sx={{ borderRadius: 3 }}>
 			{name}
 		</MenuItem>
 	);

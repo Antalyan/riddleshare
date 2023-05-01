@@ -13,7 +13,8 @@ export const TextFieldFormComponent: FC<TextFieldElementProps> = (
 				'& fieldset': {
 					borderColor: 'secondary',
 					borderWidth: 2,
-					color: 'secondary'
+					color: 'secondary',
+					borderRadius: 3
 				}
 			}
 		}}

@@ -8,8 +8,7 @@ import {
 	FormHelperText,
 	FormLabel,
 	Radio,
-	RadioGroup,
-	useTheme
+	RadioGroup
 } from '@mui/material';
 import { useFormError } from 'react-hook-form-mui';
 
@@ -45,14 +44,12 @@ export const RadioButtonFormComponentBroad = <
 	required,
 	emptyOptionLabel,
 	returnObject,
-	row,
 	control,
 	type,
 	labelProps,
 	disabled,
 	...rest
 }: RadioButtonGroupProps<TFieldValues>): JSX.Element => {
-	const theme = useTheme();
 	const errorMsgFn = useFormError();
 	const customErrorFn = parseError ?? errorMsgFn;
 	const {

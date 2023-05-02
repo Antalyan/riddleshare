@@ -55,4 +55,4 @@ export type UserAnswerDisplay = {
 	answerText: string;
 };
 
-export type SharingInformation = {};
+// export type SharingInformation = {};

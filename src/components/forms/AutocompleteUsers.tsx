@@ -1,10 +1,6 @@
-import { Box, Chip } from '@mui/material';
-import { CircleFlag } from 'react-circle-flags';
+import { MockUsers } from '../../../mock-data/MockData';
 
-import { CountryCodes } from '../../utils/CountryCodes.ts';
-import { MockUsers } from '../../../mock-data/MockData.ts';
-
-import { AutocompleteFormComponent } from './generic/AutocompleteFormComponent.tsx';
+import { AutocompleteFormComponent } from './generic/AutocompleteFormComponent';
 
 export const AutocompleteUsers = () => (
 	<AutocompleteFormComponent

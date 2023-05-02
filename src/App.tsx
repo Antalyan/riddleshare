@@ -11,7 +11,7 @@ import { theme } from './theme';
 import { LoginPage } from './pages/LoginPage';
 import { PrivateRoute } from './utils/PrivateRoute';
 import { UserProvider } from './hooks/useLoggedInUser';
-import { CreateRiddlePage } from './pages/CreateRiddlePage.tsx';
+import { CreateRiddlePage } from './pages/CreateRiddlePage';
 
 export const App = () => (
 	<UserProvider>

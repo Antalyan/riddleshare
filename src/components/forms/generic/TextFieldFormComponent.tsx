@@ -7,7 +7,6 @@ export const TextFieldFormComponent: FC<TextFieldElementProps> = (
 ) => (
 	<TextFieldElement
 		{...props}
-		margin="normal"
 		sx={{
 			'& .MuiOutlinedInput-root': {
 				'& fieldset': {
@@ -17,7 +16,7 @@ export const TextFieldFormComponent: FC<TextFieldElementProps> = (
 					borderRadius: 3
 				}
 			},
-			'm': 0
+			m: 0
 		}}
 		InputLabelProps={{
 			sx: { color: 'text.primary' }

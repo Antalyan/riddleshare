@@ -1,16 +1,14 @@
 import { FormContainer, useForm } from 'react-hook-form-mui';
 import { useCallback } from 'react';
 import { Button, Stack } from '@mui/material';
-import { Typography } from '@mui/material/styles/createTypography';
 
 import type { RiddleUpsertDetail } from '../../utils/Types';
 
 import { TextFieldFormComponent } from './generic/TextFieldFormComponent';
-import { AutocompleteLanguages } from './AutocompleteLanguages.tsx';
-import { AutocompleteDifficulties } from './AutocompleteDifficulties.tsx';
-import { AutocompleteUsers } from './AutocompleteUsers.tsx';
-import { RadioButtonFormComponent } from './generic/RadioButtonFormComponent.tsx';
-import { RadioButtonFormComponentBroad } from './generic/RadioButtonFormComponentBroad.tsx';
+import { AutocompleteLanguages } from './AutocompleteLanguages';
+import { AutocompleteDifficulties } from './AutocompleteDifficulties';
+import { AutocompleteUsers } from './AutocompleteUsers';
+import { RadioButtonFormComponentBroad } from './generic/RadioButtonFormComponentBroad';
 
 export const CreateRiddleForm = () => {
 	const formContext = useForm<RiddleUpsertDetail>();

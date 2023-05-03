@@ -12,6 +12,7 @@ import { LoginPage } from './pages/LoginPage';
 import { PrivateRoute } from './utils/PrivateRoute';
 import { UserProvider } from './hooks/useLoggedInUser';
 import { CreateRiddlePage } from './pages/CreateRiddlePage';
+import RiddleDetailPage from './pages/RiddleDetailPage';
 
 export const App = () => (
 	<UserProvider>
@@ -25,18 +26,17 @@ export const App = () => (
 					sx={{
 						width: '100%',
 						minHeight: 'calc(100vh - 64px)',
-						alignItems: 'center',
-						display: 'flex',
+						display: 'grid',
 						flexDirection: 'column',
 						flexGrow: 1,
 						gap: 2,
-						p: '24px',
-						justifyContent: 'center'
+						py: { xs: '16px', md: '32px' }
 					}}
 				>
 					<Routes>
 						<Route path="/" element={<HomePage />} />
 						<Route path="/my-riddles" element={<MyRiddlesPage />} />
+						<Route path="/riddle-detail/:id" element={<RiddleDetailPage />} />
 						<Route path="/public-riddles" element={<PublicRiddlesPage />} />
 						<Route
 							path="/my-riddles"

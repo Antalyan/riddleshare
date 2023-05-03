@@ -16,6 +16,7 @@ export type RiddleUpsertDetail = RiddlePreview & {
 	solvedText: string;
 	solvedImage?: string;
 	questions: QuestionUpsertDetail[];
+	sharingInformation: SharingInformationUpsert;
 };
 
 export type RiddleDisplayDetail = Omit<RiddleUpsertDetail, 'questions'> & {
@@ -55,4 +56,8 @@ export type UserAnswerDisplay = {
 	answerText: string;
 };
 
-// export type SharingInformation = {};
+export type SharingInformationUpsert = {
+	isPublic: boolean;
+	link?: string;
+	sharedUserIds?: number[];
+};

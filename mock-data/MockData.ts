@@ -101,7 +101,8 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 		description: 'This is a riddiculous riddle.' + 'Ridduculus!',
 		solvedImage: 'public/vite.svg',
 		solvedText: 'SOLVED!',
-		questions: MockUpsertQuestions
+		questions: MockUpsertQuestions,
+		sharingInformation: { isPublic: false, sharedUserIds: [1, 2] }
 	},
 	{
 		id: 2,
@@ -128,7 +129,8 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 		solvedText:
 			'Removes the this parameter from Type. If Type has no explicitly declared this parameter, the result is simply Type. Otherwise, a new function type with no this parameter is created from Type. \n\n' +
 			'Generics are erased and only the last overload signature is propagated into the new function type.',
-		questions: [MockUpsertQuestions[0]]
+		questions: [MockUpsertQuestions[0]],
+		sharingInformation: { isPublic: true, link: '' }
 	}
 ];
 

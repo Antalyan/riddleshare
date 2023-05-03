@@ -15,7 +15,7 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 		questionText: 'It is blue and annoying, what is it?',
 		image: '/public/RiddleMeThis.jpeg',
 		hints: [],
-		correctAnswers: ['Smurf']
+		correctAnswers: [{ text: 'Smurf' }]
 	},
 	{
 		id: 2,
@@ -40,7 +40,7 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 			{ hintText: 'Might & Magic', order: 2 },
 			{ hintText: '5. installment', order: 3 }
 		],
-		correctAnswers: ['Messiah', 'Dark Messiah']
+		correctAnswers: [{ text: 'Messiah' }, { text: 'Dark Messiah' }]
 	}
 ];
 

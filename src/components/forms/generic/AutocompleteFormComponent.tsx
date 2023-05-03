@@ -11,9 +11,10 @@ type Props<T> = AutocompleteElementProps<
 	boolean | undefined
 >;
 
+//TODO: Move to css and remove component
 const DropdownMenu = styled(Paper)({
 	'& .MuiAutocomplete-listbox': {
-		backgroundColor: theme.palette.background.light,
+		backgroundColor: '#172745',
 		overflow: 'auto'
 	}
 });

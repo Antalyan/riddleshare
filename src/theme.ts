@@ -4,8 +4,7 @@ const globalTheme = createTheme({
 	palette: {
 		mode: 'dark',
 		background: {
-			default: '#001233',
-			light: '#172745' // need to declare in node_modules/@mui/material/styles/createPalette.d.ts
+			default: '#001233'
 		},
 		primary: {
 			light: '#ef9293',

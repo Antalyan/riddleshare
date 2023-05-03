@@ -8,8 +8,7 @@ import {
 	FormHelperText,
 	FormLabel,
 	Radio,
-	RadioGroup,
-	useTheme
+	RadioGroup
 } from '@mui/material';
 import { useFormError } from 'react-hook-form-mui';
 
@@ -45,14 +44,12 @@ export const RadioButtonFormComponentBroad = <
 	required,
 	emptyOptionLabel,
 	returnObject,
-	row,
 	control,
 	type,
 	labelProps,
 	disabled,
 	...rest
 }: RadioButtonGroupProps<TFieldValues>): JSX.Element => {
-	const theme = useTheme();
 	const errorMsgFn = useFormError();
 	const customErrorFn = parseError ?? errorMsgFn;
 	const {
@@ -89,31 +86,22 @@ export const RadioButtonFormComponentBroad = <
 				<FormLabel
 					required={required}
 					error={!!error}
-					sx={{ color: 'text.primary', p: 2 }}
+					sx={{
+						px: 0.75,
+						position: 'absolute',
+						transform: 'translate(14px, -9px) scale(0.75)',
+						backgroundColor: 'background.default',
+						transformOrigin: 'top left'
+					}}
 				>
 					{label}
 				</FormLabel>
 			)}
-			<RadioGroup
-				onChange={onRadioChange}
-				name={name}
-				row
-				value={value || ''}
-				sx={{
-					p: 2,
-					border: 2,
-					borderColor: 'secondary', //TODO: adjust colors on focus and hover
-					borderRadius: 3
-				}}
-			>
+			<RadioGroup onChange={onRadioChange} name={name} row value={value || ''}>
 				{emptyOptionLabel && (
 					<FormControlLabel
 						{...labelProps}
-						sx={{
-							'& .MuiRadio-root': {
-								color: 'primary.main'
-							}
-						}}
+						sx={{ ml: 0 }}
 						control={<Radio checked={!value} />}
 						label={emptyOptionLabel}
 						value=""
@@ -135,11 +123,7 @@ export const RadioButtonFormComponentBroad = <
 					return (
 						<FormControlLabel
 							{...labelProps}
-							sx={{
-								'& .MuiRadio-root': {
-									color: 'primary.main'
-								}
-							}}
+							sx={{ ml: 0 }}
 							control={<Radio disabled={disabled} checked={isChecked} />}
 							value={optionKey}
 							label={option[labelKey]}

@@ -1,13 +1,14 @@
 import { Box } from '@mui/material';
 import LensIcon from '@mui/icons-material/Lens';
 
-import type { Difficulty } from '../../utils/Difficulty.ts';
-import { Difficulties } from '../../utils/Difficulty.ts';
+import type { Difficulty } from '../../utils/Difficulty';
+import { Difficulties } from '../../utils/Difficulty';
 
-import { AutocompleteFormComponent } from './generic/AutocompleteFormComponent.tsx';
+import { AutocompleteFormComponent } from './generic/AutocompleteFormComponent';
 
 const getOptionLabel = (option: Difficulty) =>
 	`${option.name} (${option.value}/${Difficulties.length})`;
+
 export const AutocompleteDifficulties = () => (
 	<AutocompleteFormComponent
 		name="difficulties"
@@ -23,12 +24,16 @@ export const AutocompleteDifficulties = () => (
 						'& > svg': { mr: 1 }
 					}}
 					{...props}
-					height="25"
 				>
 					<LensIcon color="disabled" sx={{ color: option.color }} />
 					{getOptionLabel(option)}
 				</Box>
 			)
+		}}
+		textFieldProps={{
+			InputProps: {
+				startAdornment: <LensIcon color="disabled" sx={{ color: '#4caf50' }} />
+			}
 		}}
 	/>
 );

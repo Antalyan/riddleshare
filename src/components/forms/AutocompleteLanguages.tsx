@@ -1,9 +1,9 @@
 import { Box } from '@mui/material';
 import { CircleFlag } from 'react-circle-flags';
 
-import { CountryCodes } from '../../utils/CountryCodes.ts';
+import { CountryCodes } from '../../utils/CountryCodes';
 
-import { AutocompleteFormComponent } from './generic/AutocompleteFormComponent.tsx';
+import { AutocompleteFormComponent } from './generic/AutocompleteFormComponent';
 
 export const AutocompleteLanguages = () => (
 	<AutocompleteFormComponent
@@ -19,12 +19,16 @@ export const AutocompleteLanguages = () => (
 						'& > img': { mr: 1 }
 					}}
 					{...props}
-					height="25"
 				>
 					<CircleFlag countryCode={option} height="20" />
 					{option}
 				</Box>
 			)
+		}}
+		textFieldProps={{
+			InputProps: {
+				startAdornment: <CircleFlag countryCode="gb" height={20} />
+			}
 		}}
 	/>
 );

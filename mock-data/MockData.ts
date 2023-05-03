@@ -6,21 +6,21 @@ import type {
 	RiddleDisplayDetail,
 	RiddlePreview,
 	RiddleUpsertDetail
-} from '../src/utils/Types.ts';
+} from '../src/utils/Types';
 
 const MockUpsertQuestions: QuestionUpsertDetail[] = [
 	{
 		id: 1,
 		number: 2,
-		text: 'It is blue and annoying, what is it?',
+		questionText: 'It is blue and annoying, what is it?',
 		image: 'public/vite.svg',
 		hints: [],
-		correctAnswers: [{ text: 'Smurf' }]
+		correctAnswers: '[Smurf]'
 	},
 	{
 		id: 2,
 		number: 1,
-		text:
+		questionText:
 			'    Ten centuries shall the fortress stand\n' +
 			'    Walls of spirit wrapped in walls of fire\n' +
 			'    And horned lords shall bowl their head\n' +
@@ -36,21 +36,21 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 			'    Beneath the crypts prophecies clash\n' +
 			'    The war of ancient enemies',
 		hints: [
-			{ text: 'Heroes', order: 1 },
-			{ text: 'Might & Magic', order: 2 },
-			{ text: '5. installment', order: 3 }
+			{ hintText: 'Heroes', order: 1 },
+			{ hintText: 'Might & Magic', order: 2 },
+			{ hintText: '5. installment', order: 3 }
 		],
-		correctAnswers: [{ text: 'Smurf' }]
+		correctAnswers: '[Messiah, Dark Messiah]'
 	}
 ];
 
 const MockDisplayQuestions: QuestionDisplayDetail[] = MockUpsertQuestions.map(
 	question => {
 		const { hints, ...rest } = question;
-		const newHints = hints?.map(hint => ({ ...hint, taken: false })) || [];
+		const updatedHints = hints.map(hint => ({ ...hint, taken: false }));
 		return {
 			...rest,
-			hints: newHints,
+			hints: updatedHints,
 			solved: false,
 			answers: [],
 			available: true

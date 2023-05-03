@@ -1,32 +1,32 @@
 import type { FC } from 'react';
-import { Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
+import useLoggedInUser from '../hooks/useLoggedInUser';
 
 export const HomePage: FC = () => {
 	const navigate = useNavigate();
+	const user = useLoggedInUser();
+
 	return (
-		<Stack gap={2} alignItems="center" justifyContent="center" height="100vh">
-			<Typography variant="h5" textAlign="center">
+		<Stack gap={2} alignItems="center" justifyContent="center">
+			<Typography variant="h3" textAlign="center">
 				Create riddles, share them with your friends and have fun.
 			</Typography>
-			<Button
-				variant="contained"
-				onClick={() => navigate('/create-riddle')}
-				sx={{
-					color: 'text.secondary',
-					backgroundColor: 'primary.light',
-					borderRadius: 3
-				}}
-			>
-				Create a riddle
-			</Button>
-			<Button
-				variant="contained"
-				onClick={() => navigate('/public-riddles')}
-				sx={{ color: 'text.secondary', borderRadius: 3 }}
-			>
-				Try to solve a riddle
-			</Button>
+			<Box sx={{ display: 'flex', gap: 1, mt: 2 }}>
+				{user && (
+					<Button
+						variant="contained"
+						onClick={() => navigate('/create-riddle')}
+						sx={{ backgroundColor: 'primary.light' }}
+					>
+						Create a riddle
+					</Button>
+				)}
+				<Button variant="contained" onClick={() => navigate('/public-riddles')}>
+					Try to solve a riddle
+				</Button>
+			</Box>
 		</Stack>
 	);
 };

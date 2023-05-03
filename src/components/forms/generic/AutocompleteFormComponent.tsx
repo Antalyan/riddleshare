@@ -2,8 +2,6 @@ import type { AutocompleteElementProps } from 'react-hook-form-mui';
 import { AutocompleteElement } from 'react-hook-form-mui';
 import { Paper, styled } from '@mui/material';
 
-import { theme } from '../../../theme';
-
 type Props<T> = AutocompleteElementProps<
 	T,
 	any,

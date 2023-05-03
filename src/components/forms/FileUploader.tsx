@@ -4,11 +4,14 @@ import { Controller } from 'react-hook-form';
 import { MuiFileInput } from 'mui-file-input';
 import { useState } from 'react';
 
-export const useFileUploader = (
-	name: string,
-	control: Control<any>,
-	label?: string
-) => {
+type Props = {
+	name: string;
+	control: Control<any>;
+	label?: string;
+};
+
+//TODO: make image loading to work (value not passed via context now)
+export const FileUploader = ({ name, control, label }: Props) => {
 	const [file, setFile] = useState<null | File>(null);
 	return (
 		<Controller

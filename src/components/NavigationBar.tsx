@@ -26,6 +26,11 @@ const navigationItems = [
 		name: 'My riddles',
 		public: false,
 		route: '/my-riddles'
+	},
+	{
+		name: 'Create riddle',
+		public: false,
+		route: '/create-riddle'
 	}
 ];
 

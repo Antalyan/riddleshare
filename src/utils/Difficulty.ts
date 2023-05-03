@@ -5,11 +5,11 @@ export type Difficulty = {
 };
 
 export const Difficulties = [
-	{ name: 'trivial', value: 1, color: '#4dd0e1' },
-	{ name: 'easy', value: 2, color: '#4caf50' },
-	{ name: 'moderate', value: 3, color: '#ffff00' },
-	{ name: 'hard', value: 4, color: '#ffab00' },
-	{ name: 'extreme', value: 5, color: '#bf360c' }
+	{ name: 'Trivial', value: 1, color: '#4dd0e1' },
+	{ name: 'Easy', value: 2, color: '#4caf50' },
+	{ name: 'Moderate', value: 3, color: '#ffff00' },
+	{ name: 'Hard', value: 4, color: '#ffab00' },
+	{ name: 'Extreme', value: 5, color: '#bf360c' }
 ] as const;
 
 export type DifficultyType = (typeof Difficulties)[number]['value'];

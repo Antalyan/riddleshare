@@ -82,7 +82,7 @@ export const RiddleCard: FC<RiddlePreview> = ({
 						</Typography>
 						<Stack spacing={1} direction="row">
 							<Chip
-								icon={<CircleFlag countryCode={countryCode} height="70%" />}
+								icon={<CircleFlag countryCode={countryCode} />}
 								label="Country name" //TODO: Replace with localized country name
 								variant="outlined"
 							/>
@@ -94,16 +94,8 @@ export const RiddleCard: FC<RiddlePreview> = ({
 								variant="outlined"
 							/>
 						</Stack>
-						<Button
-							variant="outlined"
-							sx={{
-								borderRadius: 5,
-								maxWidth: 200,
-								color: 'text.primary',
-								backgroundColor: 'primary.light'
-							}}
-						>
-							DETAIL
+						<Button variant="contained" color="secondary">
+							Detail
 						</Button>
 					</Stack>
 				</CardContent>

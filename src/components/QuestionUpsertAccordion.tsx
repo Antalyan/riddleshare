@@ -17,7 +17,7 @@ import type {
 	RiddleUpsertDetail
 } from '../utils/Types.ts';
 
-import { useFileUploader } from './forms/FileUploader.tsx';
+import { FileUploader } from './forms/FileUploader.tsx';
 import { HintsUpsert } from './HintsUpsert.tsx';
 import { AnswersUpsert } from './AnswersUpsert.tsx';
 
@@ -27,12 +27,6 @@ type Props = {
 };
 
 export const QuestionUpsertAccordion = ({ index, control }: Props) => {
-	const questionImageLoader = useFileUploader(
-		`questions.${index}.questionImage`,
-		control,
-		'Question picture'
-	);
-
 	const minLength = 1;
 
 	const { fields, remove } = useFieldArray({
@@ -62,13 +56,17 @@ export const QuestionUpsertAccordion = ({ index, control }: Props) => {
 							// required
 							placeholder="Text of the question"
 						/>
-						{questionImageLoader}
+						<FileUploader
+							name={`questions.${index}.questionImage`}
+							control={control}
+							label="Question picture"
+						/>
 						<HintsUpsert control={control} questionIndex={index} />
 						<AnswersUpsert control={control} questionIndex={index} />
 					</Stack>
 				</AccordionDetails>
 			</Accordion>
-			//TODO: Fix broken delete of question (works for subcomponents)
+			{/*//TODO: Fix broken delete of question (works for subcomponents)*/}
 			<IconButton
 				onClick={() => fields.length > minLength && remove(index)}
 				sx={{ m: 1 }}

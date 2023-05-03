@@ -23,7 +23,7 @@ import { AutocompleteLanguages } from './AutocompleteLanguages';
 import { AutocompleteDifficulties } from './AutocompleteDifficulties';
 import { AutocompleteUsers } from './AutocompleteUsers';
 import { RadioButtonFormComponentBroad } from './generic/RadioButtonFormComponentBroad';
-import { useFileUploader } from './FileUploader.tsx';
+import { FileUploader } from './FileUploader.tsx';
 
 const steps = ['Basic information', 'Questions', 'Sharing options'];
 
@@ -73,18 +73,6 @@ export const CreateRiddleForm = () => {
 		[formContext]
 	);
 
-	//TODO: make the file loader work on submit
-	const previewImageLoader = useFileUploader(
-		'image',
-		control,
-		'Riddle preview picture'
-	);
-	const solvedImageLoader = useFileUploader(
-		'solvedImage',
-		control,
-		'Riddle solution picture'
-	);
-
 	const [riddleName, setRiddleName] = useState<string | null>(null);
 
 	const firstStep = (
@@ -103,7 +91,11 @@ export const CreateRiddleForm = () => {
 					rows={5}
 					// required
 				/>
-				{previewImageLoader}
+				<FileUploader
+					name="image"
+					control={control}
+					label="Riddle preview picture"
+				/>
 				<AutocompleteLanguages />
 				<AutocompleteDifficulties />
 				<TextFieldElement
@@ -114,7 +106,11 @@ export const CreateRiddleForm = () => {
 					// required
 					placeholder="Text displayed to the user when the riddle is solved"
 				/>
-				{solvedImageLoader}
+				<FileUploader
+					name="solvedImage"
+					control={control}
+					label="Riddle solution picture"
+				/>
 				<Box sx={{ width: '100%', display: 'flex', gap: '8px' }}>
 					<Button
 						type="submit"

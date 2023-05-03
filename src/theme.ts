@@ -40,7 +40,7 @@ export const theme = createTheme(
 			MuiAutocomplete: {
 				styleOverrides: {
 					listbox: {
-						backgroundColor: globalTheme.palette.background.light,
+						backgroundColor: '#172745', // TODO: background.light
 						overflow: 'auto'
 					}
 				}

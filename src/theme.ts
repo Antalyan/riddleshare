@@ -37,6 +37,14 @@ export const theme = createTheme(
 					}
 				}
 			},
+			MuiAutocomplete: {
+				styleOverrides: {
+					listbox: {
+						backgroundColor: globalTheme.palette.background.light,
+						overflow: 'auto'
+					}
+				}
+			},
 			MuiButton: {
 				styleOverrides: {
 					root: {

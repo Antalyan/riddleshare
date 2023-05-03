@@ -1,12 +1,11 @@
 import { Box } from '@mui/material';
 import { CircleFlag } from 'react-circle-flags';
+import { AutocompleteElement } from 'react-hook-form-mui';
 
 import { CountryCodes } from '../../utils/CountryCodes';
 
-import { AutocompleteFormComponent } from './generic/AutocompleteFormComponent';
-
 export const AutocompleteLanguages = () => (
-	<AutocompleteFormComponent
+	<AutocompleteElement
 		name="languages"
 		required
 		label="Language"

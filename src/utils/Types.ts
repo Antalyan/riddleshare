@@ -25,11 +25,11 @@ export type RiddleDisplayDetail = Omit<RiddleUpsertDetail, 'questions'> & {
 
 export type QuestionUpsertDetail = {
 	id?: number;
-	number: number;
-	questionText: string;
+	number?: number;
+	questionText?: string;
 	image?: string;
 	hints: HintUpsert[];
-	correctAnswers: string;
+	correctAnswers: string[];
 };
 
 export type QuestionDisplayDetail = Omit<QuestionUpsertDetail, 'hints'> & {

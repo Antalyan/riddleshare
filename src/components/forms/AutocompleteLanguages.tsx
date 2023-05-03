@@ -7,7 +7,7 @@ import { CountryCodes } from '../../utils/CountryCodes';
 export const AutocompleteLanguages = () => (
 	<AutocompleteElement
 		name="languages"
-		required
+		// required
 		label="Language"
 		options={[...CountryCodes]}
 		autocompleteProps={{

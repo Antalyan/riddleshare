@@ -15,7 +15,7 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 		questionText: 'It is blue and annoying, what is it?',
 		image: 'public/vite.svg',
 		hints: [],
-		correctAnswers: '[Smurf]'
+		correctAnswers: ['Smurf']
 	},
 	{
 		id: 2,
@@ -40,7 +40,7 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 			{ hintText: 'Might & Magic', order: 2 },
 			{ hintText: '5. installment', order: 3 }
 		],
-		correctAnswers: '[Messiah, Dark Messiah]'
+		correctAnswers: ['Messiah', 'Dark Messiah']
 	}
 ];
 

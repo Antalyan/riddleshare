@@ -1,10 +1,12 @@
-import { FormContainer, TextFieldElement, useForm } from 'react-hook-form-mui';
+import {
+	FormContainer,
+	TextFieldElement,
+	useFieldArray,
+	useForm
+} from 'react-hook-form-mui';
 import type { ReactNode } from 'react';
 import { useCallback, useState } from 'react';
 import {
-	Accordion,
-	AccordionDetails,
-	AccordionSummary,
 	Box,
 	Button,
 	Stack,
@@ -13,12 +15,9 @@ import {
 	Stepper,
 	Typography
 } from '@mui/material';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import type { RiddleUpsertDetail } from '../../utils/Types';
-import { RiddleStatus } from '../../utils/Enums.ts';
-import { CountryCode } from '../../utils/CountryCodes.ts';
-import { Difficulty } from '../../utils/Difficulty.ts';
+import { QuestionUpsertAccordion } from '../QuestionUpsertAccordion.tsx';
 
 import { AutocompleteLanguages } from './AutocompleteLanguages';
 import { AutocompleteDifficulties } from './AutocompleteDifficulties';
@@ -44,9 +43,13 @@ export const CreateRiddleForm = () => {
 			name: '',
 			image: '',
 			countryCode: 'uk',
-			difficulty: { name: 'Moderate', value: 3, color: '#ffff00' }
+			difficulty: { name: 'Moderate', value: 3, color: '#ffff00' },
+			questions: [{}]
 		}
 	});
+
+	const { control } = formContext;
+
 	const onSubmitIntermediate = useCallback(
 		(data: RiddleUpsertDetail) => {
 			console.log(data);
@@ -64,9 +67,14 @@ export const CreateRiddleForm = () => {
 	);
 
 	//TODO: make the file loader work on submit
-	const previewImageLoader = useFileUploader('image', 'Riddle preview picture');
+	const previewImageLoader = useFileUploader(
+		'image',
+		control,
+		'Riddle preview picture'
+	);
 	const solvedImageLoader = useFileUploader(
 		'solvedImage',
+		control,
 		'Riddle solution picture'
 	);
 
@@ -78,7 +86,7 @@ export const CreateRiddleForm = () => {
 				<TextFieldElement
 					name="name"
 					label="Riddle name"
-					required
+					// required
 					onChange={e => setRiddleName(e.target.value)}
 				/>
 				<TextFieldElement
@@ -86,7 +94,7 @@ export const CreateRiddleForm = () => {
 					multiline
 					name="description"
 					rows={5}
-					required
+					// required
 				/>
 				{previewImageLoader}
 				<AutocompleteLanguages />
@@ -96,7 +104,7 @@ export const CreateRiddleForm = () => {
 					multiline
 					name="solvedText"
 					rows={5}
-					required
+					// required
 					placeholder="Text displayed to the user when the riddle is solved"
 				/>
 				{solvedImageLoader}
@@ -122,16 +130,38 @@ export const CreateRiddleForm = () => {
 		</FormContainer>
 	);
 
+	const { fields, append, remove } = useFieldArray({
+		name: 'questions',
+		control,
+		rules: { minLength: 1 }
+	});
+
 	const secondStep = (
 		<FormContainer onSuccess={onSubmitIntermediate} formContext={formContext}>
 			<Stack gap={2} sx={{ minWidth: { md: 500 } }}>
 				<Typography variant="h2">{riddleName}</Typography>
-				<Accordion>
-					<AccordionSummary expandIcon={<ExpandMoreIcon />}>
-						Question 1
-					</AccordionSummary>
-					<AccordionDetails>Here goes a question form.</AccordionDetails>
-				</Accordion>
+				{fields.map((field, index) => (
+					<QuestionUpsertAccordion
+						control={control}
+						key={field.id}
+						index={index}
+						removeFunction={() => remove(index)}
+						questionDetail={fields[index]}
+					/>
+				))}
+				<Button
+					variant="contained"
+					onClick={() =>
+						append({
+							questionText: '',
+							image: '',
+							hints: [],
+							correctAnswers: []
+						})
+					}
+				>
+					<Typography fontWeight="bold">+ Add question</Typography>
+				</Button>
 				<RadioButtonFormComponentBroad
 					options={[
 						{ id: '1', label: 'Sequential' },

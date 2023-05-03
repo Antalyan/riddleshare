@@ -36,7 +36,6 @@ export const App = () => (
 				>
 					<Routes>
 						<Route path="/" element={<HomePage />} />
-						<Route path="/create-riddle" element={<CreateRiddlePage />} />
 						<Route path="/my-riddles" element={<MyRiddlesPage />} />
 						<Route path="/public-riddles" element={<PublicRiddlesPage />} />
 						<Route
@@ -52,6 +51,14 @@ export const App = () => (
 							element={
 								<PrivateRoute>
 									<ReceivedRiddlesPage />
+								</PrivateRoute>
+							}
+						/>
+						<Route
+							path="/create-riddle"
+							element={
+								<PrivateRoute>
+									<CreateRiddlePage />
 								</PrivateRoute>
 							}
 						/>

@@ -19,7 +19,6 @@ export const AutocompleteLanguages = () => (
 						'& > img': { mr: 1 }
 					}}
 					{...props}
-					height="25"
 				>
 					<CircleFlag countryCode={option} height="20" />
 					{option}

@@ -4,22 +4,4 @@ import type { FC } from 'react';
 
 export const TextFieldFormComponent: FC<TextFieldElementProps> = (
 	props: TextFieldElementProps
-) => (
-	<TextFieldElement
-		{...props}
-		sx={{
-			'& .MuiOutlinedInput-root': {
-				'& fieldset': {
-					borderColor: 'secondary',
-					borderWidth: 2,
-					color: 'secondary',
-					borderRadius: 3
-				}
-			},
-			m: 0
-		}}
-		InputLabelProps={{
-			sx: { color: 'text.primary' }
-		}}
-	/>
-);
+) => <TextFieldElement {...props} />;

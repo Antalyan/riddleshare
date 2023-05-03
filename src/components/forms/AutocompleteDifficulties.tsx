@@ -8,6 +8,7 @@ import { AutocompleteFormComponent } from './generic/AutocompleteFormComponent';
 
 const getOptionLabel = (option: Difficulty) =>
 	`${option.name} (${option.value}/${Difficulties.length})`;
+
 export const AutocompleteDifficulties = () => (
 	<AutocompleteFormComponent
 		name="difficulties"
@@ -23,7 +24,6 @@ export const AutocompleteDifficulties = () => (
 						'& > svg': { mr: 1 }
 					}}
 					{...props}
-					height="25"
 				>
 					<LensIcon color="disabled" sx={{ color: option.color }} />
 					{getOptionLabel(option)}

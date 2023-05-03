@@ -20,19 +20,25 @@ export const CreateRiddleForm = () => {
 	);
 	return (
 		<FormContainer onSuccess={onSubmit} formContext={formContext}>
-			<Stack gap={2}>
-				<TextFieldFormComponent name="lame" label="lame" required />
-				<TextFieldFormComponent name="lasme" label="lame" required />
+			<Stack gap={2} sx={{ minWidth: { md: 500 } }}>
+				<TextFieldFormComponent name="name" label="Riddle name" required />
+				<TextFieldFormComponent
+					label="Description"
+					multiline
+					name="description"
+					rows={5}
+					required
+				/>
 				<AutocompleteLanguages />
 				<AutocompleteDifficulties />
 				<AutocompleteUsers />
 				<RadioButtonFormComponentBroad
 					options={[
-						{ id: '1', label: 'First' },
-						{ id: '2', label: 'Second' }
+						{ id: '1', label: 'Sequential' },
+						{ id: '2', label: 'Parallel' }
 					]}
 					name="randomName"
-					label="x"
+					label="Questions flow"
 				/>
 				<Button type="submit" color="primary" variant="contained">
 					Submit

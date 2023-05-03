@@ -12,7 +12,6 @@ export const AutocompleteUsers = () => (
 		autocompleteProps={{
 			sx: {
 				'& .MuiAutocomplete-tag': {
-					maxWidth: 'calc(100% - 8px)',
 					backgroundColor: 'primary.light',
 					color: 'text.secondary'
 				},
@@ -20,7 +19,12 @@ export const AutocompleteUsers = () => (
 					display: 'flex',
 					flexWrap: 'wrap'
 				},
-				'maxWidth': { xs: 300, md: 500 }
+				'& .MuiChip-deleteIcon': {
+					'color': 'background.default',
+					'&:hover': {
+						color: 'background.light'
+					}
+				}
 			}
 		}}
 	/>

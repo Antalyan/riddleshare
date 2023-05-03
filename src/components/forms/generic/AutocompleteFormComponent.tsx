@@ -11,9 +11,9 @@ type Props<T> = AutocompleteElementProps<
 	boolean | undefined
 >;
 
-const StyledPaper = styled(Paper)({
+const DropdownMenu = styled(Paper)({
 	'& .MuiAutocomplete-listbox': {
-		backgroundColor: theme.palette.background.default,
+		backgroundColor: theme.palette.background.light,
 		overflow: 'auto'
 	}
 });
@@ -22,20 +22,7 @@ export const AutocompleteFormComponent = <T,>(props: Props<T>) => (
 	<AutocompleteElement
 		{...props}
 		textFieldProps={{
-			...props.textFieldProps,
-			sx: {
-				'& .MuiOutlinedInput-root': {
-					'& fieldset': {
-						borderColor: 'secondary',
-						borderWidth: 2,
-						borderRadius: 3,
-						color: 'text.primary'
-					}
-				},
-				'& .MuiInputLabel-root': {
-					color: 'text.primary'
-				}
-			}
+			...props.textFieldProps
 			// TODO: Figure out how to get any image there (it would be then moved to the specific components)
 			// InputProps: {
 			// 	endAdornment: (
@@ -45,7 +32,7 @@ export const AutocompleteFormComponent = <T,>(props: Props<T>) => (
 		}}
 		autocompleteProps={{
 			...props.autocompleteProps,
-			PaperComponent: StyledPaper
+			PaperComponent: DropdownMenu
 		}}
 	/>
 );

@@ -27,6 +27,17 @@ const globalTheme = createTheme({
 export const theme = createTheme(
 	{
 		components: {
+			MuiAccordion: {
+				styleOverrides: {
+					root: {
+						backgroundColor: globalTheme.palette.background.default,
+						borderStyle: 'solid',
+						borderWidth: '2px',
+						borderRadius: 8,
+						borderColor: 'rgba(255, 255, 255, 0.23)'
+					}
+				}
+			},
 			MuiButton: {
 				styleOverrides: {
 					root: {
@@ -111,6 +122,13 @@ export const theme = createTheme(
 						color: globalTheme.palette.primary.main,
 						padding: 0,
 						paddingRight: 8
+					}
+				}
+			},
+			MuiStepLabel: {
+				styleOverrides: {
+					label: {
+						color: globalTheme.palette.text.primary
 					}
 				}
 			}

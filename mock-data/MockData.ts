@@ -120,6 +120,12 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 			'\n' +
 			'Cafes remain open throughout the night the evening before, as crowds gather in the streets to take part in Koningsnacht (King’s Night) festivities. \n' +
 			'\n' +
+			'Once day breaks, the scent of Dutch treats like special orange tompouce pastries (like the ones in today’s Doodle artwork!) fill the air. \n' +
+			'\n' +
+			'King’s Day may sound like one big Dutch party. But the holiday is ultimately about honoring joy and community. Friends and families reconnect as they attend street parties, listen to live music, and peruse giant flea markets called vrijmarkt throughout the day. \n' +
+			'\n' +
+			'Although festivities take place across the country, the most popular ones occur in Amsterdam — where orange boats float through the city’s famous waterways, causing historical canals to burst into color. \n' +
+			'\n' +
 			'Happy King’s Day to the Dutch! \n',
 		solvedImage: '',
 		solvedText:

@@ -11,7 +11,7 @@ export type RiddlePreview = {
 	difficulty: Difficulty;
 };
 
-export type RiddleUpsertDetail = RiddlePreview & {
+export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 	description: string;
 	solvedText: string;
 	solvedImage?: string;

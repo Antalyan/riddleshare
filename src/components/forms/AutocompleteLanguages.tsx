@@ -25,5 +25,10 @@ export const AutocompleteLanguages = () => (
 				</Box>
 			)
 		}}
+		textFieldProps={{
+			InputProps: {
+				startAdornment: <CircleFlag countryCode="gb" height={20} />
+			}
+		}}
 	/>
 );

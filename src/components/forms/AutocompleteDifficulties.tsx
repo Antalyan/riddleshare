@@ -30,5 +30,10 @@ export const AutocompleteDifficulties = () => (
 				</Box>
 			)
 		}}
+		textFieldProps={{
+			InputProps: {
+				startAdornment: <LensIcon color="disabled" sx={{ color: '#4caf50' }} />
+			}
+		}}
 	/>
 );

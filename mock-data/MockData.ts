@@ -95,7 +95,6 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 		id: 1,
 		name: 'Anagrammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
 		image: 'public/vite.svg',
-		state: RiddleStatus.Solved,
 		countryCode: 'cz',
 		difficulty: getDifficultyObject(1),
 		description: 'This is a riddiculous riddle.' + 'Ridduculus!',
@@ -108,7 +107,6 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 		id: 2,
 		name: 'Monogram',
 		image: 'public/vite.svg',
-		state: RiddleStatus.Unfinished,
 		countryCode: 'uk',
 		difficulty: getDifficultyObject(3),
 		description:

@@ -1,4 +1,4 @@
-import { FormContainer, useForm } from 'react-hook-form-mui';
+import { FormContainer, TextFieldElement, useForm } from 'react-hook-form-mui';
 import { useCallback, useState } from 'react';
 import {
 	Accordion,
@@ -15,7 +15,6 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import type { RiddleUpsertDetail } from '../../utils/Types';
 
-import { TextFieldFormComponent } from './generic/TextFieldFormComponent';
 import { AutocompleteLanguages } from './AutocompleteLanguages';
 import { AutocompleteDifficulties } from './AutocompleteDifficulties';
 import { AutocompleteUsers } from './AutocompleteUsers';
@@ -45,8 +44,8 @@ export const CreateRiddleForm = () => {
 	const firstStep = (
 		<FormContainer onSuccess={onSubmit} formContext={formContext}>
 			<Stack gap={2} sx={{ minWidth: { md: 500 } }}>
-				<TextFieldFormComponent name="name" label="Riddle name" required />
-				<TextFieldFormComponent
+				<TextFieldElement name="name" label="Riddle name" required />
+				<TextFieldElement
 					label="Description"
 					multiline
 					name="description"

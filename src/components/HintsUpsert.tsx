@@ -1,6 +1,7 @@
 import type { Control } from 'react-hook-form';
 import { TextFieldElement, useFieldArray } from 'react-hook-form-mui';
-import { Button, Stack, Typography } from '@mui/material';
+import { Button, IconButton, Stack, Typography } from '@mui/material';
+import { Cancel } from '@mui/icons-material';
 
 import type { RiddleUpsertDetail } from '../utils/Types.ts';
 
@@ -17,12 +18,17 @@ export const HintsUpsert = ({ control, questionIndex }: Props) => {
 	return (
 		<Stack gap={2} sx={{ minWidth: { md: 400 } }}>
 			{fields.map((hint, index) => (
-				<TextFieldElement
-					key={hint.id}
-					label="Hint"
-					name={`questions.${questionIndex}.hints.${index}.hintText`}
-					// required
-				/>
+				<Stack key={hint.id} direction="row">
+					<TextFieldElement
+						label="Hint"
+						name={`questions.${questionIndex}.hints.${index}.hintText`}
+						fullWidth
+						// required
+					/>
+					<IconButton onClick={() => remove(index)} sx={{ m: 1 }}>
+						<Cancel />
+					</IconButton>
+				</Stack>
 			))}
 			<Button
 				variant="outlined"

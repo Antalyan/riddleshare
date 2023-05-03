@@ -44,7 +44,14 @@ export const CreateRiddleForm = () => {
 			image: '',
 			countryCode: 'uk',
 			difficulty: { name: 'Moderate', value: 3, color: '#ffff00' },
-			questions: [{}]
+			questions: [
+				{
+					questionText: '',
+					image: '',
+					hints: [],
+					correctAnswers: [{ text: '' }]
+				}
+			]
 		}
 	});
 
@@ -145,8 +152,6 @@ export const CreateRiddleForm = () => {
 						control={control}
 						key={field.id}
 						index={index}
-						removeFunction={() => remove(index)}
-						questionDetail={fields[index]}
 					/>
 				))}
 				<Button
@@ -156,7 +161,7 @@ export const CreateRiddleForm = () => {
 							questionText: '',
 							image: '',
 							hints: [],
-							correctAnswers: []
+							correctAnswers: [{ text: '' }]
 						})
 					}
 				>

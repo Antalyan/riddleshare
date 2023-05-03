@@ -98,6 +98,15 @@ export const theme = createTheme(
 					}
 				}
 			},
+			MuiIconButton: {
+				styleOverrides: {
+					root: {
+						justifyContent: 'center',
+						alignContent: 'center',
+						color: globalTheme.palette.primary.main
+					}
+				}
+			},
 			MuiInputLabel: {
 				styleOverrides: {
 					root: {

@@ -13,7 +13,7 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 		id: 1,
 		number: 2,
 		questionText: 'It is blue and annoying, what is it?',
-		image: 'public/vite.svg',
+		image: '/public/RiddleMeThis.jpeg',
 		hints: [],
 		correctAnswers: '[Smurf]'
 	},
@@ -61,7 +61,8 @@ const MockDisplayQuestions: QuestionDisplayDetail[] = MockUpsertQuestions.map(
 export const MockRiddlesPreviews: RiddlePreview[] = [
 	{
 		id: 1,
-		name: 'Anagrammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
+		name: 'Anagram - Really long riddle name',
+		image: '/public/vite.svg',
 		state: RiddleStatus.Solved,
 		countryCode: 'cz',
 		difficulty: getDifficultyObject(1)
@@ -69,7 +70,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 	{
 		id: 2,
 		name: 'Monogram',
-		image: 'public/vite.svg',
+		image: '/public/RiddleMeThis.jpeg',
 		state: RiddleStatus.Unfinished,
 		countryCode: 'uk',
 		difficulty: getDifficultyObject(3)
@@ -93,20 +94,21 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 	{
 		id: 1,
-		name: 'Anagrammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
-		image: 'public/vite.svg',
+		name: 'Anagram - Really long riddle name',
+		image: '/public/vite.svg',
 		state: RiddleStatus.Solved,
 		countryCode: 'cz',
 		difficulty: getDifficultyObject(1),
-		description: 'This is a riddiculous riddle.' + 'Ridduculus!',
-		solvedImage: 'public/vite.svg',
+		description:
+			'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Integer tempor. Quisque tincidunt scelerisque libero. Duis viverra diam non justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.',
+		solvedImage: '/public/RiddleMeThis.jpeg',
 		solvedText: 'SOLVED!',
 		questions: MockUpsertQuestions
 	},
 	{
 		id: 2,
 		name: 'Monogram',
-		image: 'public/vite.svg',
+		image: '/public/RiddleMeThis.jpeg',
 		state: RiddleStatus.Unfinished,
 		countryCode: 'uk',
 		difficulty: getDifficultyObject(3),
@@ -116,12 +118,6 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 			"Today's Doodle celebrates King's Day, a Dutch holiday that honors the Netherlands’s rich cultural heritage.\n" +
 			'\n' +
 			'Cafes remain open throughout the night the evening before, as crowds gather in the streets to take part in Koningsnacht (King’s Night) festivities. \n' +
-			'\n' +
-			'Once day breaks, the scent of Dutch treats like special orange tompouce pastries (like the ones in today’s Doodle artwork!) fill the air. \n' +
-			'\n' +
-			'King’s Day may sound like one big Dutch party. But the holiday is ultimately about honoring joy and community. Friends and families reconnect as they attend street parties, listen to live music, and peruse giant flea markets called vrijmarkt throughout the day. \n' +
-			'\n' +
-			'Although festivities take place across the country, the most popular ones occur in Amsterdam — where orange boats float through the city’s famous waterways, causing historical canals to burst into color. \n' +
 			'\n' +
 			'Happy King’s Day to the Dutch! \n',
 		solvedImage: '',

@@ -33,6 +33,8 @@ export const LoginPage = () => {
 				}
 			}}
 			sx={{
+				alignSelf: 'center',
+				justifySelf: 'center',
 				display: 'flex',
 				flexDirection: 'column',
 				width: '100%',

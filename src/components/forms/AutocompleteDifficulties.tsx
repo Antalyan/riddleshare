@@ -10,7 +10,7 @@ const getOptionLabel = (option: Difficulty) =>
 
 export const AutocompleteDifficulties = () => (
 	<AutocompleteElement
-		name="difficulties"
+		name="difficulty"
 		// required
 		label="Expected difficulty"
 		options={[...Difficulties]}

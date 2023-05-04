@@ -15,12 +15,11 @@ import {
 	Stepper,
 	Typography
 } from '@mui/material';
-import { CircleFlag } from 'react-circle-flags';
-import { ContentCopy } from '@mui/icons-material';
 
 import type { RiddleUpsertDetail } from '../../utils/Types';
 import { QuestionUpsertAccordion } from '../QuestionUpsertAccordion.tsx';
 import { CopyContentButton } from '../CopyContentButton.tsx';
+import { Difficulties, getDifficultyObject } from '../../utils/Difficulty.ts';
 
 import { AutocompleteLanguages } from './AutocompleteLanguages';
 import { AutocompleteDifficulties } from './AutocompleteDifficulties';
@@ -43,23 +42,19 @@ export const CreateRiddleForm = () => {
 
 	const formContext = useForm<RiddleUpsertDetail>({
 		defaultValues: {
-			name: '',
-			image: '',
 			countryCode: 'uk',
-			difficulty: { name: 'Moderate', value: 3, color: '#ffff00' },
+			difficulty: getDifficultyObject(3),
 			questions: [
 				{
-					questionText: '',
-					image: '',
 					hints: [],
-					correctAnswers: [{ text: '' }]
+					correctAnswers: [{}]
 				}
 			],
 			sharingInformation: { visibility: 'public' }
 		}
 	});
 
-	const { control, watch } = formContext;
+	const { control, watch, reset } = formContext;
 
 	const onSubmitIntermediate = useCallback(
 		(data: RiddleUpsertDetail) => {
@@ -76,6 +71,11 @@ export const CreateRiddleForm = () => {
 		},
 		[formContext]
 	);
+
+	//TODO: make cancel work
+	const onCancel = useCallback(() => {
+		reset();
+	}, []);
 
 	const [riddleName, setRiddleName] = useState<string | null>(null);
 
@@ -120,6 +120,7 @@ export const CreateRiddleForm = () => {
 						type="submit"
 						variant="contained"
 						sx={{ backgroundColor: 'primary.light', flex: 1 }}
+						onClick={onCancel}
 					>
 						Cancel
 					</Button>
@@ -180,6 +181,7 @@ export const CreateRiddleForm = () => {
 						type="submit"
 						variant="contained"
 						sx={{ backgroundColor: 'primary.light', flex: 1 }}
+						onClick={onCancel}
 					>
 						Cancel
 					</Button>
@@ -219,6 +221,8 @@ export const CreateRiddleForm = () => {
 					name="sharingInformation.visibility"
 					label="Availability"
 				/>
+
+				{/*/TODO: add link generation/*/}
 				{watchIsPublic === 'public' ? (
 					<TextFieldElement
 						name="sharingInformation.link"
@@ -236,6 +240,7 @@ export const CreateRiddleForm = () => {
 						type="submit"
 						variant="contained"
 						sx={{ backgroundColor: 'primary.light', flex: 1 }}
+						onClick={onCancel}
 					>
 						Cancel
 					</Button>

@@ -61,7 +61,7 @@ export type UserAnswerDisplay = {
 };
 
 export type SharingInformationUpsert = {
-	isPublic: boolean;
+	visibility: 'public' | 'private';
 	link?: string;
 	sharedUserIds?: number[];
 };

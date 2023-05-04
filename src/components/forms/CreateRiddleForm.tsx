@@ -15,9 +15,12 @@ import {
 	Stepper,
 	Typography
 } from '@mui/material';
+import { CircleFlag } from 'react-circle-flags';
+import { ContentCopy } from '@mui/icons-material';
 
 import type { RiddleUpsertDetail } from '../../utils/Types';
 import { QuestionUpsertAccordion } from '../QuestionUpsertAccordion.tsx';
+import { CopyContentButton } from '../CopyContentButton.tsx';
 
 import { AutocompleteLanguages } from './AutocompleteLanguages';
 import { AutocompleteDifficulties } from './AutocompleteDifficulties';
@@ -51,11 +54,12 @@ export const CreateRiddleForm = () => {
 					hints: [],
 					correctAnswers: [{ text: '' }]
 				}
-			]
+			],
+			sharingInformation: { visibility: 'public' }
 		}
 	});
 
-	const { control } = formContext;
+	const { control, watch } = formContext;
 
 	const onSubmitIntermediate = useCallback(
 		(data: RiddleUpsertDetail) => {
@@ -133,7 +137,7 @@ export const CreateRiddleForm = () => {
 		</FormContainer>
 	);
 
-	const { fields, append, remove } = useFieldArray({
+	const { fields, append } = useFieldArray({
 		name: 'questions',
 		control,
 		rules: { minLength: 1 }
@@ -201,18 +205,32 @@ export const CreateRiddleForm = () => {
 		</FormContainer>
 	);
 
+	const watchIsPublic = watch('sharingInformation.visibility');
+	const watchLink = watch('sharingInformation.link');
+
 	const thirdStep = (
 		<FormContainer onSuccess={onSubmitFinal} formContext={formContext}>
 			<Stack gap={2} sx={{ minWidth: { md: 500 } }}>
 				<RadioButtonFormComponentBroad
 					options={[
-						{ id: '1', label: 'Public' },
-						{ id: '2', label: 'Private' }
+						{ id: 'public', label: 'Public' },
+						{ id: 'private', label: 'Private' }
 					]}
-					name="availability"
+					name="sharingInformation.visibility"
 					label="Availability"
 				/>
-				<AutocompleteUsers />
+				{watchIsPublic === 'public' ? (
+					<TextFieldElement
+						name="sharingInformation.link"
+						label="Riddle link"
+						// required
+						InputProps={{
+							endAdornment: <CopyContentButton content={watchLink ?? ''} />
+						}}
+					/>
+				) : (
+					<AutocompleteUsers />
+				)}
 				<Box sx={{ width: '100%', display: 'flex', gap: '8px' }}>
 					<Button
 						type="submit"

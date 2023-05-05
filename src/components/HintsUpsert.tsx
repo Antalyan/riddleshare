@@ -34,8 +34,7 @@ export const HintsUpsert = ({ control, questionIndex }: Props) => {
 				variant="outlined"
 				onClick={() =>
 					append({
-						hintText: '',
-						order: fields.length + 1
+						hintText: ''
 					})
 				}
 			>

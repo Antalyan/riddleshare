@@ -36,9 +36,9 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 			'    Beneath the crypts prophecies clash\n' +
 			'    The war of ancient enemies',
 		hints: [
-			{ hintText: 'Heroes', order: 1 },
-			{ hintText: 'Might & Magic', order: 2 },
-			{ hintText: '5. installment', order: 3 }
+			{ hintText: 'Heroes' },
+			{ hintText: 'Might & Magic' },
+			{ hintText: '5. installment' }
 		],
 		correctAnswers: [{ text: 'Messiah' }, { text: 'Dark Messiah' }]
 	}

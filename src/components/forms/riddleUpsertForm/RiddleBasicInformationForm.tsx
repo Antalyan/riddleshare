@@ -4,10 +4,10 @@ import { FormContainer, TextFieldElement } from 'react-hook-form-mui';
 import type { Dispatch, SetStateAction } from 'react';
 import React from 'react';
 
-import { FileUploader } from '../common/FileUploader.tsx';
-import { AutocompleteLanguages } from '../common/AutocompleteLanguages.tsx';
-import { AutocompleteDifficulties } from '../common/AutocompleteDifficulties.tsx';
-import type { RiddleUpsertDetail } from '../../../utils/Types.ts';
+import { FileUploader } from '../common/FileUploader';
+import { AutocompleteLanguages } from '../common/AutocompleteLanguages';
+import { AutocompleteDifficulties } from '../common/AutocompleteDifficulties';
+import type { RiddleUpsertDetail } from '../../../utils/Types';
 
 type Props = {
 	formContext: UseFormReturn<RiddleUpsertDetail>;

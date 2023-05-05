@@ -5,12 +5,12 @@ import { Box, Step, StepLabel, Stepper } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
-import type { RiddleUpsertDetail } from '../../../utils/Types.ts';
-import { getDifficultyObject } from '../../../utils/Difficulty.ts';
+import type { RiddleUpsertDetail } from '../../../utils/Types';
+import { getDifficultyObject } from '../../../utils/Difficulty';
 
-import { RiddleBasicInformationForm } from './RiddleBasicInformationForm.tsx';
-import { RiddleQuestionForm } from './RiddleQuestionForm.tsx';
-import { RiddleShareForm } from './RiddleShareForm.tsx';
+import { RiddleBasicInformationForm } from './RiddleBasicInformationForm';
+import { RiddleQuestionForm } from './RiddleQuestionForm';
+import { RiddleShareForm } from './RiddleShareForm';
 
 const steps = ['Basic information', 'Questions', 'Sharing options'];
 

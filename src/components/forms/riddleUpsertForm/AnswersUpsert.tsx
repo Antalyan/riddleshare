@@ -4,7 +4,7 @@ import { Button, IconButton, Stack, Typography } from '@mui/material';
 import { Cancel } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 
-import type { RiddleUpsertDetail } from '../../../utils/Types.ts';
+import type { RiddleUpsertDetail } from '../../../utils/Types';
 
 type Props = {
 	control: Control<RiddleUpsertDetail>;
@@ -21,7 +21,6 @@ export const AnswersUpsert = ({ control, questionIndex }: Props) => {
 	const [disableDelete, setDisableDelete] = useState(true);
 	useEffect(() => {
 		setDisableDelete(fields.length === 1);
-		console.log(disableDelete);
 	}, [fields.length]);
 
 	return (

@@ -4,10 +4,10 @@ import { FormContainer, useFieldArray } from 'react-hook-form-mui';
 import React, { useEffect, useState } from 'react';
 import { Cancel } from '@mui/icons-material';
 
-import type { RiddleUpsertDetail } from '../../../utils/Types.ts';
-import { RadioButtonFormComponentBroad } from '../common/RadioButtonFormComponentBroad.tsx';
+import type { RiddleUpsertDetail } from '../../../utils/Types';
+import { RadioButtonFormComponentBroad } from '../common/RadioButtonFormComponentBroad';
 
-import { QuestionUpsertAccordion } from './QuestionUpsertAccordion.tsx';
+import { QuestionUpsertAccordion } from './QuestionUpsertAccordion';
 
 type Props = {
 	formContext: UseFormReturn<RiddleUpsertDetail>;

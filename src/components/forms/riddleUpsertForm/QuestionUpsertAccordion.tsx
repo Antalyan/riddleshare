@@ -9,11 +9,11 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { TextFieldElement } from 'react-hook-form-mui';
 import type { Control } from 'react-hook-form';
 
-import type { RiddleUpsertDetail } from '../../../utils/Types.ts';
-import { FileUploader } from '../common/FileUploader.tsx';
+import type { RiddleUpsertDetail } from '../../../utils/Types';
+import { FileUploader } from '../common/FileUploader';
 
-import { HintsUpsert } from './HintsUpsert.tsx';
-import { AnswersUpsert } from './AnswersUpsert.tsx';
+import { HintsUpsert } from './HintsUpsert';
+import { AnswersUpsert } from './AnswersUpsert';
 
 type Props = {
 	index: number;

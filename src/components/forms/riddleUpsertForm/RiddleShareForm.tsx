@@ -3,10 +3,10 @@ import type { UseFormReturn } from 'react-hook-form-mui';
 import { FormContainer, TextFieldElement } from 'react-hook-form-mui';
 import React from 'react';
 
-import type { RiddleUpsertDetail } from '../../../utils/Types.ts';
-import { RadioButtonFormComponentBroad } from '../common/RadioButtonFormComponentBroad.tsx';
-import { CopyContentButton } from '../common/CopyContentButton.tsx';
-import { AutocompleteUsers } from '../common/AutocompleteUsers.tsx';
+import type { RiddleUpsertDetail } from '../../../utils/Types';
+import { RadioButtonFormComponentBroad } from '../common/RadioButtonFormComponentBroad';
+import { CopyContentButton } from '../common/CopyContentButton';
+import { AutocompleteUsers } from '../common/AutocompleteUsers';
 
 type Props = {
 	formContext: UseFormReturn<RiddleUpsertDetail>;

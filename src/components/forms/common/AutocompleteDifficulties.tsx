@@ -2,8 +2,8 @@ import { Box } from '@mui/material';
 import LensIcon from '@mui/icons-material/Lens';
 import { AutocompleteElement } from 'react-hook-form-mui';
 
-import type { Difficulty } from '../../../utils/Difficulty.ts';
-import { Difficulties } from '../../../utils/Difficulty.ts';
+import type { Difficulty } from '../../../utils/Difficulty';
+import { Difficulties } from '../../../utils/Difficulty';
 
 const getOptionLabel = (option: Difficulty) =>
 	`${option.name} (${option.value}/${Difficulties.length})`;

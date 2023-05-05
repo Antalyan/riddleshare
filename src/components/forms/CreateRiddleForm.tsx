@@ -18,6 +18,7 @@ import {
 } from '@mui/material';
 import { Cancel } from '@mui/icons-material';
 import { v4 as uuidv4, stringify } from 'uuid';
+import { useNavigate } from 'react-router-dom';
 
 import type { RiddleUpsertDetail } from '../../utils/Types';
 import { QuestionUpsertAccordion } from '../QuestionUpsertAccordion.tsx';
@@ -77,9 +78,10 @@ export const CreateRiddleForm = () => {
 		[formContext]
 	);
 
-	//TODO: make cancel work
+	const navigate = useNavigate();
+
 	const onCancel = useCallback(() => {
-		reset();
+		navigate('/');
 	}, []);
 
 	const [riddleName, setRiddleName] = useState<string | null>(null);

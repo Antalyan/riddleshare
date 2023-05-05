@@ -5,16 +5,18 @@ import {
 	useForm
 } from 'react-hook-form-mui';
 import type { ReactNode } from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
 	Box,
 	Button,
+	IconButton,
 	Stack,
 	Step,
 	StepLabel,
 	Stepper,
 	Typography
 } from '@mui/material';
+import { Cancel } from '@mui/icons-material';
 
 import type { RiddleUpsertDetail } from '../../utils/Types';
 import { QuestionUpsertAccordion } from '../QuestionUpsertAccordion.tsx';
@@ -50,6 +52,7 @@ export const CreateRiddleForm = () => {
 					correctAnswers: [{}]
 				}
 			],
+			questionOrder: 'sequence',
 			sharingInformation: { visibility: 'public' }
 		}
 	});
@@ -138,22 +141,42 @@ export const CreateRiddleForm = () => {
 		</FormContainer>
 	);
 
-	const { fields, append } = useFieldArray({
+	const { fields, append, remove } = useFieldArray({
 		name: 'questions',
 		control,
 		rules: { minLength: 1 }
 	});
+
+	const watchIsPublic = watch('sharingInformation.visibility');
+	const watchLink = watch('sharingInformation.link');
+	const watchQuestions = watch('questions');
+
+	const minLength = 1;
+	const [disableDelete, setDisableDelete] = useState(true);
+	useEffect(() => {
+		setDisableDelete(fields.length === 1);
+		console.log(disableDelete);
+	}, [fields.length]);
 
 	const secondStep = (
 		<FormContainer onSuccess={onSubmitIntermediate} formContext={formContext}>
 			<Stack gap={2} sx={{ minWidth: { md: 500 } }}>
 				<Typography variant="h2">{riddleName}</Typography>
 				{fields.map((field, index) => (
-					<QuestionUpsertAccordion
-						control={control}
-						key={field.id}
-						index={index}
-					/>
+					<Stack direction="row" alignItems="flex-start" width="100%">
+						<QuestionUpsertAccordion
+							control={control}
+							key={field.id}
+							index={index}
+						/>
+						<IconButton
+							onClick={() => fields.length > minLength && remove(index)}
+							sx={{ m: 1 }}
+							disabled={disableDelete}
+						>
+							<Cancel />
+						</IconButton>
+					</Stack>
 				))}
 				<Button
 					variant="contained"
@@ -169,13 +192,13 @@ export const CreateRiddleForm = () => {
 					<Typography fontWeight="bold">+ Add question</Typography>
 				</Button>
 				<RadioButtonFormComponentBroad
-					//TODO: disable based on questions number and add a default choice
 					options={[
 						{ id: 'sequence', label: 'Sequential' },
 						{ id: 'parallel', label: 'Parallel' }
 					]}
 					name="questionOrder"
 					label="Questions flow"
+					disabled={watchQuestions.length === 1}
 				/>
 				<Box sx={{ width: '100%', display: 'flex', gap: '8px' }}>
 					<Button
@@ -207,9 +230,6 @@ export const CreateRiddleForm = () => {
 			</Stack>
 		</FormContainer>
 	);
-
-	const watchIsPublic = watch('sharingInformation.visibility');
-	const watchLink = watch('sharingInformation.link');
 
 	const thirdStep = (
 		<FormContainer onSuccess={onSubmitFinal} formContext={formContext}>

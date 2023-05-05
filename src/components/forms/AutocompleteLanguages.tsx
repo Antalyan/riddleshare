@@ -26,6 +26,7 @@ export const AutocompleteLanguages = () => (
 		}}
 		textFieldProps={{
 			InputProps: {
+				// TODO: make image changed based on value
 				startAdornment: <CircleFlag countryCode="gb" height={20} />
 			}
 		}}

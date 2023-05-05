@@ -46,7 +46,6 @@ export type QuestionDisplayDetail = Omit<QuestionUpsertDetail, 'hints'> & {
 export type HintUpsert = {
 	id?: string;
 	hintText: string;
-	order: number;
 };
 
 export type HintDisplay = HintUpsert & {

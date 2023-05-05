@@ -8,15 +8,17 @@ import {
 	onAuthStateChanged
 } from 'firebase/auth';
 
+const firebaseConfig = {
+	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+	authDomain: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebaseapp.com`,
+	projectId: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}`,
+	storageBucket: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.appspot.com`,
+	messagingSenderId: import.meta.env.VITE_FIREBASE_SENDER_ID,
+	appId: import.meta.env.VITE_FIREBASE_APP_ID
+};
+
 // Initialize Firebase
-initializeApp({
-	apiKey: 'AIzaSyAc_Kn5Kb3QBP6yOyqxWsnwxF2tNrSXuh0',
-	authDomain: 'pv247-7116c.firebaseapp.com',
-	projectId: 'pv247-7116c',
-	storageBucket: 'pv247-7116c.appspot.com',
-	messagingSenderId: '781926155473',
-	appId: '1:781926155473:web:452b5910c0a7477844f1f0'
-});
+initializeApp(firebaseConfig);
 
 // Authentication
 const auth = getAuth();

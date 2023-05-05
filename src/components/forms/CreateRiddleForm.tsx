@@ -42,7 +42,7 @@ export const CreateRiddleForm = () => {
 
 	const formContext = useForm<RiddleUpsertDetail>({
 		defaultValues: {
-			countryCode: 'uk',
+			language: 'uk',
 			difficulty: getDifficultyObject(3),
 			questions: [
 				{
@@ -169,11 +169,12 @@ export const CreateRiddleForm = () => {
 					<Typography fontWeight="bold">+ Add question</Typography>
 				</Button>
 				<RadioButtonFormComponentBroad
+					//TODO: disable based on questions number and add a default choice
 					options={[
-						{ id: '1', label: 'Sequential' },
-						{ id: '2', label: 'Parallel' }
+						{ id: 'sequence', label: 'Sequential' },
+						{ id: 'parallel', label: 'Parallel' }
 					]}
-					name="randomName"
+					name="questionOrder"
 					label="Questions flow"
 				/>
 				<Box sx={{ width: '100%', display: 'flex', gap: '8px' }}>

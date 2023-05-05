@@ -63,7 +63,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 		id: 1,
 		name: 'Anagrammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
 		state: RiddleStatus.Solved,
-		countryCode: 'cz',
+		language: 'cz',
 		difficulty: getDifficultyObject(1)
 	},
 	{
@@ -71,21 +71,21 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 		name: 'Monogram',
 		image: 'public/vite.svg',
 		state: RiddleStatus.Unfinished,
-		countryCode: 'uk',
+		language: 'uk',
 		difficulty: getDifficultyObject(3)
 	},
 	{
 		id: 3,
 		name: 'Diagram',
 		state: RiddleStatus.Untouched,
-		countryCode: 'de',
+		language: 'de',
 		difficulty: getDifficultyObject(4)
 	},
 	{
 		id: 4,
 		name: 'Panorama',
 		state: RiddleStatus.Untouched,
-		countryCode: 'es',
+		language: 'es',
 		difficulty: getDifficultyObject(5)
 	}
 ];
@@ -95,7 +95,7 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 		id: 1,
 		name: 'Anagrammmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm',
 		image: 'public/vite.svg',
-		countryCode: 'cz',
+		language: 'cz',
 		difficulty: getDifficultyObject(1),
 		description: 'This is a riddiculous riddle.' + 'Ridduculus!',
 		solvedImage: 'public/vite.svg',
@@ -107,7 +107,7 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 		id: 2,
 		name: 'Monogram',
 		image: 'public/vite.svg',
-		countryCode: 'uk',
+		language: 'uk',
 		difficulty: getDifficultyObject(3),
 		description:
 			'\n' +

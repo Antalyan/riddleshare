@@ -36,7 +36,7 @@ export const RiddleCard: FC<RiddlePreview> = ({
 	name,
 	image,
 	state,
-	countryCode,
+	language,
 	difficulty
 }) => (
 	// const difficulty = useMemo(
@@ -82,7 +82,7 @@ export const RiddleCard: FC<RiddlePreview> = ({
 						</Typography>
 						<Stack spacing={1} direction="row">
 							<Chip
-								icon={<CircleFlag countryCode={countryCode} />}
+								icon={<CircleFlag countryCode={language} />}
 								label="Country name" //TODO: Replace with localized country name
 								variant="outlined"
 							/>

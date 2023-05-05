@@ -61,6 +61,7 @@ const MockDisplayQuestions: QuestionDisplayDetail[] = MockUpsertQuestions.map(
 export const MockRiddlesPreviews: RiddlePreview[] = [
 	{
 		id: 1,
+		linkId: 'd0b73059-e4cd-4c30-a2e1-0670aef1ab11',
 		name: 'Anagram - Really long riddle name',
 		image: '/public/vite.svg',
 		state: RiddleStatus.Solved,
@@ -69,6 +70,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 	},
 	{
 		id: 2,
+		linkId: 'a0b73059-e4cd-4c30-a2e1-0670aef1ab22',
 		name: 'Monogram',
 		image: '/public/RiddleMeThis.jpeg',
 		state: RiddleStatus.Unfinished,
@@ -77,6 +79,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 	},
 	{
 		id: 3,
+		linkId: 'e4b73059-e4cd-4c30-a2e1-0670aef1ab22',
 		name: 'Diagram',
 		state: RiddleStatus.Untouched,
 		language: 'de',
@@ -85,6 +88,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 	{
 		id: 4,
 		name: 'Panorama',
+		linkId: 'ab216804-1863-42bd-882a-6503e894c09f',
 		state: RiddleStatus.Untouched,
 		language: 'es',
 		difficulty: getDifficultyObject(5)
@@ -94,6 +98,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 	{
 		id: 1,
+		linkId: 'b1b73059-e4cd-4c30-a2e1-0670aef1ab11',
 		name: 'Anagram - Really long riddle name',
 		image: '/public/vite.svg',
 		language: 'cz',
@@ -108,6 +113,7 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 	},
 	{
 		id: 2,
+		linkId: '73059b1b-e4cd-4c30-a2e1-0670aef1ab11',
 		name: 'Monogram',
 		language: 'uk',
 		image: '/public/RiddleMeThis.jpeg',
@@ -132,7 +138,7 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 			'Removes the this parameter from Type. If Type has no explicitly declared this parameter, the result is simply Type. Otherwise, a new function type with no this parameter is created from Type. \n\n' +
 			'Generics are erased and only the last overload signature is propagated into the new function type.',
 		questions: [MockUpsertQuestions[0]],
-		sharingInformation: { visibility: 'public', link: '' }
+		sharingInformation: { visibility: 'public' }
 	}
 ];
 

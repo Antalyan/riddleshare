@@ -5,7 +5,7 @@ import {
 	useForm
 } from 'react-hook-form-mui';
 import type { ReactNode } from 'react';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import {
 	Box,
 	Button,
@@ -17,6 +17,7 @@ import {
 	Typography
 } from '@mui/material';
 import { Cancel } from '@mui/icons-material';
+import { v4 as uuidv4, stringify } from 'uuid';
 
 import type { RiddleUpsertDetail } from '../../utils/Types';
 import { QuestionUpsertAccordion } from '../QuestionUpsertAccordion.tsx';
@@ -44,6 +45,7 @@ export const CreateRiddleForm = () => {
 
 	const formContext = useForm<RiddleUpsertDetail>({
 		defaultValues: {
+			linkId: uuidv4(),
 			language: 'uk',
 			difficulty: getDifficultyObject(3),
 			questions: [
@@ -148,7 +150,7 @@ export const CreateRiddleForm = () => {
 	});
 
 	const watchIsPublic = watch('sharingInformation.visibility');
-	const watchLink = watch('sharingInformation.link');
+	const watchLink = watch('linkId');
 	const watchQuestions = watch('questions');
 
 	const minLength = 1;
@@ -243,14 +245,14 @@ export const CreateRiddleForm = () => {
 					label="Availability"
 				/>
 
-				{/*/TODO: add link generation/*/}
 				{watchIsPublic === 'public' ? (
 					<TextFieldElement
-						name="sharingInformation.link"
+						name="linkId"
 						label="Riddle link"
 						// required
 						InputProps={{
-							endAdornment: <CopyContentButton content={watchLink ?? ''} />
+							endAdornment: <CopyContentButton content={watchLink ?? ''} />,
+							readOnly: true
 						}}
 					/>
 				) : (

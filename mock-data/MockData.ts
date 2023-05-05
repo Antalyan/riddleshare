@@ -102,7 +102,6 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 		name: 'Anagram - Really long riddle name',
 		image: '/public/vite.svg',
 		language: 'cz',
-		state: RiddleStatus.Solved,
 		difficulty: getDifficultyObject(1),
 		description:
 			'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Integer tempor. Quisque tincidunt scelerisque libero. Duis viverra diam non justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.',
@@ -117,7 +116,6 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 		name: 'Monogram',
 		language: 'uk',
 		image: '/public/RiddleMeThis.jpeg',
-		state: RiddleStatus.Unfinished,
 		difficulty: getDifficultyObject(3),
 		description:
 			'\n' +

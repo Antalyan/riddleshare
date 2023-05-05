@@ -118,7 +118,7 @@ export const RiddleCard: FC<RiddlePreview> = ({
 								}}
 							>
 								<Chip
-									icon={<CircleFlag countryCode={countryCode} />}
+									icon={<CircleFlag countryCode={language} />}
 									label="Language" //TODO: Replace with localized language
 									variant="outlined"
 								/>

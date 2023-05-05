@@ -5,7 +5,7 @@ import {
 	useForm
 } from 'react-hook-form-mui';
 import type { ReactNode } from 'react';
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import {
 	Box,
 	Button,
@@ -17,13 +17,13 @@ import {
 	Typography
 } from '@mui/material';
 import { Cancel } from '@mui/icons-material';
-import { v4 as uuidv4, stringify } from 'uuid';
+import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
 import type { RiddleUpsertDetail } from '../../utils/Types';
 import { QuestionUpsertAccordion } from '../QuestionUpsertAccordion.tsx';
 import { CopyContentButton } from '../CopyContentButton.tsx';
-import { Difficulties, getDifficultyObject } from '../../utils/Difficulty.ts';
+import { getDifficultyObject } from '../../utils/Difficulty.ts';
 
 import { AutocompleteLanguages } from './AutocompleteLanguages';
 import { AutocompleteDifficulties } from './AutocompleteDifficulties';

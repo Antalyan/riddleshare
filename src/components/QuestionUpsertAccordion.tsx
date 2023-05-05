@@ -2,20 +2,14 @@ import {
 	Accordion,
 	AccordionDetails,
 	AccordionSummary,
-	IconButton,
 	Stack,
 	Typography
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Cancel } from '@mui/icons-material';
-import { TextFieldElement, useFieldArray } from 'react-hook-form-mui';
+import { TextFieldElement } from 'react-hook-form-mui';
 import type { Control } from 'react-hook-form';
-import { useEffect, useState } from 'react';
 
-import type {
-	QuestionUpsertDetail,
-	RiddleUpsertDetail
-} from '../utils/Types.ts';
+import type { RiddleUpsertDetail } from '../utils/Types.ts';
 
 import { FileUploader } from './forms/FileUploader.tsx';
 import { HintsUpsert } from './HintsUpsert.tsx';

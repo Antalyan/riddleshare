@@ -43,7 +43,7 @@ export const AnswersUpsert = ({ control, questionIndex }: Props) => {
 					</IconButton>
 				</Stack>
 			))}
-			<Button variant="outlined" onClick={() => append({ text: '' })}>
+			<Button variant="dashed" onClick={() => append({ text: '' })}>
 				<Typography fontWeight="bold">+ Add correct answer</Typography>
 			</Button>
 		</Stack>

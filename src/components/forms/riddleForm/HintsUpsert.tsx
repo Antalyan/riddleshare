@@ -31,7 +31,7 @@ export const HintsUpsert = ({ control, questionIndex }: Props) => {
 				</Stack>
 			))}
 			<Button
-				variant="outlined"
+				variant="dashed"
 				onClick={() =>
 					append({
 						hintText: ''

@@ -22,7 +22,7 @@ export const AutocompleteUsers = () => (
 				'& .MuiChip-deleteIcon': {
 					'color': 'background.default',
 					'&:hover': {
-						color: '#172745' // TODO: background.light
+						color: 'background.light'
 					}
 				}
 			}

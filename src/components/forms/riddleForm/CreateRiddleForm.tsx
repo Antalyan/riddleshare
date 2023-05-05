@@ -60,15 +60,7 @@ export const CreateRiddleForm = () => {
 		}
 	});
 
-	const { control, watch, reset } = formContext;
-
-	const onSubmitIntermediate = useCallback(
-		(data: RiddleUpsertDetail) => {
-			console.log(data);
-			handleNext();
-		},
-		[formContext]
-	);
+	const { control, watch } = formContext;
 
 	const onSubmitFinal = useCallback(
 		(data: RiddleUpsertDetail) => {
@@ -87,7 +79,7 @@ export const CreateRiddleForm = () => {
 	const [riddleName, setRiddleName] = useState<string | null>(null);
 
 	const firstStep = (
-		<FormContainer onSuccess={onSubmitIntermediate} formContext={formContext}>
+		<FormContainer formContext={formContext}>
 			<Stack gap={2} sx={{ minWidth: { md: 500 } }}>
 				<TextFieldElement
 					name="name"
@@ -124,7 +116,6 @@ export const CreateRiddleForm = () => {
 				/>
 				<Box sx={{ width: '100%', display: 'flex', gap: '8px' }}>
 					<Button
-						type="submit"
 						variant="contained"
 						sx={{ backgroundColor: 'primary.light', flex: 1 }}
 						onClick={onCancel}
@@ -136,7 +127,7 @@ export const CreateRiddleForm = () => {
 						color="primary"
 						variant="contained"
 						sx={{ flex: 1 }}
-						onClick={() => onSubmitIntermediate}
+						onClick={handleNext}
 					>
 						Proceed
 					</Button>
@@ -163,7 +154,7 @@ export const CreateRiddleForm = () => {
 	}, [fields.length]);
 
 	const secondStep = (
-		<FormContainer onSuccess={onSubmitIntermediate} formContext={formContext}>
+		<FormContainer formContext={formContext}>
 			<Stack gap={2} sx={{ minWidth: { md: 500 } }}>
 				<Typography variant="h2">{riddleName}</Typography>
 				{fields.map((field, index) => (
@@ -206,7 +197,6 @@ export const CreateRiddleForm = () => {
 				/>
 				<Box sx={{ width: '100%', display: 'flex', gap: '8px' }}>
 					<Button
-						type="submit"
 						variant="contained"
 						sx={{ backgroundColor: 'primary.light', flex: 1 }}
 						onClick={onCancel}
@@ -214,7 +204,6 @@ export const CreateRiddleForm = () => {
 						Cancel
 					</Button>
 					<Button
-						type="submit"
 						variant="contained"
 						sx={{ backgroundColor: 'primary.light', flex: 1 }}
 						onClick={handleBack}
@@ -226,7 +215,7 @@ export const CreateRiddleForm = () => {
 						color="primary"
 						variant="contained"
 						sx={{ flex: 1 }}
-						onClick={() => onSubmitIntermediate}
+						onClick={handleNext}
 					>
 						Proceed
 					</Button>
@@ -238,6 +227,20 @@ export const CreateRiddleForm = () => {
 	const thirdStep = (
 		<FormContainer onSuccess={onSubmitFinal} formContext={formContext}>
 			<Stack gap={2} sx={{ minWidth: { md: 500 } }}>
+				<Typography variant="h2">{riddleName}</Typography>
+				<Typography variant="subtitle1">
+					The last thing you need to do to finish your riddle is to publish it.
+					<br />
+					The riddle is{' '}
+					<Typography component="span" fontWeight="bold">
+						public
+					</Typography>{' '}
+					by default. If you wish to keep it{' '}
+					<Typography component="span" fontWeight="bold">
+						private
+					</Typography>
+					, change the settings below and share the riddle with friends.
+				</Typography>
 				<RadioButtonFormComponentBroad
 					options={[
 						{ id: 'public', label: 'Public' },
@@ -262,7 +265,6 @@ export const CreateRiddleForm = () => {
 				)}
 				<Box sx={{ width: '100%', display: 'flex', gap: '8px' }}>
 					<Button
-						type="submit"
 						variant="contained"
 						sx={{ backgroundColor: 'primary.light', flex: 1 }}
 						onClick={onCancel}
@@ -270,7 +272,6 @@ export const CreateRiddleForm = () => {
 						Cancel
 					</Button>
 					<Button
-						type="submit"
 						variant="contained"
 						sx={{ backgroundColor: 'primary.light', flex: 1 }}
 						onClick={handleBack}

@@ -1,6 +1,6 @@
 import { AutocompleteElement } from 'react-hook-form-mui';
 
-import { MockUsers } from '../../../mock-data/MockData';
+import { MockUsers } from '../../../../mock-data/MockData.ts';
 
 export const AutocompleteUsers = () => (
 	<AutocompleteElement

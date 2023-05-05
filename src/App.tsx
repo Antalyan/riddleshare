@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { HomePage } from './pages/HomePage';
 import { NotFound } from './pages/NotFound';
-import { NavigationBar } from './components/NavigationBar';
+import { NavigationBar } from './components/navigation/NavigationBar.tsx';
 import { PublicRiddlesPage } from './pages/PublicRiddlesPage';
 import { ReceivedRiddlesPage } from './pages/ReceivedRiddlesPage';
 import { MyRiddlesPage } from './pages/MyRiddlesPage';

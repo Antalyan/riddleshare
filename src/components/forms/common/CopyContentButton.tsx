@@ -20,7 +20,6 @@ export const CopyContentButton = ({ content }: Props) => {
 				<ContentCopy />
 			</IconButton>
 			<Snackbar
-				message="ííí"
 				anchorOrigin={{ vertical: 'bottom', horizontal: 'left' }}
 				autoHideDuration={2000}
 				onClose={() => setOpen(false)}

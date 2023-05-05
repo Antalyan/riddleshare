@@ -4,7 +4,7 @@ import { Button, IconButton, Stack, Typography } from '@mui/material';
 import { Cancel } from '@mui/icons-material';
 import { useEffect, useState } from 'react';
 
-import type { RiddleUpsertDetail } from '../utils/Types.ts';
+import type { RiddleUpsertDetail } from '../../../utils/Types.ts';
 
 type Props = {
 	control: Control<RiddleUpsertDetail>;

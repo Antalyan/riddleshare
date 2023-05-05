@@ -20,16 +20,16 @@ import { Cancel } from '@mui/icons-material';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
-import type { RiddleUpsertDetail } from '../../utils/Types';
-import { getDifficultyObject } from '../../utils/Difficulty.ts';
-import { QuestionUpsertAccordion } from '../QuestionUpsertAccordion.tsx';
-import { CopyContentButton } from '../CopyContentButton.tsx';
+import type { RiddleUpsertDetail } from '../../../utils/Types.ts';
+import { getDifficultyObject } from '../../../utils/Difficulty.ts';
+import { CopyContentButton } from '../common/CopyContentButton.tsx';
+import { AutocompleteLanguages } from '../common/AutocompleteLanguages.tsx';
+import { AutocompleteDifficulties } from '../common/AutocompleteDifficulties.tsx';
+import { AutocompleteUsers } from '../common/AutocompleteUsers.tsx';
+import { RadioButtonFormComponentBroad } from '../common/RadioButtonFormComponentBroad.tsx';
+import { FileUploader } from '../common/FileUploader.tsx';
 
-import { AutocompleteLanguages } from './AutocompleteLanguages';
-import { AutocompleteDifficulties } from './AutocompleteDifficulties';
-import { AutocompleteUsers } from './AutocompleteUsers';
-import { RadioButtonFormComponentBroad } from './generic/RadioButtonFormComponentBroad';
-import { FileUploader } from './FileUploader.tsx';
+import { QuestionUpsertAccordion } from './QuestionUpsertAccordion.tsx';
 
 const steps = ['Basic information', 'Questions', 'Sharing options'];
 

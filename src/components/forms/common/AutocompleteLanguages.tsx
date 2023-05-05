@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import { CircleFlag } from 'react-circle-flags';
 import { AutocompleteElement } from 'react-hook-form-mui';
 
-import { CountryCodes } from '../../utils/CountryCodes';
+import { CountryCodes } from '../../../utils/CountryCodes.ts';
 
 export const AutocompleteLanguages = () => (
 	<AutocompleteElement

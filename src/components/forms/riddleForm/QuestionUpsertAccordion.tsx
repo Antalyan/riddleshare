@@ -9,9 +9,9 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { TextFieldElement } from 'react-hook-form-mui';
 import type { Control } from 'react-hook-form';
 
-import type { RiddleUpsertDetail } from '../utils/Types.ts';
+import type { RiddleUpsertDetail } from '../../../utils/Types.ts';
+import { FileUploader } from '../common/FileUploader.tsx';
 
-import { FileUploader } from './forms/FileUploader.tsx';
 import { HintsUpsert } from './HintsUpsert.tsx';
 import { AnswersUpsert } from './AnswersUpsert.tsx';
 

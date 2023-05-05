@@ -3,7 +3,7 @@ import type { FormEvent } from 'react';
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { FormTextField } from '../components/FormTextField';
+import { FormTextField } from '../components/forms/common/FormTextField.tsx';
 import { signIn, signUp } from '../firebase';
 
 export const LoginPage = () => {

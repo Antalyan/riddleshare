@@ -7,7 +7,7 @@ export type RiddlePreview = {
 	name: string;
 	image?: string;
 	state: RiddleStatus;
-	countryCode: CountryCode;
+	language: CountryCode;
 	difficulty: Difficulty;
 };
 
@@ -16,6 +16,7 @@ export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 	solvedText: string;
 	solvedImage?: string;
 	questions: QuestionUpsertDetail[];
+	questionOrder?: 'sequence' | 'parallel';
 	sharingInformation: SharingInformationUpsert;
 };
 

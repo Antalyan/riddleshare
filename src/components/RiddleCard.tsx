@@ -48,7 +48,7 @@ export const RiddleCard: FC<RiddlePreview> = ({
 	id,
 	image,
 	state,
-	countryCode,
+	language,
 	difficulty
 }) => (
 	// const difficulty = useMemo(

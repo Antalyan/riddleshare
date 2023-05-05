@@ -64,7 +64,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 		name: 'Anagram - Really long riddle name',
 		image: '/public/vite.svg',
 		state: RiddleStatus.Solved,
-		countryCode: 'cz',
+		language: 'cz',
 		difficulty: getDifficultyObject(1)
 	},
 	{
@@ -72,21 +72,21 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 		name: 'Monogram',
 		image: '/public/RiddleMeThis.jpeg',
 		state: RiddleStatus.Unfinished,
-		countryCode: 'uk',
+		language: 'uk',
 		difficulty: getDifficultyObject(3)
 	},
 	{
 		id: 3,
 		name: 'Diagram',
 		state: RiddleStatus.Untouched,
-		countryCode: 'de',
+		language: 'de',
 		difficulty: getDifficultyObject(4)
 	},
 	{
 		id: 4,
 		name: 'Panorama',
 		state: RiddleStatus.Untouched,
-		countryCode: 'es',
+		language: 'es',
 		difficulty: getDifficultyObject(5)
 	}
 ];
@@ -96,8 +96,8 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 		id: 1,
 		name: 'Anagram - Really long riddle name',
 		image: '/public/vite.svg',
+		language: 'cz',
 		state: RiddleStatus.Solved,
-		countryCode: 'cz',
 		difficulty: getDifficultyObject(1),
 		description:
 			'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Integer tempor. Quisque tincidunt scelerisque libero. Duis viverra diam non justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.',
@@ -109,9 +109,9 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 	{
 		id: 2,
 		name: 'Monogram',
+		language: 'uk',
 		image: '/public/RiddleMeThis.jpeg',
 		state: RiddleStatus.Unfinished,
-		countryCode: 'uk',
 		difficulty: getDifficultyObject(3),
 		description:
 			'\n' +

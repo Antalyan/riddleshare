@@ -4,6 +4,8 @@ import type { Difficulty } from './Difficulty';
 
 export type RiddlePreview = {
 	id?: number;
+	//TODO: Make displays based on linkId instead of dbId
+	linkId: string;
 	name: string;
 	image?: string;
 	state: RiddleStatus;
@@ -62,6 +64,5 @@ export type UserAnswerDisplay = {
 
 export type SharingInformationUpsert = {
 	visibility: 'public' | 'private';
-	link?: string;
 	sharedUserIds?: number[];
 };

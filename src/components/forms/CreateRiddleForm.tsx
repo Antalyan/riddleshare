@@ -21,9 +21,9 @@ import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
 
 import type { RiddleUpsertDetail } from '../../utils/Types';
+import { getDifficultyObject } from '../../utils/Difficulty.ts';
 import { QuestionUpsertAccordion } from '../QuestionUpsertAccordion.tsx';
 import { CopyContentButton } from '../CopyContentButton.tsx';
-import { getDifficultyObject } from '../../utils/Difficulty.ts';
 
 import { AutocompleteLanguages } from './AutocompleteLanguages';
 import { AutocompleteDifficulties } from './AutocompleteDifficulties';

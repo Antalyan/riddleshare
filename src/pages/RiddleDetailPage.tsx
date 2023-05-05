@@ -19,7 +19,7 @@ const RiddleDetailPage: FC = () => {
 		return <Navigate to="/not-found" replace />;
 	}
 
-	const { countryCode, description, difficulty, image, name, questions } =
+	const { language, description, difficulty, image, name, questions } =
 		riddleDetail;
 
 	return (
@@ -37,9 +37,9 @@ const RiddleDetailPage: FC = () => {
 						variant="h6"
 						sx={{ display: 'flex', alignItems: 'center' }}
 					>
-						<CircleFlag countryCode={countryCode} height={20} />
+						<CircleFlag countryCode={language} height={20} />
 						&nbsp;
-						{countryCode}
+						{language}
 					</Typography>
 				</Box>
 				<Box sx={{ display: 'flex', columnGap: 2 }}>

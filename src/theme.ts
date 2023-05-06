@@ -1,10 +1,25 @@
 import { createTheme } from '@mui/material';
 
+declare module '@mui/material/Button' {
+	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+	interface ButtonPropsVariantOverrides {
+		dashed: true;
+	}
+}
+
+declare module '@mui/material/styles' {
+	// eslint-disable-next-line @typescript-eslint/consistent-type-definitions
+	interface TypeBackground {
+		light: string;
+	}
+}
+
 const globalTheme = createTheme({
 	palette: {
 		mode: 'dark',
 		background: {
-			default: '#001233'
+			default: '#001233',
+			light: '#172745'
 		},
 		primary: {
 			light: '#ef9293',
@@ -40,7 +55,7 @@ export const theme = createTheme(
 			MuiAutocomplete: {
 				styleOverrides: {
 					listbox: {
-						backgroundColor: '#172745', // TODO: background.light
+						backgroundColor: globalTheme.palette.background.light,
 						overflow: 'auto'
 					}
 				}
@@ -59,7 +74,17 @@ export const theme = createTheme(
 					contained: {
 						color: '#000000'
 					}
-				}
+				},
+				variants: [
+					{
+						props: { variant: 'dashed' },
+						style: {
+							borderWidth: '2px',
+							borderStyle: 'dashed',
+							borderColor: globalTheme.palette.primary.main
+						}
+					}
+				]
 			},
 			MuiChip: {
 				styleOverrides: {
@@ -95,6 +120,15 @@ export const theme = createTheme(
 				styleOverrides: {
 					root: {
 						color: globalTheme.palette.text.primary // should be '#ffffff' by default
+					}
+				}
+			},
+			MuiIconButton: {
+				styleOverrides: {
+					root: {
+						justifyContent: 'center',
+						alignContent: 'center',
+						color: globalTheme.palette.primary.main
 					}
 				}
 			},

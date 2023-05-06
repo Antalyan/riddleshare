@@ -4,31 +4,39 @@ import type { Difficulty } from './Difficulty';
 
 export type RiddlePreview = {
 	id?: number;
+	//TODO: Make displays based on linkId instead of dbId
+	linkId: string;
 	name: string;
 	image?: string;
 	state: RiddleStatus;
-	countryCode: CountryCode;
+	language: CountryCode;
 	difficulty: Difficulty;
 };
 
-export type RiddleUpsertDetail = RiddlePreview & {
+export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 	description: string;
 	solvedText: string;
 	solvedImage?: string;
 	questions: QuestionUpsertDetail[];
+	questionOrder?: 'sequence' | 'parallel';
+	sharingInformation: SharingInformationUpsert;
 };
 
 export type RiddleDisplayDetail = Omit<RiddleUpsertDetail, 'questions'> & {
 	questions: QuestionDisplayDetail[];
 };
 
+type TextType = {
+	text: string;
+};
+
 export type QuestionUpsertDetail = {
 	id?: number;
-	number: number;
-	questionText: string;
+	number?: number;
+	questionText?: string;
 	image?: string;
 	hints: HintUpsert[];
-	correctAnswers: string;
+	correctAnswers: TextType[];
 };
 
 export type QuestionDisplayDetail = Omit<QuestionUpsertDetail, 'hints'> & {
@@ -41,7 +49,6 @@ export type QuestionDisplayDetail = Omit<QuestionUpsertDetail, 'hints'> & {
 export type HintUpsert = {
 	id?: string;
 	hintText: string;
-	order: number;
 };
 
 export type HintDisplay = HintUpsert & {
@@ -55,4 +62,7 @@ export type UserAnswerDisplay = {
 	answerText: string;
 };
 
-// export type SharingInformation = {};
+export type SharingInformationUpsert = {
+	visibility: 'public' | 'private';
+	sharedUserIds?: number[];
+};

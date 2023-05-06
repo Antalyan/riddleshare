@@ -3,7 +3,6 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { HomePage } from './pages/HomePage';
 import { NotFound } from './pages/NotFound';
-import { NavigationBar } from './components/NavigationBar';
 import { PublicRiddlesPage } from './pages/PublicRiddlesPage';
 import { ReceivedRiddlesPage } from './pages/ReceivedRiddlesPage';
 import { MyRiddlesPage } from './pages/MyRiddlesPage';
@@ -13,6 +12,7 @@ import { PrivateRoute } from './utils/PrivateRoute';
 import { UserProvider } from './hooks/useLoggedInUser';
 import { CreateRiddlePage } from './pages/CreateRiddlePage';
 import RiddleDetailPage from './pages/RiddleDetailPage';
+import { NavigationBar } from './components/navigation/NavigationBar';
 
 export const App = () => (
 	<UserProvider>

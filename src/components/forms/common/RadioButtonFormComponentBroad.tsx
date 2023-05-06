@@ -12,6 +12,10 @@ import {
 } from '@mui/material';
 import { useFormError } from 'react-hook-form-mui';
 
+/* Source code written according to react-hook-form-mui source code: https://github.com/dohomi/react-hook-form-mui/blob/master/packages/rhf-mui/src/RadioButtonGroup.tsx
+ * The original component could not have been used due to missing customization props of <FormLabel> and <RadioGroup>
+ *  */
+
 export type RadioButtonGroupProps<T extends FieldValues> = {
 	options: { label: string; id: string | number }[] | any[];
 	helperText?: string;
@@ -82,7 +86,6 @@ export const RadioButtonFormComponentBroad = <
 	return (
 		<FormControl error={!!error}>
 			{label && (
-				// We could remove theme modification with this component as color can be adjusted here
 				<FormLabel
 					required={required}
 					error={!!error}

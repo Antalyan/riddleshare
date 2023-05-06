@@ -1,6 +1,6 @@
 import { AutocompleteElement } from 'react-hook-form-mui';
 
-import { MockUsers } from '../../../mock-data/MockData';
+import { MockUsers } from '../../../../mock-data/MockData';
 
 export const AutocompleteUsers = () => (
 	<AutocompleteElement
@@ -22,7 +22,7 @@ export const AutocompleteUsers = () => (
 				'& .MuiChip-deleteIcon': {
 					'color': 'background.default',
 					'&:hover': {
-						color: '#172745' // TODO: background.light
+						color: 'background.light'
 					}
 				}
 			}

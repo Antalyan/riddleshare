@@ -2,12 +2,12 @@ import { Box } from '@mui/material';
 import { CircleFlag } from 'react-circle-flags';
 import { AutocompleteElement } from 'react-hook-form-mui';
 
-import { CountryCodes } from '../../utils/CountryCodes';
+import { CountryCodes } from '../../../utils/CountryCodes';
 
 export const AutocompleteLanguages = () => (
 	<AutocompleteElement
-		name="languages"
-		required
+		name="language"
+		// required
 		label="Language"
 		options={[...CountryCodes]}
 		autocompleteProps={{
@@ -26,6 +26,7 @@ export const AutocompleteLanguages = () => (
 		}}
 		textFieldProps={{
 			InputProps: {
+				// TODO: make image changed based on value
 				startAdornment: <CircleFlag countryCode="gb" height={20} />
 			}
 		}}

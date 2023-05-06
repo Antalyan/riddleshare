@@ -1,5 +1,5 @@
 import { getDifficultyObject } from '../src/utils/Difficulty';
-import { RiddleStatus } from '../src/utils/Enums';
+import { RiddleStatus } from '../src/utils/Statuses';
 import type {
 	QuestionDisplayDetail,
 	QuestionUpsertDetail,
@@ -36,16 +36,22 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 			'    Beneath the crypts prophecies clash\n' +
 			'    The war of ancient enemies',
 		hints: [
-			{ hintText: 'Heroes' },
-			{ hintText: 'Might & Magic' },
-			{ hintText: '5. installment' }
+			{ hintText: 'Heroes', order: 1 },
+			{ hintText: 'Might & Magic', order: 2 },
+			{
+				hintText:
+					'His master, Phenrig, sends Sareth to Stonehelm, to a powerful wizard named Menelag, ' +
+					'who needs the Shantiri Crystal to locate the Skull of Shadows. ' +
+					'He tells the succubus Xana to protect Sareth, and magically binds her to his spirit. ',
+				order: 3
+			}
 		],
 		correctAnswers: [{ text: 'Messiah' }, { text: 'Dark Messiah' }]
 	}
 ];
 
-const MockDisplayQuestions: QuestionDisplayDetail[] = MockUpsertQuestions.map(
-	question => {
+export const MockDisplayQuestions: QuestionDisplayDetail[] =
+	MockUpsertQuestions.map(question => {
 		const { hints, ...rest } = question;
 		const updatedHints = hints.map(hint => ({ ...hint, taken: false }));
 		return {
@@ -53,10 +59,10 @@ const MockDisplayQuestions: QuestionDisplayDetail[] = MockUpsertQuestions.map(
 			hints: updatedHints,
 			solved: false,
 			answers: [],
-			available: true
+			available: true,
+			hintsTaken: 0
 		};
-	}
-);
+	});
 
 export const MockRiddlesPreviews: RiddlePreview[] = [
 	{

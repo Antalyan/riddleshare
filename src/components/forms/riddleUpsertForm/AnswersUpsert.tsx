@@ -6,17 +6,18 @@ import { useEffect, useState } from 'react';
 
 import type { RiddleUpsertDetail } from '../../../utils/Types';
 
+const MIN_ANSWERS_LENGTH = 1;
+
 type Props = {
 	control: Control<RiddleUpsertDetail>;
 	questionIndex: number;
 };
 
 export const AnswersUpsert = ({ control, questionIndex }: Props) => {
-	const minLength = 1;
 	const { fields, append, remove } = useFieldArray({
 		name: `questions.${questionIndex}.correctAnswers`,
 		control,
-		rules: { minLength }
+		rules: { minLength: MIN_ANSWERS_LENGTH }
 	});
 	const [disableDelete, setDisableDelete] = useState(true);
 	useEffect(() => {
@@ -35,7 +36,7 @@ export const AnswersUpsert = ({ control, questionIndex }: Props) => {
 					/>
 					<IconButton
 						sx={{ m: 1 }}
-						onClick={() => fields.length > minLength && remove(index)}
+						onClick={() => fields.length > MIN_ANSWERS_LENGTH && remove(index)}
 						disabled={disableDelete}
 					>
 						<Cancel />

@@ -86,7 +86,6 @@ export const RadioButtonFormComponentBroad = <
 	return (
 		<FormControl error={!!error}>
 			{label && (
-				// TODO: We could move this part to theme modification?
 				<FormLabel
 					required={required}
 					error={!!error}

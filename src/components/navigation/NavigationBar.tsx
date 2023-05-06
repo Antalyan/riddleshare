@@ -1,10 +1,10 @@
 import { AppBar, Box, MenuItem, Toolbar, Typography } from '@mui/material';
 
-import useLoggedInUser from '../../hooks/useLoggedInUser.tsx';
-import { signOut } from '../../firebase.ts';
+import useLoggedInUser from '../../hooks/useLoggedInUser';
+import { signOut } from '../../firebase';
 
-import { PageMenu } from './PageMenu.tsx';
-import { NavigationItem } from './NavigationItem.tsx';
+import { PageMenu } from './PageMenu';
+import { NavigationItem } from './NavigationItem';
 
 const navigationItems = [
 	{

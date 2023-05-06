@@ -17,6 +17,8 @@ type Props = {
 	onCancel: () => void;
 };
 
+const MIN_QUESTIONS_LENGTH = 1;
+
 export const RiddleQuestionForm = ({
 	formContext,
 	riddleName,
@@ -28,10 +30,9 @@ export const RiddleQuestionForm = ({
 	const { fields, append, remove } = useFieldArray({
 		name: 'questions',
 		control,
-		rules: { minLength: 1 }
+		rules: { minLength: MIN_QUESTIONS_LENGTH }
 	});
 	const watchQuestions = watch('questions');
-	const minLength = 1;
 
 	const [disableQuestionDelete, setDisableQuestionDelete] = useState(true);
 	useEffect(() => {
@@ -50,7 +51,9 @@ export const RiddleQuestionForm = ({
 							index={index}
 						/>
 						<IconButton
-							onClick={() => fields.length > minLength && remove(index)}
+							onClick={() =>
+								fields.length > MIN_QUESTIONS_LENGTH && remove(index)
+							}
 							sx={{ m: 1 }}
 							disabled={disableQuestionDelete}
 						>

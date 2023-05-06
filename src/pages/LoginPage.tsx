@@ -1,9 +1,9 @@
-import { Button, Paper, Typography, Box } from '@mui/material';
+import { Box, Button, Paper, Typography } from '@mui/material';
 import type { FormEvent } from 'react';
 import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { FormTextField } from '../components/forms/common/FormTextField.tsx';
+import { FormTextField } from '../components/forms/common/FormTextField';
 import { signIn, signUp } from '../firebase';
 
 export const LoginPage = () => {

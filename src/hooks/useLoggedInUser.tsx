@@ -9,8 +9,8 @@ const UserContext = createContext<User | undefined>(undefined);
 export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
 	// Hold user info in state
 	const [user, setUser] = useState<User>(
-		sessionStorage.getItem('user')
-			? JSON.parse(sessionStorage.getItem('user'))
+		localStorage.getItem('user')
+			? JSON.parse(localStorage.getItem('user'))
 			: undefined
 	);
 
@@ -19,7 +19,7 @@ export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
 		onAuthChanged(u => {
 			setUser(u ?? undefined);
 			if (u) {
-				sessionStorage.setItem('user', JSON.stringify(u));
+				localStorage.setItem('user', JSON.stringify(u));
 			}
 		});
 	}, []);

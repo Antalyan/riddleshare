@@ -34,7 +34,7 @@ export const signIn = (email: string, password: string) =>
 // Sign out handler
 export const signOut = () => {
 	authSignOut(auth);
-	sessionStorage.removeItem('user');
+	localStorage.removeItem('user');
 };
 
 // Subscribe to auth state changes

@@ -8,10 +8,9 @@ const UserContext = createContext<User | undefined>(undefined);
 
 export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
 	// Hold user info in state
-	const [user, setUser] = useState<User>(
-		localStorage.getItem('user')
-			? JSON.parse(localStorage.getItem('user'))
-			: undefined
+	const userFromStorage = localStorage.getItem('user');
+	const [user, setUser] = useState<User | undefined>(
+		userFromStorage ? JSON.parse(userFromStorage) : undefined
 	);
 
 	// Setup onAuthChanged once when component is mounted

@@ -8,5 +8,6 @@ export const MyRiddlesPage: FC = () => (
 		{MockRiddlesPreviews.map(riddle => (
 			<RiddleCard key={riddle.id} {...riddle} />
 		))}
+		{/*TODO: replace id by linkId*/}
 	</>
 );

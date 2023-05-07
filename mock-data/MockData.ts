@@ -10,16 +10,16 @@ import type {
 
 const MockUpsertQuestions: QuestionUpsertDetail[] = [
 	{
-		id: 1,
-		number: 2,
+		id: 123,
+		number: 1,
 		questionText: 'It is blue and annoying, what is it?',
 		image: '/public/RiddleMeThis.jpeg',
 		hints: [],
-		correctAnswers: [{ text: 'Smurf' }]
+		correctAnswers: [{ text: 'SMURF' }]
 	},
 	{
-		id: 2,
-		number: 1,
+		id: 253,
+		number: 2,
 		questionText:
 			'    Ten centuries shall the fortress stand\n' +
 			'    Walls of spirit wrapped in walls of fire\n' +
@@ -46,17 +46,19 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 				order: 3
 			}
 		],
-		correctAnswers: [{ text: 'Messiah' }, { text: 'Dark Messiah' }]
+		correctAnswers: [{ text: 'MESSIAH' }, { text: 'DARK MESSIAH' }]
 	}
 ];
 
 export const MockDisplayQuestions: QuestionDisplayDetail[] =
 	MockUpsertQuestions.map(question => {
-		const { hints, ...rest } = question;
+		const { hints, correctAnswers, ...rest } = question;
 		const updatedHints = hints.map(hint => ({ ...hint, taken: false }));
+		const updatedCorrectAnswers = correctAnswers.map(a => a.text);
 		return {
 			...rest,
 			hints: updatedHints,
+			correctAnswers: updatedCorrectAnswers,
 			solved: false,
 			answers: [],
 			available: true,
@@ -146,7 +148,7 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 	}
 ];
 
-const MockRiddleDisplayDetails: RiddleDisplayDetail[] =
+export const MockRiddleDisplayDetails: RiddleDisplayDetail[] =
 	MockRiddleUpsertDetails.map(riddle => {
 		const { ...rest } = riddle;
 		return {

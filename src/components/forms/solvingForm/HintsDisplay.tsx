@@ -20,7 +20,7 @@ export const HintsDisplay = ({ hints, hintsTaken }: Props) => {
 	return (
 		<>
 			<Typography variant="h6" fontWeight="bold" color="primary.main">
-				Hints:
+				Hints
 			</Typography>
 			{hints.slice(0, hintState).map(hint => (
 				<Paper

@@ -102,6 +102,13 @@ export const theme = createTheme(
 					}
 				}
 			},
+			MuiDialog: {
+				styleOverrides: {
+					paper: {
+						backgroundColor: globalTheme.palette.background.light
+					}
+				}
+			},
 			MuiFormGroup: {
 				styleOverrides: {
 					root: {

@@ -4,8 +4,7 @@ import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 
 import {
 	MockDisplayQuestions,
-	MockRiddleDisplayDetails,
-	MockRiddlesPreviews
+	MockRiddleDisplayDetails
 } from '../../mock-data/MockData';
 import { QuestionSolvingAccordion } from '../components/forms/solvingForm/QuestionSolvingAccordion';
 import type { RiddleDisplayDetail } from '../utils/Types';

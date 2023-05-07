@@ -32,7 +32,10 @@ export const signIn = (email: string, password: string) =>
 	signInWithEmailAndPassword(auth, email, password);
 
 // Sign out handler
-export const signOut = () => authSignOut(auth);
+export const signOut = () => {
+	authSignOut(auth);
+	localStorage.removeItem('user');
+};
 
 // Subscribe to auth state changes
 export const onAuthChanged = (callback: (u: User | null) => void) =>

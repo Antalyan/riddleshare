@@ -35,7 +35,6 @@ export const App = () => (
 				>
 					<Routes>
 						<Route path="/" element={<HomePage />} />
-						<Route path="/my-riddles" element={<MyRiddlesPage />} />
 						<Route path="/riddle-detail/:id" element={<RiddleDetailPage />} />
 						<Route path="/public-riddles" element={<PublicRiddlesPage />} />
 						<Route

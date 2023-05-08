@@ -31,8 +31,10 @@ export type QuestionDb = {
 
 export type UserRiddleInfoDb = {
 	userEmail: string;
-	questionId: string;
+	riddleId: string;
 	solved: boolean;
-	answers: string[];
-	hintsTaken: number[];
+	questions: Record<
+		number, //questionId
+		{ solved: boolean; answers: string[]; hintsTaken: number[] }
+	>;
 };

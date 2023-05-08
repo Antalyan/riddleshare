@@ -26,7 +26,8 @@ export const storeRiddle = async (
 			sharedUsers: sharingInformation.sharedUsers
 		},
 		creatorEmail: user.email ?? '',
-		createTime: Timestamp.now()
+		createTime: Timestamp.now(),
+		numberOfQuestions: questions.length
 	});
 
 	const questionCollection = questionsCollection(riddleDoc.id);

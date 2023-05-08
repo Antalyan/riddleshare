@@ -5,6 +5,8 @@ import type { Difficulty } from './Difficulty';
 export type QuestionOrder = 'sequence' | 'parallel';
 export type Visibility = 'public' | 'private';
 
+//TODO: Add author to riddle preview & detail
+
 export type RiddlePreview = {
 	id?: string;
 	//TODO: Make displays based on linkId instead of dbId
@@ -25,7 +27,16 @@ export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 	sharingInformation: SharingInformationUpsert;
 };
 
-export type RiddleDisplayDetail = Omit<RiddleUpsertDetail, 'questions'> & {
+export type RiddleDisplayDetailSimple = Omit<
+	RiddleUpsertDetail,
+	'questions'
+> & {
+	numberOfQuestions: number;
+	state: RiddleStatus;
+	solvedQuestions: number;
+};
+
+export type RiddleDisplayDetail = RiddleDisplayDetailSimple & {
 	questions: QuestionDisplayDetail[];
 };
 

@@ -44,12 +44,13 @@ export const RiddleQuestionForm = ({
 			<Stack gap={2} sx={{ minWidth: { md: 500 } }}>
 				<Typography variant="h2">{riddleName}</Typography>
 				{fields.map((field, index) => (
-					<Stack direction="row" alignItems="flex-start" width="100%">
-						<QuestionUpsertAccordion
-							control={control}
-							key={field.id}
-							index={index}
-						/>
+					<Stack
+						direction="row"
+						alignItems="flex-start"
+						width="100%"
+						key={field.id}
+					>
+						<QuestionUpsertAccordion control={control} index={index} />
 						<IconButton
 							onClick={() =>
 								fields.length > MIN_QUESTIONS_LENGTH && remove(index)
@@ -66,7 +67,7 @@ export const RiddleQuestionForm = ({
 					onClick={() =>
 						append({
 							questionText: '',
-							image: '',
+							questionImage: '',
 							hints: [],
 							correctAnswers: [{ text: '' }]
 						})

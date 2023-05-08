@@ -2,8 +2,11 @@ import type { RiddleStatus } from './Enums';
 import type { CountryCode } from './CountryCodes';
 import type { Difficulty } from './Difficulty';
 
+export type QuestionOrder = 'sequence' | 'parallel';
+export type Visibility = 'public' | 'private';
+
 export type RiddlePreview = {
-	id?: number;
+	id?: string;
 	//TODO: Make displays based on linkId instead of dbId
 	linkId: string;
 	name: string;
@@ -18,7 +21,7 @@ export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 	solvedText: string;
 	solvedImage?: string;
 	questions: QuestionUpsertDetail[];
-	questionOrder?: 'sequence' | 'parallel';
+	questionOrder?: QuestionOrder;
 	sharingInformation: SharingInformationUpsert;
 };
 
@@ -31,10 +34,10 @@ type TextType = {
 };
 
 export type QuestionUpsertDetail = {
-	id?: number;
-	number?: number;
+	id?: string;
+	order?: number;
 	questionText?: string;
-	image?: string;
+	questionImage?: string;
 	hints: HintUpsert[];
 	correctAnswers: TextType[];
 };
@@ -47,7 +50,6 @@ export type QuestionDisplayDetail = Omit<QuestionUpsertDetail, 'hints'> & {
 };
 
 export type HintUpsert = {
-	id?: string;
 	hintText: string;
 };
 
@@ -63,6 +65,6 @@ export type UserAnswerDisplay = {
 };
 
 export type SharingInformationUpsert = {
-	visibility: 'public' | 'private';
-	sharedUserIds?: number[];
+	visibility: Visibility;
+	sharedUsers?: string[];
 };

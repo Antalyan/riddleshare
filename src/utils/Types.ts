@@ -11,7 +11,7 @@ export type RiddlePreview = {
 	linkId: string;
 	name: string;
 	image?: string;
-	state: RiddleStatus;
+	state?: RiddleStatus; //Not needed for My riddles
 	language: CountryCode;
 	difficulty: Difficulty;
 };

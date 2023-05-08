@@ -156,7 +156,10 @@ export const MockRiddleDisplayDetails: RiddleDisplayDetail[] =
 		const { ...rest } = riddle;
 		return {
 			...rest,
-			questions: MockDisplayQuestions
+			questions: MockDisplayQuestions,
+			numberOfQuestions: MockDisplayQuestions.length,
+			state: RiddleStatus.Untouched,
+			solvedQuestions: 0
 		};
 	});
 

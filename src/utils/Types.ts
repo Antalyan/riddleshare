@@ -2,8 +2,11 @@ import type { RiddleStatus } from './Statuses';
 import type { CountryCode } from './CountryCodes';
 import type { Difficulty } from './Difficulty';
 
+export type QuestionOrder = 'sequence' | 'parallel';
+export type Visibility = 'public' | 'private';
+
 export type RiddlePreview = {
-	id?: number;
+	id?: string;
 	//TODO: Make displays based on linkId instead of dbId
 	linkId: string;
 	name: string;
@@ -18,7 +21,7 @@ export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 	solvedText: string;
 	solvedImage?: string;
 	questions: QuestionUpsertDetail[];
-	questionOrder?: 'sequence' | 'parallel';
+	questionOrder?: QuestionOrder;
 	sharingInformation: SharingInformationUpsert;
 };
 
@@ -31,30 +34,28 @@ type TextType = {
 };
 
 export type QuestionUpsertDetail = {
-	id?: number;
-	number?: number;
+	id?: string;
+	order?: number;
 	questionText?: string;
-	image?: string;
-	hints: Hint[];
+	questionImage?: string;
+	hints: HintUpsert[];
 	correctAnswers: TextType[];
 };
 
-export type QuestionDisplayDetail = Omit<
-	QuestionUpsertDetail,
-	'hints' | 'correctAnswers'
-> & {
+export type QuestionDisplayDetail = Omit<QuestionUpsertDetail, 'hints'> & {
 	solved: boolean;
 	available: boolean;
 	answers: UserAnswer[];
-	hints: Hint[];
-	hintsTaken: number;
-	correctAnswers: string[];
+	hints: HintDisplay[];
 };
 
-export type Hint = {
-	id?: string;
-	order?: number;
+export type HintUpsert = {
 	hintText: string;
+	order?: number;
+};
+
+export type HintDisplay = HintUpsert & {
+	taken: boolean;
 };
 
 export type UserAnswer = {
@@ -65,6 +66,6 @@ export type UserAnswer = {
 };
 
 export type SharingInformationUpsert = {
-	visibility: 'public' | 'private';
-	sharedUserIds?: number[];
+	visibility: Visibility;
+	sharedUsers?: string[];
 };

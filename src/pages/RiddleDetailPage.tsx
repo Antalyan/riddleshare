@@ -12,7 +12,7 @@ const RiddleDetailPage: FC = () => {
 
 	// TODO: Exchange by proper API call
 	const riddleDetail = MockRiddleUpsertDetails.find(
-		mockRiddleDetail => mockRiddleDetail.id === parseInt(id as string)
+		mockRiddleDetail => mockRiddleDetail.id === id
 	);
 
 	if (!riddleDetail) {

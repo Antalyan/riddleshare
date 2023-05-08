@@ -7,6 +7,18 @@ import {
 	signOut as authSignOut,
 	onAuthStateChanged
 } from 'firebase/auth';
+import type {
+	CollectionReference,
+	DocumentReference
+} from 'firebase/firestore';
+import {
+	collection,
+	doc,
+	getFirestore,
+	initializeFirestore
+} from 'firebase/firestore';
+
+import type { QuestionDb, RiddleDb, UserRiddleInfoDb } from './utils/DbTypes';
 
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -18,7 +30,11 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+
+initializeFirestore(app, {
+	ignoreUndefinedProperties: true
+});
 
 // Authentication
 const auth = getAuth();
@@ -40,3 +56,38 @@ export const signOut = () => {
 // Subscribe to auth state changes
 export const onAuthChanged = (callback: (u: User | null) => void) =>
 	onAuthStateChanged(auth, callback);
+
+export const db = getFirestore(app);
+
+export const riddlesCollection = collection(
+	db,
+	'riddles'
+) as CollectionReference<RiddleDb>;
+
+export const riddlesDocument = (id: string) =>
+	doc(db, 'riddles', id) as DocumentReference<RiddleDb>;
+
+export const questionsCollection = (riddleId: string) =>
+	collection(
+		db,
+		'riddles',
+		riddleId,
+		'questions'
+	) as CollectionReference<QuestionDb>;
+
+export const questionsDocument = (riddleId: string, questionId: string) =>
+	doc(
+		db,
+		'riddles',
+		riddleId,
+		'questions',
+		questionId
+	) as DocumentReference<QuestionDb>;
+
+export const userRiddleInfoCollection = collection(
+	db,
+	'userRiddleInfo'
+) as CollectionReference<UserRiddleInfoDb>;
+
+export const userRiddleInfoDocument = (id: string) =>
+	doc(db, 'userRiddleInfo', id) as DocumentReference<UserRiddleInfoDb>;

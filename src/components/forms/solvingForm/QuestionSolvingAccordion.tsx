@@ -104,7 +104,7 @@ export const QuestionSolvingAccordion = ({
 										direction="row"
 										gap={2}
 										justifyContent="flex-start"
-										alignItems="center"
+										alignItems="start"
 										width="100%"
 									>
 										<TextField

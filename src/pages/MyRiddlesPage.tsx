@@ -1,8 +1,8 @@
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 import { onSnapshot } from 'firebase/firestore';
+import { Stack } from '@mui/material';
 
-import { MockRiddlesPreviews } from '../../mock-data/MockData';
 import { RiddleCard } from '../components/RiddleCard';
 import type { RiddlePreview } from '../utils/Types';
 import { riddlesCollection } from '../firebase';
@@ -32,10 +32,10 @@ export const MyRiddlesPage: FC = () => {
 	);
 
 	return (
-		<>
+		<Stack gap={2}>
 			{riddles.map(riddle => (
 				<RiddleCard key={riddle.id} {...riddle} />
 			))}
-		</>
+		</Stack>
 	);
 };

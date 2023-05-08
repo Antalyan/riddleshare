@@ -45,6 +45,7 @@ export const CreateRiddleForm = () => {
 		(data: RiddleUpsertDetail) => {
 			console.log(data);
 			//TODO: store to db
+			// map correct answers to upper case
 			//TODO: show success
 			// navigate('/');
 		},

@@ -9,39 +9,13 @@ import {
 	Stack,
 	Typography
 } from '@mui/material';
-import {
-	CancelRounded,
-	CheckCircleOutlineRounded,
-	HelpOutlineRounded
-} from '@mui/icons-material';
 import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 
-import { RiddleStatus } from '../utils/Enums';
+import { getRiddleStateIcon } from '../utils/Statuses';
 import type { RiddlePreview } from '../utils/Types';
-
-const stateIconStyle = {
-	position: 'absolute',
-	right: 0,
-	top: 0,
-	m: 1,
-	p: 0.1,
-	backgroundColor: 'background.default',
-	borderRadius: '50%'
-};
-
-const getStateIcon = (state: RiddleStatus) => {
-	switch (state) {
-		case RiddleStatus.Unfinished:
-			return <HelpOutlineRounded color="warning" sx={stateIconStyle} />;
-		case RiddleStatus.Solved:
-			return <CheckCircleOutlineRounded color="success" sx={stateIconStyle} />;
-		default:
-			return <CancelRounded color="error" sx={stateIconStyle} />;
-	}
-};
 
 export const RiddleCard: FC<RiddlePreview> = ({
 	name,
@@ -66,7 +40,7 @@ export const RiddleCard: FC<RiddlePreview> = ({
 			alignItems: 'center'
 		}}
 	>
-		{getStateIcon(state)}
+		{getRiddleStateIcon(state)}
 		<Grid container justifyContent="center" alignItems="center">
 			<Grid item xs={12} sm={6} justifyContent="center" alignItems="center">
 				<CardMedia

@@ -1,5 +1,5 @@
 import { getDifficultyObject } from '../src/utils/Difficulty';
-import { RiddleStatus } from '../src/utils/Enums';
+import { RiddleStatus } from '../src/utils/Statuses';
 import type {
 	QuestionDisplayDetail,
 	QuestionUpsertDetail,
@@ -10,16 +10,16 @@ import type {
 
 const MockUpsertQuestions: QuestionUpsertDetail[] = [
 	{
-		id: 1,
-		number: 2,
+		id: 123,
+		number: 1,
 		questionText: 'It is blue and annoying, what is it?',
 		image: '/public/RiddleMeThis.jpeg',
 		hints: [],
-		correctAnswers: [{ text: 'Smurf' }]
+		correctAnswers: [{ text: 'SMURF' }]
 	},
 	{
-		id: 2,
-		number: 1,
+		id: 253,
+		number: 2,
 		questionText:
 			'    Ten centuries shall the fortress stand\n' +
 			'    Walls of spirit wrapped in walls of fire\n' +
@@ -36,27 +36,35 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 			'    Beneath the crypts prophecies clash\n' +
 			'    The war of ancient enemies',
 		hints: [
-			{ hintText: 'Heroes' },
-			{ hintText: 'Might & Magic' },
-			{ hintText: '5. installment' }
+			{ hintText: 'Heroes', order: 1 },
+			{ hintText: 'Might & Magic', order: 2 },
+			{
+				hintText:
+					'His master, Phenrig, sends Sareth to Stonehelm, to a powerful wizard named Menelag, ' +
+					'who needs the Shantiri Crystal to locate the Skull of Shadows. ' +
+					'He tells the succubus Xana to protect Sareth, and magically binds her to his spirit. ',
+				order: 3
+			}
 		],
-		correctAnswers: [{ text: 'Messiah' }, { text: 'Dark Messiah' }]
+		correctAnswers: [{ text: 'MESSIAH' }, { text: 'DARK MESSIAH' }]
 	}
 ];
 
-const MockDisplayQuestions: QuestionDisplayDetail[] = MockUpsertQuestions.map(
-	question => {
-		const { hints, ...rest } = question;
+export const MockDisplayQuestions: QuestionDisplayDetail[] =
+	MockUpsertQuestions.map(question => {
+		const { hints, correctAnswers, ...rest } = question;
 		const updatedHints = hints.map(hint => ({ ...hint, taken: false }));
+		const updatedCorrectAnswers = correctAnswers.map(a => a.text);
 		return {
 			...rest,
 			hints: updatedHints,
+			correctAnswers: updatedCorrectAnswers,
 			solved: false,
 			answers: [],
-			available: true
+			available: true,
+			hintsTaken: 0
 		};
-	}
-);
+	});
 
 export const MockRiddlesPreviews: RiddlePreview[] = [
 	{
@@ -140,7 +148,7 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 	}
 ];
 
-const MockRiddleDisplayDetails: RiddleDisplayDetail[] =
+export const MockRiddleDisplayDetails: RiddleDisplayDetail[] =
 	MockRiddleUpsertDetails.map(riddle => {
 		const { ...rest } = riddle;
 		return {

@@ -103,7 +103,7 @@ const RiddleDetailPage: FC = () => {
 					variant="contained"
 					sx={{ flex: 1, maxWidth: '200px' }}
 					onClick={() => {
-						/* TODO */
+						navigate(`/riddle-detail/${id}/solve`);
 					}}
 				>
 					Try to solve

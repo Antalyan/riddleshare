@@ -1,4 +1,4 @@
-import type { RiddleStatus } from './Enums';
+import type { RiddleStatus } from './Statuses';
 import type { CountryCode } from './CountryCodes';
 import type { Difficulty } from './Difficulty';
 
@@ -35,27 +35,29 @@ export type QuestionUpsertDetail = {
 	number?: number;
 	questionText?: string;
 	image?: string;
-	hints: HintUpsert[];
+	hints: Hint[];
 	correctAnswers: TextType[];
 };
 
-export type QuestionDisplayDetail = Omit<QuestionUpsertDetail, 'hints'> & {
+export type QuestionDisplayDetail = Omit<
+	QuestionUpsertDetail,
+	'hints' | 'correctAnswers'
+> & {
 	solved: boolean;
 	available: boolean;
-	answers: UserAnswerDisplay[];
-	hints: HintDisplay[];
+	answers: UserAnswer[];
+	hints: Hint[];
+	hintsTaken: number;
+	correctAnswers: string[];
 };
 
-export type HintUpsert = {
+export type Hint = {
 	id?: string;
+	order?: number;
 	hintText: string;
 };
 
-export type HintDisplay = HintUpsert & {
-	taken: boolean;
-};
-
-export type UserAnswerDisplay = {
+export type UserAnswer = {
 	username: string;
 	date: Date;
 	correct: boolean;

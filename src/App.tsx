@@ -13,6 +13,7 @@ import { UserProvider } from './hooks/useLoggedInUser';
 import { CreateRiddlePage } from './pages/CreateRiddlePage';
 import RiddleDetailPage from './pages/RiddleDetailPage';
 import { NavigationBar } from './components/navigation/NavigationBar';
+import { RiddleSolvingPage } from './pages/RiddleSolvingPage';
 
 export const App = () => (
 	<UserProvider>
@@ -36,6 +37,10 @@ export const App = () => (
 					<Routes>
 						<Route path="/" element={<HomePage />} />
 						<Route path="/riddle-detail/:id" element={<RiddleDetailPage />} />
+						<Route
+							path="/riddle-detail/:id/solve"
+							element={<RiddleSolvingPage />}
+						/>
 						<Route path="/public-riddles" element={<PublicRiddlesPage />} />
 						<Route
 							path="/my-riddles"

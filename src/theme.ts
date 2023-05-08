@@ -48,7 +48,8 @@ export const theme = createTheme(
 						borderStyle: 'solid',
 						borderWidth: '2px',
 						borderRadius: 8,
-						borderColor: 'rgba(255, 255, 255, 0.23)'
+						borderColor: 'rgba(255, 255, 255, 0.23)',
+						margin: '0px !important'
 					}
 				}
 			},
@@ -57,6 +58,13 @@ export const theme = createTheme(
 					listbox: {
 						backgroundColor: globalTheme.palette.background.light,
 						overflow: 'auto'
+					}
+				}
+			},
+			MuiBackdrop: {
+				styleOverrides: {
+					root: {
+						backgroundColor: 'rgba(0, 0, 0, 0.75)'
 					}
 				}
 			},
@@ -99,6 +107,14 @@ export const theme = createTheme(
 						gap: '16px',
 						padding: '4px 12px',
 						fontSize: '1rem'
+					}
+				}
+			},
+			MuiDialog: {
+				styleOverrides: {
+					paper: {
+						backgroundColor: globalTheme.palette.background.light,
+						width: '400px'
 					}
 				}
 			},

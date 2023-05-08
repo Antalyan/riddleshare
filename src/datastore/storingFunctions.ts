@@ -1,8 +1,9 @@
 import { doc, Timestamp, writeBatch } from 'firebase/firestore';
 import type { User } from 'firebase/auth';
 
+import type { RiddleUpsertDetail } from '../utils/Types';
+
 import { db, questionsCollection, riddlesCollection } from './firebase';
-import type { RiddleUpsertDetail } from './utils/Types';
 
 export const storeRiddle = async (
 	data: RiddleUpsertDetail,

@@ -20,15 +20,16 @@ import { HintsDisplay } from './HintsDisplay';
 
 type Props = QuestionDisplayDetail;
 
+// TODO: sequential variant (unlock next only when previous one is solved)
+
 export const QuestionSolvingAccordion = ({
-	number,
+	order,
 	solved,
 	available,
 	correctAnswers,
 	questionText,
-	image,
-	hints,
-	hintsTaken
+	questionImage,
+	hints
 }: Props) => {
 	const [dialogOpen, setDialogOpen] = useState(false);
 
@@ -64,18 +65,18 @@ export const QuestionSolvingAccordion = ({
 						width="100%"
 					>
 						<Typography variant="h6" color="secondary.main" fontWeight="bold">
-							Question {number}
+							Question {order}
 						</Typography>
 						{getQuestionStateIcon(isSolved, available)}
 					</Stack>
 				</AccordionSummary>
 				<AccordionDetails>
 					<Grid container spacing={2} sx={{ minWidth: { md: 400 } }}>
-						{image && (
+						{questionImage && (
 							<Grid item xs={12} md={6}>
 								<Box
 									component="img"
-									src={image}
+									src={questionImage}
 									sx={{
 										display: 'flex',
 										justifyContent: 'flex-start',
@@ -87,12 +88,10 @@ export const QuestionSolvingAccordion = ({
 								/>
 							</Grid>
 						)}
-						<Grid item xs={12} md={image ? 6 : 12}>
+						<Grid item xs={12} md={questionImage ? 6 : 12}>
 							<Stack gap={2}>
 								<Typography variant="subtitle1">{questionText}</Typography>
-								{hints.length > 0 && (
-									<HintsDisplay hints={hints} hintsTaken={hintsTaken} />
-								)}
+								{hints.length > 0 && <HintsDisplay hints={hints} />}
 								{isSolved ? (
 									<Typography>
 										<Typography

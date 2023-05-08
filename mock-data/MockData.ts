@@ -1,5 +1,5 @@
 import { getDifficultyObject } from '../src/utils/Difficulty';
-import { RiddleStatus } from '../src/utils/Enums';
+import { RiddleStatus } from '../src/utils/Statuses';
 import type {
 	QuestionDisplayDetail,
 	QuestionUpsertDetail,
@@ -13,7 +13,7 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 		id: '123',
 		order: 1,
 		questionText: 'It is blue and annoying, what is it?',
-		image: '/public/RiddleMeThis.jpeg',
+		questionImage: '/public/RiddleMeThis.jpeg',
 		hints: [],
 		correctAnswers: [{ text: 'Smurf' }]
 	},
@@ -63,8 +63,7 @@ export const MockDisplayQuestions: QuestionDisplayDetail[] =
 			answers: [],
 			available: true
 		};
-	}
-);
+	});
 
 export const MockRiddlesPreviews: RiddlePreview[] = [
 	{

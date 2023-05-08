@@ -4,7 +4,7 @@ import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
 
 import type { RiddleDisplayDetailSimple } from '../utils/Types';
-import { RiddleStatus } from '../utils/Enums';
+import { RiddleStatus } from '../utils/Statuses';
 
 type Props = {
 	isCreatorView: boolean;
@@ -20,6 +20,7 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 	}
 
 	const {
+		linkId,
 		language,
 		description,
 		difficulty,
@@ -80,6 +81,7 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 				</Box>
 			</Box>
 
+			{/*//TODO: make conditional if img not compulsory*/}
 			<Box
 				component="img"
 				alt={name}
@@ -115,7 +117,7 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 					variant="contained"
 					sx={{ flex: 1, maxWidth: '200px' }}
 					onClick={() => {
-						/* TODO */
+						navigate(`/riddle-detail/${linkId}/solve`);
 					}}
 				>
 					Try to solve

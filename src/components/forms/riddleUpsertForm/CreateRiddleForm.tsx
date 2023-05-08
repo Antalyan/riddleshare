@@ -8,7 +8,7 @@ import { useNavigate } from 'react-router-dom';
 import type { RiddleUpsertDetail } from '../../../utils/Types';
 import { getDifficultyObject } from '../../../utils/Difficulty';
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
-import { storeRiddle } from '../../../storingFunctions';
+import { storeRiddle } from '../../../datastore/storingFunctions';
 
 import { RiddleBasicInformationForm } from './RiddleBasicInformationForm';
 import { RiddleQuestionForm } from './RiddleQuestionForm';

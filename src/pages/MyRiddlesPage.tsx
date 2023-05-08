@@ -5,7 +5,7 @@ import { Stack } from '@mui/material';
 
 import { RiddleCard } from '../components/RiddleCard';
 import type { RiddlePreview } from '../utils/Types';
-import { riddlesCollection } from '../firebase';
+import { riddlesCollection } from '../datastore/firebase';
 import { getDifficultyObject } from '../utils/Difficulty';
 
 export const MyRiddlesPage: FC = () => {
@@ -34,7 +34,7 @@ export const MyRiddlesPage: FC = () => {
 	return (
 		<Stack gap={2}>
 			{riddles.map(riddle => (
-				<RiddleCard key={riddle.id} {...riddle} />
+				<RiddleCard key={riddle.linkId} {...riddle} />
 			))}
 		</Stack>
 	);

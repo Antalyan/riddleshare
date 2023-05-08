@@ -2,7 +2,7 @@ import type { Timestamp } from 'firebase/firestore';
 
 import type { CountryCode } from './CountryCodes';
 import type { DifficultyType } from './Difficulty';
-import type { RiddleStatus } from './Enums';
+import type { RiddleStatus } from './Statuses';
 
 export type RiddleDb = {
 	linkId: string;

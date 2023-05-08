@@ -53,10 +53,14 @@ export type QuestionUpsertDetail = {
 	correctAnswers: TextType[];
 };
 
-export type QuestionDisplayDetail = Omit<QuestionUpsertDetail, 'hints'> & {
+export type QuestionDisplayDetail = Omit<
+	QuestionUpsertDetail,
+	'hints' | 'correctAnswers'
+> & {
 	solved: boolean;
 	available: boolean;
 	answers: UserAnswer[];
+	correctAnswers: string[];
 	hints: HintDisplay[];
 };
 

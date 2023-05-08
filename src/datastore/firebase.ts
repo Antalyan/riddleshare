@@ -18,7 +18,7 @@ import {
 	initializeFirestore
 } from 'firebase/firestore';
 
-import type { QuestionDb, RiddleDb, UserRiddleInfoDb } from './utils/DbTypes';
+import type { QuestionDb, RiddleDb, UserRiddleInfoDb } from '../utils/DbTypes';
 
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,

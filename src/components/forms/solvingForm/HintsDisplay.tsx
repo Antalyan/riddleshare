@@ -2,14 +2,14 @@ import { Box, Button, Paper, Typography } from '@mui/material';
 import { Lightbulb } from '@mui/icons-material';
 import { useCallback, useState } from 'react';
 
-import type { Hint } from '../../../utils/Types';
+import type { HintDisplay } from '../../../utils/Types';
 
 type Props = {
-	hints: Hint[];
-	hintsTaken: number;
+	hints: HintDisplay[];
 };
 
-export const HintsDisplay = ({ hints, hintsTaken }: Props) => {
+export const HintsDisplay = ({ hints }: Props) => {
+	const hintsTaken = hints.filter(h => h.taken).length;
 	const [hintState, setHintState] = useState(hintsTaken);
 	const allHintsTaken = hintState === hints.length;
 

@@ -47,6 +47,11 @@ export const QuestionSolvingAccordion = ({
 
 	const [isSolved, setIsSolved] = useState(solved);
 
+	const handleClose = () => {
+		setDialogOpen(false);
+		setIsSolved(true);
+	};
+
 	return (
 		<>
 			<Accordion>
@@ -95,7 +100,7 @@ export const QuestionSolvingAccordion = ({
 											fontWeight="bold"
 											color="primary.main"
 										>
-											Solution{' '}
+											Solution
 										</Typography>
 										{correctAnswers[0]}
 									</Typography>
@@ -138,8 +143,7 @@ export const QuestionSolvingAccordion = ({
 				name="Congratulations"
 				text={`Your answer ${answer.toUpperCase()} is correct!`}
 				open={dialogOpen}
-				setOpen={setDialogOpen}
-				actionOnClose={() => setIsSolved(true)}
+				handleClose={handleClose}
 			/>
 		</>
 	);

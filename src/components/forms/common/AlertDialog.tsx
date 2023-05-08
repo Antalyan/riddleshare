@@ -1,4 +1,3 @@
-import type { Dispatch, SetStateAction } from 'react';
 import {
 	Button,
 	Dialog,
@@ -12,34 +11,21 @@ type Props = {
 	name: string;
 	text: string;
 	open: boolean;
-	setOpen: Dispatch<SetStateAction<boolean>>;
-	actionOnClose: () => void;
+	handleClose: () => void;
 };
 
-export const AlertDialog = ({
-	name,
-	text,
-	open,
-	setOpen,
-	actionOnClose
-}: Props) => {
-	const handleClose = () => {
-		setOpen(false);
-		actionOnClose();
-	};
-	return (
-		<Dialog open={open} onClose={handleClose}>
-			<DialogTitle>{name}</DialogTitle>
-			<DialogContent>
-				<DialogContentText sx={{ color: 'primary.light' }}>
-					{text}
-				</DialogContentText>
-			</DialogContent>
-			<DialogActions>
-				<Button variant="contained" onClick={handleClose}>
-					Close
-				</Button>
-			</DialogActions>
-		</Dialog>
-	);
-};
+export const AlertDialog = ({ name, text, open, handleClose }: Props) => (
+	<Dialog open={open} onClose={handleClose}>
+		<DialogTitle sx={{ fontWeight: 'bold' }}>{name}</DialogTitle>
+		<DialogContent>
+			<DialogContentText sx={{ color: 'text.primary' }}>
+				{text}
+			</DialogContentText>
+		</DialogContent>
+		<DialogActions>
+			<Button variant="contained" onClick={handleClose}>
+				Close
+			</Button>
+		</DialogActions>
+	</Dialog>
+);

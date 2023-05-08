@@ -19,17 +19,12 @@ import type { RiddlePreview } from '../utils/Types';
 
 export const RiddleCard: FC<RiddlePreview> = ({
 	name,
-	id,
+	linkId,
 	image,
 	state,
 	language,
 	difficulty
 }) => (
-	// const difficulty = useMemo(
-	// 	() => getDifficultyObject(difficultyType),
-	// 	[difficultyType]
-	// ); //TODO: Move to data fetching parent
-
 	<Card
 		sx={{
 			width: '100%',
@@ -40,7 +35,7 @@ export const RiddleCard: FC<RiddlePreview> = ({
 			alignItems: 'center'
 		}}
 	>
-		{getRiddleStateIcon(state)}
+		{state && getRiddleStateIcon(state)}
 		<Grid container justifyContent="center" alignItems="center">
 			<Grid item xs={12} sm={6} justifyContent="center" alignItems="center">
 				<CardMedia
@@ -111,7 +106,7 @@ export const RiddleCard: FC<RiddlePreview> = ({
 						<Button
 							component={Link}
 							variant="contained"
-							to={`/riddle-detail/${id}`}
+							to={`/riddle-detail/${linkId}`}
 							sx={{
 								width: { xs: '100%', sm: 'initial' },
 								maxWidth: { xs: '320px', sm: '200px' }

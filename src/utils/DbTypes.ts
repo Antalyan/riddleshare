@@ -2,6 +2,7 @@ import type { Timestamp } from 'firebase/firestore';
 
 import type { CountryCode } from './CountryCodes';
 import type { DifficultyType } from './Difficulty';
+import type { RiddleStatus } from './Enums';
 
 export type RiddleDb = {
 	linkId: string;
@@ -15,6 +16,7 @@ export type RiddleDb = {
 	solvedText?: string;
 	solvedImage?: string;
 	isSequential?: boolean;
+	numberOfQuestions: number;
 	sharingInformation: {
 		isPublic: boolean;
 		sharedUsers?: string[];
@@ -31,8 +33,8 @@ export type QuestionDb = {
 
 export type UserRiddleInfoDb = {
 	userEmail: string;
-	riddleId: string;
-	solved: boolean;
+	riddleLinkId: string;
+	state: RiddleStatus;
 	questions: Record<
 		number, //questionId
 		{ solved: boolean; answers: string[]; hintsTaken: number[] }

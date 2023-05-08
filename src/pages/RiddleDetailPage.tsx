@@ -1,116 +1,83 @@
 import type { FC } from 'react';
-import { Box, Button, Stack, Typography } from '@mui/material';
-import { Navigate, useNavigate, useParams } from 'react-router-dom';
-import { CircleFlag } from 'react-circle-flags';
-import LensIcon from '@mui/icons-material/Lens';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { onSnapshot, query, where } from 'firebase/firestore';
 
-import { MockRiddleUpsertDetails } from '../../mock-data/MockData';
+import type { RiddleDisplayDetailSimple } from '../utils/Types';
+import { riddlesCollection, userRiddleInfoCollection } from '../firebase';
+import { getDifficultyObject } from '../utils/Difficulty';
+import { RiddleDetail } from '../components/RiddleDetail';
+import useLoggedInUser from '../hooks/useLoggedInUser';
+import { RiddleStatus } from '../utils/Enums';
 
+//TODO: Add similar page with is creator view = false => (Figma: My riddles - detail)
 const RiddleDetailPage: FC = () => {
-	const navigate = useNavigate();
 	const { id } = useParams();
+	const user = useLoggedInUser();
 
-	// TODO: Exchange by proper API call
-	const riddleDetail = MockRiddleUpsertDetails.find(
-		mockRiddleDetail => mockRiddleDetail.id === id
+	//TODO: replace the default values and display only after the data are fetched from both queries
+	const [riddle, setRiddle] = useState<RiddleDisplayDetailSimple>({
+		name: '',
+		description: '',
+		language: 'uk',
+		difficulty: getDifficultyObject(1),
+		linkId: id ?? '',
+		solvedText: '',
+		sharingInformation: { visibility: 'public' },
+		numberOfQuestions: -1,
+		solvedQuestions: 0,
+		state: RiddleStatus.Untouched
+	});
+
+	const qRiddle = query(riddlesCollection, where('linkId', '==', id));
+	const qSolveInfo = query(
+		userRiddleInfoCollection,
+		where('riddleLinkId', '==', id),
+		where('userEmail', '==', user?.email)
 	);
 
-	if (!riddleDetail) {
-		return <Navigate to="/not-found" replace />;
-	}
-
-	const { language, description, difficulty, image, name, questions } =
-		riddleDetail;
-
-	return (
-		<Stack gap={2}>
-			<Typography variant="h4" fontWeight="bold">
-				{name}
-			</Typography>
-
-			<Box>
-				<Box sx={{ display: 'flex', columnGap: 2 }}>
-					<Typography variant="h6" fontWeight="bold">
-						Language:
-					</Typography>
-					<Typography
-						variant="h6"
-						sx={{ display: 'flex', alignItems: 'center' }}
-					>
-						<CircleFlag countryCode={language} height={20} />
-						&nbsp;
-						{language}
-					</Typography>
-				</Box>
-				<Box sx={{ display: 'flex', columnGap: 2 }}>
-					<Typography variant="h6" fontWeight="bold">
-						Expected difficulty:
-					</Typography>
-					<Typography
-						variant="h6"
-						sx={{ display: 'flex', alignItems: 'center' }}
-					>
-						<LensIcon color="disabled" sx={{ color: difficulty.color }} />
-						&nbsp;
-						{difficulty?.name}
-					</Typography>
-				</Box>
-				<Box sx={{ display: 'flex', columnGap: 2 }}>
-					<Typography variant="h6" fontWeight="bold">
-						Number of questions:
-					</Typography>
-					<Typography
-						variant="h6"
-						sx={{ display: 'flex', alignItems: 'center' }}
-					>
-						{questions?.length}
-					</Typography>
-				</Box>
-			</Box>
-
-			<Box
-				component="img"
-				alt={name}
-				src={image}
-				sx={{
-					maxWidth: '100%',
-					maxHeight: '300px',
-					objectFit: 'contain'
-				}}
-			/>
-
-			<Typography>{description}</Typography>
-
-			<Box
-				sx={{
-					display: 'flex',
-					justifyContent: 'space-between',
-					width: '100%',
-					columnGap: 1,
-					mt: 2
-				}}
-			>
-				<Button
-					type="submit"
-					variant="contained"
-					sx={{ backgroundColor: 'primary.light', flex: 1, maxWidth: '200px' }}
-					onClick={() => navigate(-1)}
-				>
-					Back
-				</Button>
-				<Button
-					type="submit"
-					variant="contained"
-					sx={{ flex: 1, maxWidth: '200px' }}
-					onClick={() => {
-						navigate(`/riddle-detail/${id}/solve`);
-					}}
-				>
-					Try to solve
-				</Button>
-			</Box>
-		</Stack>
+	useEffect(
+		() =>
+			onSnapshot(qRiddle, snapshot => {
+				const riddleDoc = snapshot.docs[0];
+				const {
+					name,
+					description,
+					image,
+					language,
+					difficultyValue,
+					numberOfQuestions
+				} = riddleDoc.data();
+				setRiddle(prevState => ({
+					...prevState,
+					name,
+					description,
+					image,
+					language,
+					difficulty: getDifficultyObject(difficultyValue),
+					numberOfQuestions
+				}));
+			}),
+		[]
 	);
+
+	useEffect(
+		() =>
+			onSnapshot(qSolveInfo, snapshot => {
+				const infoDoc = snapshot.docs[0];
+				const { state, questions } = infoDoc.data();
+				const solvedQuestions = Object.entries(questions).filter(
+					([, value]) => value.solved
+				).length;
+				setRiddle(prevState => ({
+					...prevState,
+					state,
+					solvedQuestions
+				}));
+			}),
+		[]
+	);
+	return <RiddleDetail isCreatorView={false} riddleDetail={riddle} />;
 };
 
 export default RiddleDetailPage;

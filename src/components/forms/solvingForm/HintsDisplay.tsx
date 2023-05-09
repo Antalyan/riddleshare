@@ -16,12 +16,12 @@ type Props = {
 export const HintsDisplay = ({ hints, riddleData, questionNumber }: Props) => {
 	const user = useLoggedInUser();
 	const [hintsTaken, setHintsTaken] = useState(
-		riddleData.questions[questionNumber].hintsTaken
+		riddleData.questions[questionNumber - 1].hintsTaken
 	);
 	const allHintsTaken = hintsTaken === hints.length;
 
 	const handleAskForHint = useCallback(() => {
-		riddleData.questions[questionNumber].hintsTaken++;
+		riddleData.questions[questionNumber - 1].hintsTaken++;
 		setHintsTaken(prev => prev + 1);
 		storeRiddleAnswerInfo(riddleData, user!);
 	}, [riddleData, user]);

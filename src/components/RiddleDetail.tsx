@@ -120,7 +120,7 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 						navigate(`/riddle-detail/${linkId}/solve`);
 					}}
 				>
-					Try to solve
+					{state === RiddleStatus.Untouched ? 'Try to solve' : 'Continue'}
 				</Button>
 			</Box>
 		</Stack>

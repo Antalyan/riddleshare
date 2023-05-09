@@ -57,7 +57,8 @@ export const fetchComplexRiddleDetail = async (
 		numberOfQuestions,
 		solvedText,
 		solvedImage,
-		sharingInformation
+		sharingInformation,
+		isSequential
 	} = riddleRes.data();
 	const newSharingInfo: SharingInformationUpsert = {
 		visibility: sharingInformation.isPublic ? 'public' : 'private',
@@ -80,7 +81,8 @@ export const fetchComplexRiddleDetail = async (
 			? Object.entries(riddleInfo.questions).filter(([, value]) => value.solved)
 					.length
 			: 0,
-		questions: []
+		questions: [],
+		questionOrder: isSequential ? 'sequence' : 'parallel'
 	};
 
 	if (!riddle.id) {

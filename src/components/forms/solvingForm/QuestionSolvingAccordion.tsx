@@ -29,8 +29,6 @@ type Props = {
 
 // TODO: sequential variant (unlock next only when previous one is solved)
 
-// TODO: update question numbers (order) to start from 1, not from 0
-
 export const QuestionSolvingAccordion = ({
 	setRiddleData,
 	riddleData,
@@ -44,7 +42,7 @@ export const QuestionSolvingAccordion = ({
 		questionText,
 		questionImage,
 		hints
-	} = riddleData.questions[questionNumber];
+	} = riddleData.questions[questionNumber - 1];
 
 	const user = useLoggedInUser();
 
@@ -57,7 +55,7 @@ export const QuestionSolvingAccordion = ({
 			.map(a => a.toUpperCase())
 			.includes(answer.toUpperCase());
 
-		riddleData.questions[questionNumber].answers.push({
+		riddleData.questions[questionNumber - 1].answers.push({
 			username: user?.email ?? '',
 			answerText: answer,
 			correct: answerIsCorrect
@@ -70,15 +68,16 @@ export const QuestionSolvingAccordion = ({
 				riddleDataCopy.solvedQuestions === riddleDataCopy.numberOfQuestions
 					? RiddleStatus.Solved
 					: RiddleStatus.Unfinished;
-			riddleDataCopy.questions[questionNumber].solved = true;
+			riddleDataCopy.questions[questionNumber - 1].solved = true;
 			if (
 				riddleDataCopy.questionOrder === 'sequence' &&
 				riddleDataCopy.solvedQuestions !== riddleDataCopy.numberOfQuestions
 			) {
-				riddleDataCopy.questions[questionNumber + 1].available = true;
+				riddleDataCopy.questions[questionNumber].available = true; // Make next question available
 			}
 			setRiddleData(riddleDataCopy);
 		} else {
+			riddleData.state = RiddleStatus.Unfinished;
 			setShowError(true);
 		}
 		storeRiddleAnswerInfo(riddleData, user!);

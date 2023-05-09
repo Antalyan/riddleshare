@@ -36,7 +36,7 @@ export const RiddleSolvingPage: FC = () => {
 					riddleData={riddleData}
 					// @ts-ignore
 					setRiddleData={setRiddleData}
-					questionNumber={question.order ?? index}
+					questionNumber={question.order!}
 					key={question.order!}
 				/>
 			))}

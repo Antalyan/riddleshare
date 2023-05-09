@@ -12,36 +12,75 @@ import {
 import { useCallback, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import type { QuestionDisplayDetail } from '../../../utils/Types';
-import { getQuestionStateIcon } from '../../../utils/Statuses';
+import type { RiddleDisplayDetail } from '../../../utils/Types';
+import { getQuestionStateIcon, RiddleStatus } from '../../../utils/Statuses';
 import { AlertDialog } from '../common/AlertDialog';
+import useLoggedInUser from '../../../hooks/useLoggedInUser';
+import { storeInfoAfterAnswer } from '../../../datastore/storingFunctions';
 
 import { HintsDisplay } from './HintsDisplay';
 
-type Props = QuestionDisplayDetail;
+type Props = {
+	setRiddleData: React.Dispatch<
+		React.SetStateAction<RiddleDisplayDetail | undefined>
+	>;
+	riddleData: RiddleDisplayDetail;
+	questionNumber: number;
+};
 
 // TODO: sequential variant (unlock next only when previous one is solved)
 
 export const QuestionSolvingAccordion = ({
-	order,
-	solved,
-	available,
-	correctAnswers,
-	questionText,
-	questionImage,
-	hints
+	setRiddleData,
+	riddleData,
+	questionNumber
 }: Props) => {
+	const {
+		order,
+		solved,
+		available,
+		correctAnswers,
+		questionText,
+		questionImage,
+		hints
+	} = riddleData.questions[questionNumber];
+
+	const user = useLoggedInUser();
+
 	const [dialogOpen, setDialogOpen] = useState(false);
 
 	const [answer, setAnswer] = useState('');
 	const handleSubmitAnswer = useCallback(() => {
 		console.log(answer);
-		//TODO: save answer to db
-		if (correctAnswers.includes(answer.toUpperCase())) {
+		const answerIsCorrect = correctAnswers
+			.map(a => a.toUpperCase())
+			.includes(answer.toUpperCase());
+
+		riddleData.questions[questionNumber].answers.push({
+			username: user?.email ?? '',
+			answerText: answer,
+			correct: answerIsCorrect
+		});
+		if (answerIsCorrect) {
 			setDialogOpen(true);
+			const riddleDataCopy: RiddleDisplayDetail = { ...riddleData };
+			riddleDataCopy.solvedQuestions++;
+			riddleDataCopy.state =
+				riddleDataCopy.solvedQuestions === riddleDataCopy.numberOfQuestions
+					? RiddleStatus.Solved
+					: RiddleStatus.Unfinished;
+			riddleDataCopy.questions[questionNumber].solved = true;
+			if (
+				riddleDataCopy.questionOrder === 'sequence' &&
+				riddleDataCopy.solvedQuestions !== riddleDataCopy.numberOfQuestions
+			) {
+				riddleDataCopy.questions[questionNumber + 1].available = true;
+			}
+			setRiddleData(riddleDataCopy);
 		} else {
 			setShowError(true);
 		}
+		storeInfoAfterAnswer(riddleData, user!);
 	}, [answer]);
 
 	const [showError, setShowError] = useState(false);

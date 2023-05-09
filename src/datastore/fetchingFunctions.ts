@@ -2,14 +2,12 @@ import { getDocs, query, where } from 'firebase/firestore';
 import type { User } from 'firebase/auth';
 
 import type {
-	QuestionDisplayDetail,
 	RiddleDisplayDetail,
 	SharingInformationUpsert,
 	UserAnswer
 } from '../utils/Types';
 import { getDifficultyObject } from '../utils/Difficulty';
 import { RiddleStatus } from '../utils/Statuses';
-import useLoggedInUser from '../hooks/useLoggedInUser';
 
 import {
 	questionsCollection,
@@ -17,23 +15,39 @@ import {
 	userRiddleInfoCollection
 } from './firebase';
 
-// TODO: Extract common parts with simple detail fetch
-export const fetchComplexRiddleDetail = async (
+export const fetchUserRiddleInfo = async (
 	linkId: string,
-	user: User | undefined
-): Promise<RiddleDisplayDetail> => {
+	userEmail: string
+) => {
 	const qSolveInfo = query(
 		userRiddleInfoCollection,
 		where('riddleLinkId', '==', linkId),
-		where('userEmail', '==', user?.email)
+		where('userEmail', '==', userEmail)
 	);
 	const infoRes = await getDocs(qSolveInfo);
-	const riddleInfo =
-		infoRes.docs.length > 0 ? infoRes.docs[0].data() : undefined;
+	return infoRes.docs.length > 0 ? infoRes.docs[0] : undefined; //User may not have answered yet, so there is no record
+};
 
-	/// New
+export const fetchRiddleInfo = async (linkId: string) => {
 	const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
-	const riddleRes = await getDocs(qRiddle);
+	return (await getDocs(qRiddle)).docs[0];
+};
+
+export const fetchQuestionsInfo = async (riddleDocId: string) => {
+	const qQuestions = query(questionsCollection(riddleDocId));
+	return await getDocs(qQuestions);
+};
+
+// TODO: Extract common parts with simple detail fetch
+export const fetchComplexRiddleDetail = async (
+	linkId: string,
+	user: User
+): Promise<RiddleDisplayDetail> => {
+	const riddleInfo = (
+		await fetchUserRiddleInfo(linkId, user?.email ?? '')
+	)?.data();
+	const riddleRes = await fetchRiddleInfo(linkId);
+
 	const {
 		name,
 		description,
@@ -44,13 +58,13 @@ export const fetchComplexRiddleDetail = async (
 		solvedText,
 		solvedImage,
 		sharingInformation
-	} = riddleRes.docs[0].data();
+	} = riddleRes.data();
 	const newSharingInfo: SharingInformationUpsert = {
 		visibility: sharingInformation.isPublic ? 'public' : 'private',
 		sharedUsers: sharingInformation.sharedUsers
 	};
 	const riddle: RiddleDisplayDetail = {
-		id: riddleRes.docs[0].id,
+		id: riddleRes.id,
 		name,
 		linkId,
 		description,
@@ -72,8 +86,8 @@ export const fetchComplexRiddleDetail = async (
 	if (!riddle.id) {
 		throw Error('Undefined riddle id!');
 	}
-	const qQuestions = query(questionsCollection(riddle.id));
-	const questionRes = await getDocs(qQuestions);
+	const questionRes = await fetchQuestionsInfo(riddle.id);
+
 	questionRes.docs.forEach(doc => {
 		const { order, questionText, questionImage, hints, correctAnswers } =
 			doc.data();

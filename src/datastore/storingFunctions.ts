@@ -1,9 +1,23 @@
-import { doc, Timestamp, writeBatch } from 'firebase/firestore';
+import {
+	doc,
+	setDoc,
+	Timestamp,
+	updateDoc,
+	writeBatch
+} from 'firebase/firestore';
 import type { User } from 'firebase/auth';
 
-import type { RiddleUpsertDetail } from '../utils/Types';
+import type { RiddleDisplayDetail, RiddleUpsertDetail } from '../utils/Types';
+import { RiddleStatus } from '../utils/Statuses';
 
-import { db, questionsCollection, riddlesCollection } from './firebase';
+import {
+	db,
+	questionsCollection,
+	riddlesCollection,
+	userRiddleInfoCollection,
+	userRiddleInfoDocument
+} from './firebase';
+import { fetchUserRiddleInfo } from './fetchingFunctions';
 
 export const storeRiddle = async (
 	data: RiddleUpsertDetail,
@@ -48,4 +62,34 @@ export const storeRiddle = async (
 	});
 
 	await batch.commit();
+};
+
+export const storeInfoAfterAnswer = async (
+	riddleData: RiddleDisplayDetail,
+	user: User
+) => {
+	const { linkId } = riddleData;
+	const userAnswerDoc = await fetchUserRiddleInfo(linkId, user.email ?? '');
+	const questionsForUpdate: Record<
+		number, //questionId
+		{ solved: boolean; answers: string[]; hintsTaken: number }
+	> = {};
+	riddleData.questions.forEach(q => {
+		questionsForUpdate[q.order!] = {
+			solved: q.solved,
+			hintsTaken: q.hints.filter(h => h.taken).length,
+			answers: q.answers.map(a => a.answerText)
+		};
+	});
+	const updateData = {
+		userEmail: user.email || '',
+		riddleLinkId: linkId,
+		state: riddleData.state,
+		questions: questionsForUpdate
+	};
+	if (!userAnswerDoc) {
+		await setDoc(doc(userRiddleInfoCollection), updateData);
+	} else {
+		await updateDoc(userRiddleInfoDocument(userAnswerDoc.id), updateData);
+	}
 };

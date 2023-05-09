@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 
 import { QuestionSolvingAccordion } from '../components/forms/solvingForm/QuestionSolvingAccordion';
-import { fetchComplexRiddleDetail } from '../datastore/fetchComplexRiddleDetail';
+import { fetchComplexRiddleDetail } from '../datastore/fetchingFunctions';
 import type { RiddleDisplayDetail } from '../utils/Types';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { RiddleStatus } from '../utils/Statuses';
@@ -12,6 +12,10 @@ import { RiddleStatus } from '../utils/Statuses';
 export const RiddleSolvingPage: FC = () => {
 	const { id } = useParams();
 	const user = useLoggedInUser();
+
+	if (!user) {
+		throw new Error('Undefined user accesses protected page');
+	}
 
 	const [riddleData, setRiddleData] = useState<RiddleDisplayDetail>();
 	useEffect(() => {
@@ -28,7 +32,12 @@ export const RiddleSolvingPage: FC = () => {
 			</Typography>
 
 			{riddleData.questions.map(question => (
-				<QuestionSolvingAccordion {...question} key={question.id} />
+				<QuestionSolvingAccordion
+					riddleData={riddleData}
+					setRiddleData={setRiddleData}
+					questionNumber={question.order!}
+					key={question.id}
+				/>
 			))}
 			{riddleData.state === RiddleStatus.Solved && (
 				<Card sx={{ backgroundColor: 'background.default' }}>
@@ -56,5 +65,3 @@ export const RiddleSolvingPage: FC = () => {
 		<></>
 	);
 };
-
-// TODO!

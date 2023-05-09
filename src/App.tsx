@@ -39,7 +39,11 @@ export const App = () => (
 						<Route path="/riddle-detail/:id" element={<RiddleDetailPage />} />
 						<Route
 							path="/riddle-detail/:id/solve"
-							element={<RiddleSolvingPage />}
+							element={
+								<PrivateRoute>
+									<RiddleSolvingPage />
+								</PrivateRoute>
+							}
 						/>
 						<Route path="/public-riddles" element={<PublicRiddlesPage />} />
 						<Route

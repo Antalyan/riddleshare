@@ -75,7 +75,6 @@ export type HintDisplay = HintUpsert & {
 
 export type UserAnswer = {
 	username: string;
-	date: Date;
 	correct: boolean;
 	answerText: string;
 };

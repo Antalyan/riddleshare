@@ -13,7 +13,7 @@ export type RiddleDb = {
 	difficultyValue: DifficultyType;
 	creatorEmail: string;
 	createTime: Timestamp;
-	solvedText?: string;
+	solvedText: string;
 	solvedImage?: string;
 	isSequential?: boolean;
 	numberOfQuestions: number;

@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
 import { onSnapshot, query, where } from 'firebase/firestore';
 
-import type {
-	RiddleDisplayDetail,
-	RiddleDisplayDetailSimple
-} from '../utils/Types';
+import type { RiddleDisplayDetailSimple } from '../utils/Types';
 import { getDifficultyObject } from '../utils/Difficulty';
 import { RiddleStatus } from '../utils/Statuses';
 import {
@@ -14,7 +11,9 @@ import {
 
 import useLoggedInUser from './useLoggedInUser';
 
-export const useRiddleDetailData = (
+//TODO Optional: replace with one-time fetch?
+
+export const useRiddleSimpleDetailDataFetch = (
 	linkId: string
 ): RiddleDisplayDetailSimple => {
 	const user = useLoggedInUser();

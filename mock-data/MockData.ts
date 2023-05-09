@@ -58,6 +58,7 @@ export const MockDisplayQuestions: QuestionDisplayDetail[] =
 		return {
 			...rest,
 			hints: updatedHints,
+			hintsTaken: 0,
 			correctAnswers: updatedCorrectAnswers,
 			solved: false,
 			answers: [],

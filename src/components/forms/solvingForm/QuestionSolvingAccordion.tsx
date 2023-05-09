@@ -9,6 +9,7 @@ import {
 	TextField,
 	Typography
 } from '@mui/material';
+import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -16,19 +17,19 @@ import type { RiddleDisplayDetail } from '../../../utils/Types';
 import { getQuestionStateIcon, RiddleStatus } from '../../../utils/Statuses';
 import { AlertDialog } from '../common/AlertDialog';
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
-import { storeInfoAfterAnswer } from '../../../datastore/storingFunctions';
+import { storeRiddleAnswerInfo } from '../../../datastore/storingFunctions';
 
 import { HintsDisplay } from './HintsDisplay';
 
 type Props = {
-	setRiddleData: React.Dispatch<
-		React.SetStateAction<RiddleDisplayDetail | undefined>
-	>;
+	setRiddleData: Dispatch<SetStateAction<RiddleDisplayDetail>>;
 	riddleData: RiddleDisplayDetail;
 	questionNumber: number;
 };
 
 // TODO: sequential variant (unlock next only when previous one is solved)
+
+// TODO: update question numbers (order) to start from 1, not from 0
 
 export const QuestionSolvingAccordion = ({
 	setRiddleData,
@@ -80,7 +81,7 @@ export const QuestionSolvingAccordion = ({
 		} else {
 			setShowError(true);
 		}
-		storeInfoAfterAnswer(riddleData, user!);
+		storeRiddleAnswerInfo(riddleData, user!);
 	}, [answer]);
 
 	const [showError, setShowError] = useState(false);
@@ -130,7 +131,13 @@ export const QuestionSolvingAccordion = ({
 						<Grid item xs={12} md={questionImage ? 6 : 12}>
 							<Stack gap={2}>
 								<Typography variant="subtitle1">{questionText}</Typography>
-								{hints.length > 0 && <HintsDisplay hints={hints} />}
+								{hints.length > 0 && (
+									<HintsDisplay
+										questionNumber={questionNumber}
+										hints={hints}
+										riddleData={riddleData}
+									/>
+								)}
 								{isSolved ? (
 									<Typography>
 										<Typography

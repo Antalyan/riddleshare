@@ -49,7 +49,7 @@ export type QuestionUpsertDetail = {
 	order?: number;
 	questionText?: string;
 	questionImage?: string;
-	hints: HintUpsert[];
+	hints: Hint[];
 	correctAnswers: TextType[];
 };
 
@@ -61,16 +61,13 @@ export type QuestionDisplayDetail = Omit<
 	available: boolean;
 	answers: UserAnswer[];
 	correctAnswers: string[];
-	hints: HintDisplay[];
+	hints: Hint[];
+	hintsTaken: number;
 };
 
-export type HintUpsert = {
+export type Hint = {
 	hintText: string;
 	order?: number;
-};
-
-export type HintDisplay = HintUpsert & {
-	taken: boolean;
 };
 
 export type UserAnswer = {

@@ -31,12 +31,13 @@ export const RiddleSolvingPage: FC = () => {
 				{riddleData.name}
 			</Typography>
 
-			{riddleData.questions.map(question => (
+			{riddleData.questions.map((question, index) => (
 				<QuestionSolvingAccordion
 					riddleData={riddleData}
+					// @ts-ignore
 					setRiddleData={setRiddleData}
-					questionNumber={question.order!}
-					key={question.id}
+					questionNumber={question.order ?? index}
+					key={question.order!}
 				/>
 			))}
 			{riddleData.state === RiddleStatus.Solved && (

@@ -1,28 +1,36 @@
 import { Box, Button, Paper, Typography } from '@mui/material';
 import { Lightbulb } from '@mui/icons-material';
+import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
 
-import type { HintDisplay } from '../../../utils/Types';
+import type { Hint, RiddleDisplayDetail } from '../../../utils/Types';
+import useLoggedInUser from '../../../hooks/useLoggedInUser';
+import { storeRiddleAnswerInfo } from '../../../datastore/storingFunctions';
 
 type Props = {
-	hints: HintDisplay[];
+	questionNumber: number;
+	hints: Hint[];
+	riddleData: RiddleDisplayDetail;
 };
 
-export const HintsDisplay = ({ hints }: Props) => {
-	const hintsTaken = hints.filter(h => h.taken).length;
-	const [hintState, setHintState] = useState(hintsTaken);
-	const allHintsTaken = hintState === hints.length;
+export const HintsDisplay = ({ hints, riddleData, questionNumber }: Props) => {
+	const user = useLoggedInUser();
+	const [hintsTaken, setHintsTaken] = useState(
+		riddleData.questions[questionNumber].hintsTaken
+	);
+	const allHintsTaken = hintsTaken === hints.length;
 
 	const handleAskForHint = useCallback(() => {
-		//TODO: store to db info about hint taken
-		setHintState(prevState => prevState + 1);
-	}, []);
+		riddleData.questions[questionNumber].hintsTaken++;
+		setHintsTaken(prev => prev + 1);
+		storeRiddleAnswerInfo(riddleData, user!);
+	}, [riddleData, user]);
 	return (
 		<>
 			<Typography variant="h6" fontWeight="bold" color="primary.main">
 				Hints
 			</Typography>
-			{hints.slice(0, hintState).map(hint => (
+			{hints.slice(0, hintsTaken).map(hint => (
 				<Paper
 					key={hint.order}
 					elevation={3}

@@ -100,10 +100,6 @@ export const fetchComplexRiddleDetail = async (
 					correct: correctAnswers.includes(a)
 			  }))
 			: [];
-		const readHints = hints.map(h => ({
-			taken: !!questionInfo && order <= questionInfo?.hintsTaken,
-			...h
-		}));
 
 		riddle.questions.push({
 			order,
@@ -116,7 +112,8 @@ export const fetchComplexRiddleDetail = async (
 				(!!riddleInfo && riddleInfo.questions[order - 1]?.solved),
 			answers: readAnswers,
 			correctAnswers,
-			hints: readHints
+			hints,
+			hintsTaken: questionInfo?.hintsTaken ?? 0
 		});
 	});
 	console.log(riddle);

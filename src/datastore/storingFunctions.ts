@@ -8,7 +8,6 @@ import {
 import type { User } from 'firebase/auth';
 
 import type { RiddleDisplayDetail, RiddleUpsertDetail } from '../utils/Types';
-import { RiddleStatus } from '../utils/Statuses';
 
 import {
 	db,
@@ -64,7 +63,7 @@ export const storeRiddle = async (
 	await batch.commit();
 };
 
-export const storeInfoAfterAnswer = async (
+export const storeRiddleAnswerInfo = async (
 	riddleData: RiddleDisplayDetail,
 	user: User
 ) => {
@@ -74,15 +73,15 @@ export const storeInfoAfterAnswer = async (
 		number, //questionId
 		{ solved: boolean; answers: string[]; hintsTaken: number }
 	> = {};
-	riddleData.questions.forEach(q => {
-		questionsForUpdate[q.order!] = {
+	riddleData.questions.forEach((q, index) => {
+		questionsForUpdate[q.order ?? index] = {
 			solved: q.solved,
-			hintsTaken: q.hints.filter(h => h.taken).length,
+			hintsTaken: q.hintsTaken,
 			answers: q.answers.map(a => a.answerText)
 		};
 	});
 	const updateData = {
-		userEmail: user.email || '',
+		userEmail: user.email ?? '',
 		riddleLinkId: linkId,
 		state: riddleData.state,
 		questions: questionsForUpdate

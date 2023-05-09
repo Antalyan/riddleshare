@@ -1,28 +1,26 @@
-import type {FC} from 'react';
-import {useEffect, useState} from 'react';
-import {useParams} from 'react-router-dom';
-import {Card, CardContent, CardMedia, Stack, Typography} from '@mui/material';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 
-import {MockDisplayQuestions} from '../../mock-data/MockData';
-import {QuestionSolvingAccordion} from '../components/forms/solvingForm/QuestionSolvingAccordion';
-import {fetchComplexRiddleDetail} from '../datastore/fetchComplexRiddleDetail';
-import {RiddleDetail} from '../components/RiddleDetail';
-
-const getRiddle = async (id: string) => {
-	return await fetchComplexRiddleDetail(id);
-};
+import { MockDisplayQuestions } from '../../mock-data/MockData';
+import { QuestionSolvingAccordion } from '../components/forms/solvingForm/QuestionSolvingAccordion';
+import { fetchComplexRiddleDetail } from '../datastore/fetchComplexRiddleDetail';
+import { RiddleDetail } from '../components/RiddleDetail';
+import type { RiddleDisplayDetail } from '../utils/Types';
 
 export const RiddleSolvingPage: FC = () => {
-	//TODO: replace with link id
 	const { id } = useParams();
-	// @ts-ignore TODO: fetch data about the riddle
 
-	const [riddleData, setRiddleData] = useState(RiddleDetail);
+	const [riddleData, setRiddleData] = useState<RiddleDisplayDetail>();
 	useEffect(() => {
-		const riddle = getRiddle(id ?? '');
-		setRiddleData(riddle);
+		const loadRiddle = async () => {
+			const riddle = await fetchComplexRiddleDetail(id ?? '');
+			setRiddleData(riddle);
+		};
+		loadRiddle();
 	}, []);
-	return (
+	return riddleData ? (
 		<Stack gap={2}>
 			<Typography variant="h4" fontWeight="bold">
 				{riddleData.name}
@@ -51,6 +49,8 @@ export const RiddleSolvingPage: FC = () => {
 				</CardContent>
 			</Card>
 		</Stack>
+	) : (
+		<></>
 	);
 };
 

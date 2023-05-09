@@ -1,14 +1,14 @@
-import { useEffect } from 'react';
-import { getDocs, onSnapshot, query, where } from 'firebase/firestore';
+import { getDocs, query, where } from 'firebase/firestore';
 
 import type {
+	QuestionDisplayDetail,
 	RiddleDisplayDetail,
-	SharingInformationUpsert
+	SharingInformationUpsert,
+	UserAnswer
 } from '../utils/Types';
 import { getDifficultyObject } from '../utils/Difficulty';
 import { RiddleStatus } from '../utils/Statuses';
 import useLoggedInUser from '../hooks/useLoggedInUser';
-import type { UserRiddleInfoDb } from '../utils/DbTypes';
 
 import {
 	questionsCollection,
@@ -28,7 +28,8 @@ export const fetchComplexRiddleDetail = async (
 		where('userEmail', '==', user?.email)
 	);
 	const infoRes = await getDocs(qSolveInfo);
-	const riddleInfo: UserRiddleInfoDb = infoRes.docs[0].data();
+	const riddleInfo =
+		infoRes.docs.length > 0 ? infoRes.docs[0].data() : undefined;
 
 	/// New
 	const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
@@ -59,10 +60,11 @@ export const fetchComplexRiddleDetail = async (
 		solvedText,
 		solvedImage,
 		sharingInformation: newSharingInfo,
-		state: riddleInfo.state,
-		solvedQuestions: Object.entries(riddleInfo.questions).filter(
-			([, value]) => value.solved
-		).length,
+		state: riddleInfo ? riddleInfo.state : RiddleStatus.Untouched,
+		solvedQuestions: riddleInfo
+			? Object.entries(riddleInfo.questions).filter(([, value]) => value.solved)
+					.length
+			: 0,
 		questions: []
 	};
 
@@ -77,19 +79,32 @@ export const fetchComplexRiddleDetail = async (
 	questionRes.docs.forEach(doc => {
 		const { order, questionText, questionImage, hints, correctAnswers } =
 			doc.data();
-		const questionInfo = riddleInfo.questions[order]; //TODO: can be undefined
+		const questionInfo = riddleInfo?.questions[order];
+
+		const readAnswers: UserAnswer[] = questionInfo
+			? questionInfo.answers.map(a => ({
+					answerText: a,
+					username: riddleInfo.userEmail,
+					correct: correctAnswers.includes(a)
+			  }))
+			: [];
+		const readHints = hints.map(h => ({
+			taken: !!questionInfo && order <= questionInfo?.hintsTaken,
+			...h
+		}));
 
 		riddle.questions.push({
 			order,
 			questionText,
 			questionImage,
+			solved: !!riddleInfo && !!questionInfo && questionInfo.solved,
+			available:
+				riddle.questionOrder === 'parallel' ||
+				order === 0 ||
+				(!!riddleInfo && riddleInfo.questions[order - 1]?.solved),
+			answers: readAnswers,
 			correctAnswers,
-
-			//Todo: to be updated later
-			hints: [],
-			answers: [],
-			solved: false,
-			available: false
+			hints: readHints
 		});
 	});
 

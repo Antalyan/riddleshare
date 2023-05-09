@@ -37,6 +37,6 @@ export type UserRiddleInfoDb = {
 	state: RiddleStatus;
 	questions: Record<
 		number, //questionId
-		{ solved: boolean; answers: string[]; hintsTaken: number[] }
+		{ solved: boolean; answers: string[]; hintsTaken: number }
 	>;
 };

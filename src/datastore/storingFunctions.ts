@@ -35,13 +35,13 @@ export const storeRiddle = async (
 	questions.forEach((question, index) => {
 		const { hints, correctAnswers, ...rest } = question;
 		const updatedHints = hints.map((h, index) => ({
-			order: index,
+			order: index + 1,
 			hintText: h.hintText
 		}));
 		const updatedCorrectAnswers = correctAnswers.map(a => a.text);
 		batch.set(doc(questionCollection), {
 			...rest,
-			order: index,
+			order: index + 1,
 			hints: updatedHints,
 			correctAnswers: updatedCorrectAnswers
 		});

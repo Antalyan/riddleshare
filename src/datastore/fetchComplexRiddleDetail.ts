@@ -1,4 +1,5 @@
 import { getDocs, query, where } from 'firebase/firestore';
+import type { User } from 'firebase/auth';
 
 import type {
 	QuestionDisplayDetail,
@@ -18,10 +19,9 @@ import {
 
 // TODO: Extract common parts with simple detail fetch
 export const fetchComplexRiddleDetail = async (
-	linkId: string
+	linkId: string,
+	user: User | undefined
 ): Promise<RiddleDisplayDetail> => {
-	const user = useLoggedInUser();
-
 	const qSolveInfo = query(
 		userRiddleInfoCollection,
 		where('riddleLinkId', '==', linkId),
@@ -50,6 +50,7 @@ export const fetchComplexRiddleDetail = async (
 		sharedUsers: sharingInformation.sharedUsers
 	};
 	const riddle: RiddleDisplayDetail = {
+		id: riddleRes.docs[0].id,
 		name,
 		linkId,
 		description,
@@ -71,10 +72,7 @@ export const fetchComplexRiddleDetail = async (
 	if (!riddle.id) {
 		throw Error('Undefined riddle id!');
 	}
-	const qQuestions = query(
-		questionsCollection(riddle.id),
-		where('id', '==', riddle.id)
-	);
+	const qQuestions = query(questionsCollection(riddle.id));
 	const questionRes = await getDocs(qQuestions);
 	questionRes.docs.forEach(doc => {
 		const { order, questionText, questionImage, hints, correctAnswers } =
@@ -107,6 +105,6 @@ export const fetchComplexRiddleDetail = async (
 			hints: readHints
 		});
 	});
-
+	console.log(riddle);
 	return riddle;
 };

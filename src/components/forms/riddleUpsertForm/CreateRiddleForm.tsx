@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 
 import type { RiddleUpsertDetail } from '../../../utils/Types';
 import { getDifficultyObject } from '../../../utils/Difficulty';
+import useLoggedInUser from '../../../hooks/useLoggedInUser';
+import { storeRiddle } from '../../../datastore/storingFunctions';
 
 import { RiddleBasicInformationForm } from './RiddleBasicInformationForm';
 import { RiddleQuestionForm } from './RiddleQuestionForm';
@@ -41,13 +43,19 @@ export const CreateRiddleForm = () => {
 		}
 	});
 
+	const user = useLoggedInUser();
+
 	const onSubmitFinal = useCallback(
-		(data: RiddleUpsertDetail) => {
-			console.log(data);
-			//TODO: store to db
-			// map correct answers to upper case
-			//TODO: show success
-			// navigate('/');
+		async (data: RiddleUpsertDetail) => {
+			try {
+				console.log(data);
+				await storeRiddle(data, user);
+				console.log('Riddle added successfully');
+				navigate('/');
+			} catch (error) {
+				console.error('Error on adding riddles: ', error);
+				//TODO: show error to user
+			}
 		},
 		[formContext]
 	);

@@ -4,7 +4,7 @@ import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { FormTextField } from '../components/forms/common/FormTextField';
-import { signIn, signUp } from '../firebase';
+import { signIn, signUp } from '../datastore/firebase';
 
 export const LoginPage = () => {
 	const navigate = useNavigate();

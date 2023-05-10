@@ -1,7 +1,7 @@
 import { AppBar, Box, MenuItem, Toolbar, Typography } from '@mui/material';
 
 import useLoggedInUser from '../../hooks/useLoggedInUser';
-import { signOut } from '../../firebase';
+import { signOut } from '../../datastore/firebase';
 
 import { PageMenu } from './PageMenu';
 import { NavigationItem } from './NavigationItem';

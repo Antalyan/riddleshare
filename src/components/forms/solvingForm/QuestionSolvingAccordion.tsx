@@ -9,38 +9,78 @@ import {
 	TextField,
 	Typography
 } from '@mui/material';
+import type { Dispatch, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-import type { QuestionDisplayDetail } from '../../../utils/Types';
-import { getQuestionStateIcon } from '../../../utils/Statuses';
+import type { RiddleDisplayDetail } from '../../../utils/Types';
+import { getQuestionStateIcon, RiddleStatus } from '../../../utils/Statuses';
 import { AlertDialog } from '../common/AlertDialog';
+import useLoggedInUser from '../../../hooks/useLoggedInUser';
+import { storeRiddleAnswerInfo } from '../../../datastore/storingFunctions';
 
 import { HintsDisplay } from './HintsDisplay';
 
-type Props = QuestionDisplayDetail;
+type Props = {
+	setRiddleData: Dispatch<SetStateAction<RiddleDisplayDetail>>;
+	riddleData: RiddleDisplayDetail;
+	questionNumber: number;
+};
+
+// TODO: sequential variant (unlock next only when previous one is solved)
 
 export const QuestionSolvingAccordion = ({
-	number,
-	solved,
-	available,
-	correctAnswers,
-	questionText,
-	image,
-	hints,
-	hintsTaken
+	setRiddleData,
+	riddleData,
+	questionNumber
 }: Props) => {
+	const {
+		order,
+		solved,
+		available,
+		correctAnswers,
+		questionText,
+		questionImage,
+		hints
+	} = riddleData.questions[questionNumber - 1];
+
+	const user = useLoggedInUser();
+
 	const [dialogOpen, setDialogOpen] = useState(false);
 
 	const [answer, setAnswer] = useState('');
 	const handleSubmitAnswer = useCallback(() => {
 		console.log(answer);
-		//TODO: save answer to db
-		if (correctAnswers.includes(answer.toUpperCase())) {
+		const answerIsCorrect = correctAnswers
+			.map(a => a.toUpperCase())
+			.includes(answer.toUpperCase());
+
+		riddleData.questions[questionNumber - 1].answers.push({
+			username: user?.email ?? '',
+			answerText: answer,
+			correct: answerIsCorrect
+		});
+		if (answerIsCorrect) {
 			setDialogOpen(true);
+			const riddleDataCopy: RiddleDisplayDetail = { ...riddleData };
+			riddleDataCopy.solvedQuestions++;
+			riddleDataCopy.state =
+				riddleDataCopy.solvedQuestions === riddleDataCopy.numberOfQuestions
+					? RiddleStatus.Solved
+					: RiddleStatus.Unfinished;
+			riddleDataCopy.questions[questionNumber - 1].solved = true;
+			if (
+				riddleDataCopy.questionOrder === 'sequence' &&
+				riddleDataCopy.solvedQuestions !== riddleDataCopy.numberOfQuestions
+			) {
+				riddleDataCopy.questions[questionNumber].available = true; // Make next question available
+			}
+			setRiddleData(riddleDataCopy);
 		} else {
+			riddleData.state = RiddleStatus.Unfinished;
 			setShowError(true);
 		}
+		storeRiddleAnswerInfo(riddleData, user!);
 	}, [answer]);
 
 	const [showError, setShowError] = useState(false);
@@ -64,18 +104,18 @@ export const QuestionSolvingAccordion = ({
 						width="100%"
 					>
 						<Typography variant="h6" color="secondary.main" fontWeight="bold">
-							Question {number}
+							Question {order}
 						</Typography>
 						{getQuestionStateIcon(isSolved, available)}
 					</Stack>
 				</AccordionSummary>
 				<AccordionDetails>
 					<Grid container spacing={2} sx={{ minWidth: { md: 400 } }}>
-						{image && (
+						{questionImage && (
 							<Grid item xs={12} md={6}>
 								<Box
 									component="img"
-									src={image}
+									src={questionImage}
 									sx={{
 										display: 'flex',
 										justifyContent: 'flex-start',
@@ -87,11 +127,15 @@ export const QuestionSolvingAccordion = ({
 								/>
 							</Grid>
 						)}
-						<Grid item xs={12} md={image ? 6 : 12}>
+						<Grid item xs={12} md={questionImage ? 6 : 12}>
 							<Stack gap={2}>
 								<Typography variant="subtitle1">{questionText}</Typography>
 								{hints.length > 0 && (
-									<HintsDisplay hints={hints} hintsTaken={hintsTaken} />
+									<HintsDisplay
+										questionNumber={questionNumber}
+										hints={hints}
+										riddleData={riddleData}
+									/>
 								)}
 								{isSolved ? (
 									<Typography>

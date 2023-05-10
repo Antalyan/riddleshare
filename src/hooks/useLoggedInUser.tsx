@@ -2,7 +2,7 @@ import type { FC, PropsWithChildren } from 'react';
 import { createContext, useContext, useEffect, useState } from 'react';
 import type { User } from 'firebase/auth';
 
-import { onAuthChanged } from '../firebase';
+import { onAuthChanged } from '../datastore/firebase';
 
 const UserContext = createContext<User | undefined>(undefined);
 

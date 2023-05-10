@@ -2,13 +2,18 @@ import type { RiddleStatus } from './Statuses';
 import type { CountryCode } from './CountryCodes';
 import type { Difficulty } from './Difficulty';
 
+export type QuestionOrder = 'sequence' | 'parallel';
+export type Visibility = 'public' | 'private';
+
+//TODO: Add author to riddle preview & detail
+
 export type RiddlePreview = {
-	id?: number;
+	id?: string;
 	//TODO: Make displays based on linkId instead of dbId
 	linkId: string;
 	name: string;
 	image?: string;
-	state: RiddleStatus;
+	state?: RiddleStatus; //Not needed for My riddles
 	language: CountryCode;
 	difficulty: Difficulty;
 };
@@ -18,11 +23,20 @@ export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 	solvedText: string;
 	solvedImage?: string;
 	questions: QuestionUpsertDetail[];
-	questionOrder?: 'sequence' | 'parallel';
+	questionOrder?: QuestionOrder;
 	sharingInformation: SharingInformationUpsert;
 };
 
-export type RiddleDisplayDetail = Omit<RiddleUpsertDetail, 'questions'> & {
+export type RiddleDisplayDetailSimple = Omit<
+	RiddleUpsertDetail,
+	'questions'
+> & {
+	numberOfQuestions: number;
+	state: RiddleStatus;
+	solvedQuestions: number;
+};
+
+export type RiddleDisplayDetail = RiddleDisplayDetailSimple & {
 	questions: QuestionDisplayDetail[];
 };
 
@@ -31,10 +45,10 @@ type TextType = {
 };
 
 export type QuestionUpsertDetail = {
-	id?: number;
-	number?: number;
+	id?: string;
+	order?: number;
 	questionText?: string;
-	image?: string;
+	questionImage?: string;
 	hints: Hint[];
 	correctAnswers: TextType[];
 };
@@ -46,25 +60,23 @@ export type QuestionDisplayDetail = Omit<
 	solved: boolean;
 	available: boolean;
 	answers: UserAnswer[];
+	correctAnswers: string[];
 	hints: Hint[];
 	hintsTaken: number;
-	correctAnswers: string[];
 };
 
 export type Hint = {
-	id?: string;
-	order?: number;
 	hintText: string;
+	order?: number;
 };
 
 export type UserAnswer = {
 	username: string;
-	date: Date;
 	correct: boolean;
 	answerText: string;
 };
 
 export type SharingInformationUpsert = {
-	visibility: 'public' | 'private';
-	sharedUserIds?: number[];
+	visibility: Visibility;
+	sharedUsers?: string[];
 };

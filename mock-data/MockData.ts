@@ -10,16 +10,16 @@ import type {
 
 const MockUpsertQuestions: QuestionUpsertDetail[] = [
 	{
-		id: 123,
-		number: 1,
+		id: '123',
+		order: 1,
 		questionText: 'It is blue and annoying, what is it?',
-		image: '/public/RiddleMeThis.jpeg',
+		questionImage: '/public/RiddleMeThis.jpeg',
 		hints: [],
-		correctAnswers: [{ text: 'SMURF' }]
+		correctAnswers: [{ text: 'Smurf' }]
 	},
 	{
-		id: 253,
-		number: 2,
+		id: '253',
+		order: 2,
 		questionText:
 			'    Ten centuries shall the fortress stand\n' +
 			'    Walls of spirit wrapped in walls of fire\n' +
@@ -58,17 +58,17 @@ export const MockDisplayQuestions: QuestionDisplayDetail[] =
 		return {
 			...rest,
 			hints: updatedHints,
+			hintsTaken: 0,
 			correctAnswers: updatedCorrectAnswers,
 			solved: false,
 			answers: [],
-			available: true,
-			hintsTaken: 0
+			available: true
 		};
 	});
 
 export const MockRiddlesPreviews: RiddlePreview[] = [
 	{
-		id: 1,
+		id: '1',
 		linkId: 'd0b73059-e4cd-4c30-a2e1-0670aef1ab11',
 		name: 'Anagram - Really long riddle name',
 		image: '/public/vite.svg',
@@ -77,7 +77,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 		difficulty: getDifficultyObject(1)
 	},
 	{
-		id: 2,
+		id: '2',
 		linkId: 'a0b73059-e4cd-4c30-a2e1-0670aef1ab22',
 		name: 'Monogram',
 		image: '/public/RiddleMeThis.jpeg',
@@ -86,7 +86,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 		difficulty: getDifficultyObject(3)
 	},
 	{
-		id: 3,
+		id: '3',
 		linkId: 'e4b73059-e4cd-4c30-a2e1-0670aef1ab22',
 		name: 'Diagram',
 		state: RiddleStatus.Untouched,
@@ -94,7 +94,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 		difficulty: getDifficultyObject(4)
 	},
 	{
-		id: 4,
+		id: '4',
 		name: 'Panorama',
 		linkId: 'ab216804-1863-42bd-882a-6503e894c09f',
 		state: RiddleStatus.Untouched,
@@ -105,7 +105,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 
 export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 	{
-		id: 1,
+		id: '1',
 		linkId: 'b1b73059-e4cd-4c30-a2e1-0670aef1ab11',
 		name: 'Anagram - Really long riddle name',
 		image: '/public/vite.svg',
@@ -116,10 +116,13 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 		solvedImage: '/public/RiddleMeThis.jpeg',
 		solvedText: 'SOLVED!',
 		questions: MockUpsertQuestions,
-		sharingInformation: { visibility: 'private', sharedUserIds: [1, 2] }
+		sharingInformation: {
+			visibility: 'private',
+			sharedUsers: ['xkoudel@seznam.cz', 'a@seznam.cz']
+		}
 	},
 	{
-		id: 2,
+		id: '2',
 		linkId: '73059b1b-e4cd-4c30-a2e1-0670aef1ab11',
 		name: 'Monogram',
 		language: 'uk',
@@ -153,7 +156,10 @@ export const MockRiddleDisplayDetails: RiddleDisplayDetail[] =
 		const { ...rest } = riddle;
 		return {
 			...rest,
-			questions: MockDisplayQuestions
+			questions: MockDisplayQuestions,
+			numberOfQuestions: MockDisplayQuestions.length,
+			state: RiddleStatus.Untouched,
+			solvedQuestions: 0
 		};
 	});
 

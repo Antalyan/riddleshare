@@ -9,11 +9,10 @@ export type Visibility = 'public' | 'private';
 
 export type RiddlePreview = {
 	id?: string;
-	//TODO: Make displays based on linkId instead of dbId
 	linkId: string;
 	name: string;
 	image?: string;
-	state?: RiddleStatus; //Not needed for My riddles
+	state?: RiddleStatus;
 	language: CountryCode;
 	difficulty: Difficulty;
 };

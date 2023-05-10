@@ -16,7 +16,8 @@ import {
 	fetchQuestions,
 	fetchRiddle,
 	fetchRiddles,
-	fetchUserRiddleInfo
+	fetchUserRiddleInfo,
+	fetchUserRiddleInfos
 } from './fetchingQueries';
 import { riddlesCollection, userRiddleInfoCollection } from './firebase';
 
@@ -106,19 +107,41 @@ export const fetchRiddleComplexDetail = async (
 };
 
 export const fetchRiddlePreviews = async (
+	user: User | undefined,
 	...queryConstraints: QueryConstraint[]
 ): Promise<RiddlePreview[]> => {
 	const riddleDbData = await fetchRiddles(...queryConstraints);
-	return riddleDbData.map(riddle => {
+	const previews: RiddlePreview[] = riddleDbData.map(riddle => {
 		const { linkId, name, image, language, difficultyValue } = riddle.data();
 		return {
 			linkId,
 			name,
 			image,
 			language,
-			difficulty: getDifficultyObject(difficultyValue)
+			difficulty: getDifficultyObject(difficultyValue),
+			state: RiddleStatus.Untouched
 		};
 	});
+
+	// Fetch answer info for preview icon
+	if (user) {
+		const riddleLinkIds = previews.map(riddle => riddle.linkId);
+		const answerDataDoc = await fetchUserRiddleInfos(
+			riddleLinkIds,
+			user.email!
+		);
+		if (answerDataDoc) {
+			previews.forEach(p => {
+				const answer = answerDataDoc.find(
+					doc => doc.data().riddleLinkId === p.linkId
+				);
+				if (answer) {
+					p.state = answer.data().state;
+				}
+			});
+		}
+	}
+	return previews;
 };
 
 export const fetchRiddleSimpleDetail = async (

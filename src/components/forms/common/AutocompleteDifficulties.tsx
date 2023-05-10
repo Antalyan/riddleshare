@@ -27,7 +27,6 @@ export const AutocompleteDifficulties: FC<Props> = ({
 		control={control}
 		render={({ field }) => {
 			const { onChange, value, ref } = field;
-			console.log(value);
 			return (
 				<Autocomplete
 					value={[...Difficulties].find(

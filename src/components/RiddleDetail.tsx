@@ -32,7 +32,7 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 	} = riddleDetail;
 
 	return (
-		<Stack gap={2} flexGrow={1}>
+		<Stack gap={2}>
 			<Typography variant="h4" fontWeight="bold">
 				{name}
 			</Typography>
@@ -89,7 +89,8 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 				sx={{
 					maxWidth: '100%',
 					maxHeight: '300px',
-					objectFit: 'contain'
+					objectFit: 'contain',
+					objectPosition: 'left'
 				}}
 			/>
 

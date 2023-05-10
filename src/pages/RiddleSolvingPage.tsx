@@ -36,8 +36,8 @@ export const RiddleSolvingPage: FC = () => {
 					riddleData={riddleData}
 					// @ts-ignore
 					setRiddleData={setRiddleData}
-					questionNumber={question.order!}
-					key={question.order!}
+					questionNumber={question.order}
+					key={question.order}
 				/>
 			))}
 			{riddleData.state === RiddleStatus.Solved && (

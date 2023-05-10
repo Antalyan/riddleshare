@@ -56,8 +56,9 @@ export type QuestionUpsertDetail = {
 
 export type QuestionDisplayDetail = Omit<
 	QuestionUpsertDetail,
-	'hints' | 'correctAnswers'
+	'hints' | 'correctAnswers' | 'order'
 > & {
+	order: number;
 	solved: boolean;
 	available: boolean;
 	answers: UserAnswer[];

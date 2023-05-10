@@ -116,7 +116,7 @@ export const fetchComplexRiddleDetail = async (
 			solved: !!riddleInfo && !!questionInfo && questionInfo.solved,
 			available:
 				riddle.questionOrder === 'parallel' ||
-				order === 0 ||
+				order === 1 ||
 				(!!riddleInfo && riddleInfo.questions[order - 1]?.solved),
 			answers: readAnswers,
 			correctAnswers,

@@ -30,16 +30,17 @@ export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 
 export type RiddleDisplayDetailSimple = Omit<
 	RiddleUpsertDetail,
-	'questions'
+	'questions' | 'solvedText' | 'solvedImage'
 > & {
 	numberOfQuestions: number;
 	state: RiddleStatus;
 	solvedQuestions: number;
 };
 
-export type RiddleDisplayDetail = RiddleDisplayDetailSimple & {
-	questions: QuestionDisplayDetail[];
-};
+export type RiddleDisplayDetail = Omit<RiddleUpsertDetail, 'questions'> &
+	RiddleDisplayDetailSimple & {
+		questions: QuestionDisplayDetail[];
+	};
 
 type TextType = {
 	text: string;

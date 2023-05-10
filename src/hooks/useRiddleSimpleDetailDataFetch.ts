@@ -24,7 +24,6 @@ export const useRiddleSimpleDetailDataFetch = (
 		language: 'uk',
 		difficulty: getDifficultyObject(1),
 		linkId,
-		solvedText: '',
 		sharingInformation: { visibility: 'public' },
 		numberOfQuestions: -1,
 		solvedQuestions: -1,

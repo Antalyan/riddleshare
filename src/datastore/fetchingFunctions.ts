@@ -1,8 +1,10 @@
 import type { User } from 'firebase/auth';
 import type { QueryConstraint } from 'firebase/firestore';
+import { query, where } from 'firebase/firestore';
 
 import type {
 	RiddleDisplayDetail,
+	RiddleDisplayDetailSimple,
 	RiddlePreview,
 	SharingInformationUpsert,
 	UserAnswer
@@ -16,9 +18,10 @@ import {
 	fetchRiddles,
 	fetchUserRiddleInfo
 } from './fetchingQueries';
+import { riddlesCollection, userRiddleInfoCollection } from './firebase';
 
 // TODO: Extract common parts with simple detail fetch
-export const fetchComplexRiddleDetail = async (
+export const fetchRiddleComplexDetail = async (
 	linkId: string,
 	user: User
 ): Promise<RiddleDisplayDetail> => {
@@ -116,4 +119,51 @@ export const fetchRiddlePreviews = async (
 			difficulty: getDifficultyObject(difficultyValue)
 		};
 	});
+};
+
+export const fetchRiddleSimpleDetail = async (
+	linkId: string,
+	user: User
+): Promise<RiddleDisplayDetailSimple> => {
+	const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
+	const qSolveInfo = query(
+		userRiddleInfoCollection,
+		where('riddleLinkId', '==', linkId),
+		where('userEmail', '==', user?.email)
+	);
+
+	const riddleDoc = await fetchRiddle(linkId);
+	const {
+		name,
+		description,
+		image,
+		language,
+		difficultyValue,
+		numberOfQuestions,
+		sharingInformation
+	} = riddleDoc.data();
+	const newSharingInfo: SharingInformationUpsert = {
+		visibility: sharingInformation.isPublic ? 'public' : 'private',
+		sharedUsers: sharingInformation.sharedUsers
+	};
+
+	const solvingInfo = await fetchUserRiddleInfo(linkId, user?.email ?? '');
+	const solvedQuestions = solvingInfo
+		? Object.entries(solvingInfo.data().questions).filter(
+				([, value]) => value.solved
+		  ).length
+		: 0; //TODO: change solvedQuestions format in the whole file from number to array because of parallel scoping
+
+	return {
+		linkId,
+		name,
+		description,
+		image,
+		language,
+		difficulty: getDifficultyObject(difficultyValue),
+		numberOfQuestions,
+		state: solvingInfo ? solvingInfo.data().state : RiddleStatus.Untouched,
+		solvedQuestions,
+		sharingInformation: newSharingInfo
+	};
 };

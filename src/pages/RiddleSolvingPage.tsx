@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
 
 import { QuestionSolvingAccordion } from '../components/forms/solvingForm/QuestionSolvingAccordion';
-import { fetchComplexRiddleDetail } from '../datastore/fetchingFunctions';
+import { fetchRiddleComplexDetail } from '../datastore/fetchingFunctions';
 import type { RiddleDisplayDetail } from '../utils/Types';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { RiddleStatus } from '../utils/Statuses';
@@ -21,7 +21,7 @@ export const RiddleSolvingPage: FC = () => {
 	useEffect(() => {
 		const loadAndSetRiddle = async () => {
 			try {
-				const riddle = await fetchComplexRiddleDetail(id ?? '', user);
+				const riddle = await fetchRiddleComplexDetail(id ?? '', user);
 				setRiddleData(riddle);
 			} catch (error) {
 				console.log(error);

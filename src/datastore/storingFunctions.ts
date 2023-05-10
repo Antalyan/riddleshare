@@ -16,7 +16,7 @@ import {
 	userRiddleInfoCollection,
 	userRiddleInfoDocument
 } from './firebase';
-import { fetchUserRiddleInfo } from './fetchingFunctions';
+import { fetchUserRiddleInfo } from './fetchingQueries';
 
 export const storeRiddle = async (
 	data: RiddleUpsertDetail,

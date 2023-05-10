@@ -1,8 +1,9 @@
-import { getDocs, query, where, orderBy } from 'firebase/firestore';
 import type { User } from 'firebase/auth';
+import type { QueryConstraint } from 'firebase/firestore';
 
 import type {
 	RiddleDisplayDetail,
+	RiddlePreview,
 	SharingInformationUpsert,
 	UserAnswer
 } from '../utils/Types';
@@ -10,39 +11,11 @@ import { getDifficultyObject } from '../utils/Difficulty';
 import { RiddleStatus } from '../utils/Statuses';
 
 import {
-	questionsCollection,
-	riddlesCollection,
-	userRiddleInfoCollection,
-	usersCollection
-} from './firebase';
-
-export const fetchUsers = async () => {
-	const qUsers = query(usersCollection, orderBy('email'));
-	return await getDocs(qUsers);
-};
-
-export const fetchUserRiddleInfo = async (
-	linkId: string,
-	userEmail: string
-) => {
-	const qSolveInfo = query(
-		userRiddleInfoCollection,
-		where('riddleLinkId', '==', linkId),
-		where('userEmail', '==', userEmail)
-	);
-	const infoRes = await getDocs(qSolveInfo);
-	return infoRes.docs.length > 0 ? infoRes.docs[0] : undefined; //User may not have answered yet, so there is no record
-};
-
-export const fetchRiddleInfo = async (linkId: string) => {
-	const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
-	return (await getDocs(qRiddle)).docs[0];
-};
-
-export const fetchQuestionsInfo = async (riddleDocId: string) => {
-	const qQuestions = query(questionsCollection(riddleDocId));
-	return await getDocs(qQuestions);
-};
+	fetchQuestions,
+	fetchRiddle,
+	fetchRiddles,
+	fetchUserRiddleInfo
+} from './fetchingQueries';
 
 // TODO: Extract common parts with simple detail fetch
 export const fetchComplexRiddleDetail = async (
@@ -52,7 +25,7 @@ export const fetchComplexRiddleDetail = async (
 	const riddleInfo = (
 		await fetchUserRiddleInfo(linkId, user?.email ?? '')
 	)?.data();
-	const riddleRes = await fetchRiddleInfo(linkId);
+	const riddleRes = await fetchRiddle(linkId);
 
 	const {
 		name,
@@ -78,6 +51,7 @@ export const fetchComplexRiddleDetail = async (
 		image,
 		language,
 		difficulty: getDifficultyObject(difficultyValue),
+		difficultyValue,
 		numberOfQuestions,
 		solvedText,
 		solvedImage,
@@ -94,7 +68,7 @@ export const fetchComplexRiddleDetail = async (
 	if (!riddle.id) {
 		throw Error('Undefined riddle id!');
 	}
-	const questionRes = await fetchQuestionsInfo(riddle.id);
+	const questionRes = await fetchQuestions(riddle.id);
 
 	questionRes.docs.forEach(doc => {
 		const { order, questionText, questionImage, hints, correctAnswers } =
@@ -126,4 +100,20 @@ export const fetchComplexRiddleDetail = async (
 	});
 	console.log(riddle);
 	return riddle;
+};
+
+export const fetchRiddlePreviews = async (
+	...queryConstraints: QueryConstraint[]
+): Promise<RiddlePreview[]> => {
+	const riddleDbData = await fetchRiddles(...queryConstraints);
+	return riddleDbData.map(riddle => {
+		const { linkId, name, image, language, difficultyValue } = riddle.data();
+		return {
+			linkId,
+			name,
+			image,
+			language,
+			difficulty: getDifficultyObject(difficultyValue)
+		};
+	});
 };

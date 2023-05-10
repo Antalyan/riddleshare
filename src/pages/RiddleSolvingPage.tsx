@@ -19,11 +19,15 @@ export const RiddleSolvingPage: FC = () => {
 
 	const [riddleData, setRiddleData] = useState<RiddleDisplayDetail>();
 	useEffect(() => {
-		const loadRiddle = async () => {
-			const riddle = await fetchComplexRiddleDetail(id ?? '', user);
-			setRiddleData(riddle);
+		const loadAndSetRiddle = async () => {
+			try {
+				const riddle = await fetchComplexRiddleDetail(id ?? '', user);
+				setRiddleData(riddle);
+			} catch (error) {
+				console.log(error);
+			}
 		};
-		loadRiddle();
+		loadAndSetRiddle();
 	}, []);
 	return riddleData ? (
 		<Stack gap={2}>

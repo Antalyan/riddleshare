@@ -28,12 +28,17 @@ export const storeRiddle = async (
 
 	const batch = writeBatch(db);
 
-	const { questions, questionOrder, sharingInformation, difficulty, ...rest } =
-		data;
+	const {
+		questions,
+		questionOrder,
+		sharingInformation,
+		difficultyValue,
+		...rest
+	} = data;
 	const riddleDoc = doc(riddlesCollection);
 	batch.set(riddleDoc, {
 		...rest,
-		difficultyValue: difficulty.value,
+		difficultyValue,
 		isSequential: questionOrder === 'sequence',
 		sharingInformation: {
 			isPublic: sharingInformation.visibility === 'public',

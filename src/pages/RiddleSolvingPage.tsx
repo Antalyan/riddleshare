@@ -1,7 +1,14 @@
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+	Button,
+	Card,
+	CardContent,
+	CardMedia,
+	Stack,
+	Typography
+} from '@mui/material';
 
 import { QuestionSolvingAccordion } from '../components/forms/solvingForm/QuestionSolvingAccordion';
 import { fetchRiddleComplexDetail } from '../datastore/fetchingFunctions';
@@ -11,6 +18,7 @@ import { RiddleStatus } from '../utils/Statuses';
 
 export const RiddleSolvingPage: FC = () => {
 	const { id } = useParams();
+	const navigate = useNavigate();
 	const user = useLoggedInUser();
 
 	if (!user) {
@@ -29,13 +37,14 @@ export const RiddleSolvingPage: FC = () => {
 		};
 		loadAndSetRiddle();
 	}, []);
+
 	return riddleData ? (
 		<Stack gap={2}>
 			<Typography variant="h4" fontWeight="bold">
 				{riddleData.name}
 			</Typography>
 
-			{riddleData.questions.map((question, index) => (
+			{riddleData.questions.map(question => (
 				<QuestionSolvingAccordion
 					riddleData={riddleData}
 					// @ts-ignore
@@ -53,7 +62,8 @@ export const RiddleSolvingPage: FC = () => {
 							alt="Riddle solution image"
 							sx={{
 								p: 2,
-								objectFit: 'contain'
+								objectFit: 'contain',
+								maxHeight: '300px'
 							}}
 						/>
 					)}
@@ -65,6 +75,14 @@ export const RiddleSolvingPage: FC = () => {
 					</CardContent>
 				</Card>
 			)}
+
+			<Button
+				variant="contained"
+				sx={{ backgroundColor: 'primary.light', maxWidth: 200 }}
+				onClick={() => navigate(`/riddle-detail/${id}`)}
+			>
+				Back to detail
+			</Button>
 		</Stack>
 	) : (
 		<></>

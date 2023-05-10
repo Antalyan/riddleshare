@@ -81,18 +81,19 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 				</Box>
 			</Box>
 
-			{/*//TODO: make conditional if img not compulsory*/}
-			<Box
-				component="img"
-				alt={name}
-				src={image}
-				sx={{
-					maxWidth: '100%',
-					maxHeight: '300px',
-					objectFit: 'contain',
-					objectPosition: 'left'
-				}}
-			/>
+			{image && (
+				<Box
+					component="img"
+					alt={name}
+					src={image}
+					sx={{
+						maxWidth: '100%',
+						maxHeight: '300px',
+						objectFit: 'contain',
+						objectPosition: 'left'
+					}}
+				/>
+			)}
 
 			<Typography>{description}</Typography>
 
@@ -106,7 +107,6 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 				}}
 			>
 				<Button
-					type="submit"
 					variant="contained"
 					sx={{ backgroundColor: 'primary.light', flex: 1, maxWidth: '200px' }}
 					onClick={() => navigate(-1)}
@@ -114,7 +114,6 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 					Back
 				</Button>
 				<Button
-					type="submit"
 					variant="contained"
 					sx={{ flex: 1, maxWidth: '200px' }}
 					onClick={() => {

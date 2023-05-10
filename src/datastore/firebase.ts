@@ -12,13 +12,19 @@ import type {
 	DocumentReference
 } from 'firebase/firestore';
 import {
+	setDoc,
 	collection,
 	doc,
 	getFirestore,
 	initializeFirestore
 } from 'firebase/firestore';
 
-import type { QuestionDb, RiddleDb, UserRiddleInfoDb } from '../utils/DbTypes';
+import type {
+	QuestionDb,
+	RiddleDb,
+	UserDb,
+	UserRiddleInfoDb
+} from '../utils/DbTypes';
 
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
@@ -40,8 +46,10 @@ initializeFirestore(app, {
 const auth = getAuth();
 
 // Sign up handler
-export const signUp = (email: string, password: string) =>
+export const signUp = (email: string, password: string) => {
 	createUserWithEmailAndPassword(auth, email, password);
+	setDoc(doc(usersCollection), { email, password });
+};
 
 // Sign in handler
 export const signIn = (email: string, password: string) =>
@@ -91,3 +99,11 @@ export const userRiddleInfoCollection = collection(
 
 export const userRiddleInfoDocument = (id: string) =>
 	doc(db, 'userRiddleInfo', id) as DocumentReference<UserRiddleInfoDb>;
+
+export const usersCollection = collection(
+	db,
+	'users'
+) as CollectionReference<UserDb>;
+
+export const usersDocument = (id: string) =>
+	doc(db, 'users', id) as DocumentReference<UserDb>;

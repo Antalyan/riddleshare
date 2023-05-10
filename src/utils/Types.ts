@@ -13,6 +13,7 @@ export type RiddlePreview = {
 	linkId: string;
 	name: string;
 	image?: string;
+	imageFile?: Blob;
 	state?: RiddleStatus; //Not needed for My riddles
 	language: CountryCode;
 	difficulty: Difficulty;
@@ -22,6 +23,7 @@ export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 	description: string;
 	solvedText: string;
 	solvedImage?: string;
+	solvedImageFile?: Blob;
 	questions: QuestionUpsertDetail[];
 	questionOrder?: QuestionOrder;
 	sharingInformation: SharingInformationUpsert;

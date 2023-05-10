@@ -17,11 +17,11 @@ export const FileUploader = ({ name, control, label }: Props) => (
 		render={({ field, fieldState }) => (
 			<MuiFileInput
 				{...field}
-				label={label}
-				accept="image/*"
-				ref={null} // to prevent console warning 'Function components cannot be given refs. Attempts to access this ref will fail.'
-				helperText={fieldState.invalid ? 'File is invalid' : ''}
 				error={fieldState.invalid}
+				helperText={fieldState.invalid ? 'File is invalid' : ''}
+				inputProps={{ accept: 'image/*' }}
+				label={label}
+				ref={null} // to prevent console warning 'Function components cannot be given refs. Attempts to access this ref will fail.'
 			/>
 		)}
 	/>

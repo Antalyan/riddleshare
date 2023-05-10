@@ -40,7 +40,7 @@ export const RiddleBasicInformationForm = ({
 					// required
 				/>
 				<FileUploader
-					name="image"
+					name="imageFile"
 					control={control}
 					label="Riddle preview picture"
 				/>
@@ -55,7 +55,7 @@ export const RiddleBasicInformationForm = ({
 					placeholder="Text displayed to the user when the riddle is solved"
 				/>
 				<FileUploader
-					name="solvedImage"
+					name="solvedImageFile"
 					control={control}
 					label="Riddle solution picture"
 				/>

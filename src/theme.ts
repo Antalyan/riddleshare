@@ -74,7 +74,8 @@ export const theme = createTheme(
 						borderRadius: 8,
 						fontSize: '1rem',
 						fontWeight: 'bold',
-						textTransform: 'none'
+						textTransform: 'none',
+						whiteSpace: 'nowrap'
 					},
 					outlined: {
 						color: '#ffffff'
@@ -186,6 +187,13 @@ export const theme = createTheme(
 				styleOverrides: {
 					label: {
 						color: globalTheme.palette.text.primary
+					}
+				}
+			},
+			MuiSvgIcon: {
+				styleOverrides: {
+					root: {
+						backgroundColor: 'initial !important'
 					}
 				}
 			}

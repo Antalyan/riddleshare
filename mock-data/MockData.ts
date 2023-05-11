@@ -51,7 +51,7 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 ];
 
 export const MockDisplayQuestions: QuestionDisplayDetail[] =
-	MockUpsertQuestions.map(question => {
+	MockUpsertQuestions.map((question, index) => {
 		const { hints, correctAnswers, ...rest } = question;
 		const updatedHints = hints.map(hint => ({ ...hint, taken: false }));
 		const updatedCorrectAnswers = correctAnswers.map(a => a.text);
@@ -62,7 +62,8 @@ export const MockDisplayQuestions: QuestionDisplayDetail[] =
 			correctAnswers: updatedCorrectAnswers,
 			solved: false,
 			answers: [],
-			available: true
+			available: true,
+			order: index + 1
 		};
 	});
 

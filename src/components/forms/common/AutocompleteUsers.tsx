@@ -3,9 +3,9 @@ import type { FC } from 'react';
 import { Autocomplete, CircularProgress, TextField } from '@mui/material';
 import { Controller, type Control } from 'react-hook-form';
 
-import { fetchUsers } from '../../../datastore/fetchingFunctions';
 import type { UserDb } from '../../../utils/DbTypes';
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
+import { fetchUsers } from '../../../datastore/fetchingQueries';
 
 type Props = {
 	control: Control<any>;

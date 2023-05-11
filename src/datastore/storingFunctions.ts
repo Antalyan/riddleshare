@@ -16,7 +16,7 @@ import {
 	userRiddleInfoCollection,
 	userRiddleInfoDocument
 } from './firebase';
-import { fetchUserRiddleInfo } from './fetchingFunctions';
+import { fetchUserRiddleInfo } from './fetchingQueries';
 
 export const storeRiddle = async (
 	data: RiddleUpsertDetail,
@@ -72,6 +72,7 @@ export const storeRiddleAnswerInfo = async (
 	riddleData: RiddleDisplayDetail,
 	user: User
 ) => {
+	console.log(`Storing: ${riddleData}`);
 	const { linkId } = riddleData;
 	const userAnswerDoc = await fetchUserRiddleInfo(linkId, user.email ?? '');
 	const questionsForUpdate: Record<

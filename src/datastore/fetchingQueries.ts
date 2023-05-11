@@ -44,7 +44,7 @@ export const fetchRiddle = async (linkId: string) => {
 	return (await getDocs(qRiddle)).docs[0];
 };
 export const fetchQuestions = async (riddleDocId: string) => {
-	const qQuestions = query(questionsCollection(riddleDocId));
+	const qQuestions = query(questionsCollection(riddleDocId), orderBy('order'));
 	return await getDocs(qQuestions);
 };
 export const fetchUsers = async () => {

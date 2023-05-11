@@ -188,6 +188,13 @@ export const theme = createTheme(
 						color: globalTheme.palette.text.primary
 					}
 				}
+			},
+			MuiSvgIcon: {
+				styleOverrides: {
+					root: {
+						backgroundColor: 'initial !important'
+					}
+				}
 			}
 		}
 	},

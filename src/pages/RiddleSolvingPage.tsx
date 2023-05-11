@@ -84,7 +84,5 @@ export const RiddleSolvingPage: FC = () => {
 				Back to detail
 			</Button>
 		</Stack>
-	) : (
-		<></>
-	);
+	) : null;
 };

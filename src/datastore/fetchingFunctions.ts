@@ -184,6 +184,7 @@ export const fetchRiddleSimpleDetail = async (
 		image,
 		language,
 		difficulty: getDifficultyObject(difficultyValue),
+		difficultyValue,
 		numberOfQuestions,
 		state: solvingInfo ? solvingInfo.data().state : RiddleStatus.Untouched,
 		solvedQuestions,

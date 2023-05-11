@@ -47,8 +47,8 @@ export const QuestionSolvingAccordion = ({
 	const user = useLoggedInUser();
 
 	const [dialogOpen, setDialogOpen] = useState(false);
-
 	const [answer, setAnswer] = useState('');
+
 	const handleSubmitAnswer = useCallback(() => {
 		console.log(answer);
 		const answerIsCorrect = correctAnswers
@@ -61,6 +61,7 @@ export const QuestionSolvingAccordion = ({
 			correct: answerIsCorrect
 		});
 		if (answerIsCorrect) {
+			setIsSolved(true);
 			setDialogOpen(true);
 			riddleData.solvedQuestions++;
 			riddleData.state =
@@ -88,12 +89,11 @@ export const QuestionSolvingAccordion = ({
 
 	const handleClose = () => {
 		setDialogOpen(false);
-		setIsSolved(true);
 	};
 
 	return (
 		<>
-			<Accordion>
+			<Accordion disabled={!available}>
 				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 					<Stack
 						direction="row"

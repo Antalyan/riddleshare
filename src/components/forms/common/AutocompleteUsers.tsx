@@ -58,8 +58,7 @@ export const AutocompleteUsers: FC<Props> = ({ control, label, name }) => {
 						loading={loading}
 						options={users}
 						getOptionLabel={user => user.email}
-						// eslint-disable-next-line @typescript-eslint/no-unused-vars
-						onChange={(event, newValue) => {
+						onChange={(_, newValue) => {
 							onChange(newValue ? newValue.map(user => user.email) : null);
 						}}
 						renderInput={params => (

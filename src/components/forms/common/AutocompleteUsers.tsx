@@ -30,7 +30,7 @@ export const AutocompleteUsers: FC<Props> = ({ control, label, name }) => {
 
 	useEffect(() => {
 		if (!loading) {
-			return undefined;
+			return;
 		}
 		loadUsers();
 	}, [loading]);

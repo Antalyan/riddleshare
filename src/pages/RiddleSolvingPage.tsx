@@ -79,7 +79,7 @@ export const RiddleSolvingPage: FC = () => {
 			<Button
 				variant="contained"
 				sx={{ backgroundColor: 'primary.light', maxWidth: 200 }}
-				onClick={() => navigate(`/riddle-detail/${id}`)}
+				onClick={() => navigate(-1)}
 			>
 				Back to detail
 			</Button>

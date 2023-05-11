@@ -1,6 +1,6 @@
 import type { RiddleStatus } from './Statuses';
 import type { CountryCode } from './CountryCodes';
-import type { Difficulty } from './Difficulty';
+import type { Difficulty, DifficultyType } from './Difficulty';
 
 export type QuestionOrder = 'sequence' | 'parallel';
 export type Visibility = 'public' | 'private';
@@ -20,6 +20,7 @@ export type RiddlePreview = {
 
 export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 	description: string;
+	difficultyValue: DifficultyType;
 	solvedText: string;
 	solvedImage?: string;
 	questions: QuestionUpsertDetail[];

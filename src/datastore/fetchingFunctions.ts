@@ -1,4 +1,4 @@
-import { getDocs, query, where } from 'firebase/firestore';
+import { getDocs, query, where, orderBy } from 'firebase/firestore';
 import type { User } from 'firebase/auth';
 
 import type {
@@ -12,8 +12,14 @@ import { RiddleStatus } from '../utils/Statuses';
 import {
 	questionsCollection,
 	riddlesCollection,
-	userRiddleInfoCollection
+	userRiddleInfoCollection,
+	usersCollection
 } from './firebase';
+
+export const fetchUsers = async () => {
+	const qUsers = query(usersCollection, orderBy('email'));
+	return await getDocs(qUsers);
+};
 
 export const fetchUserRiddleInfo = async (
 	linkId: string,

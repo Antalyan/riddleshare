@@ -40,3 +40,8 @@ export type UserRiddleInfoDb = {
 		{ solved: boolean; answers: string[]; hintsTaken: number }
 	>;
 };
+
+export type UserDb = {
+	email: string;
+	password: string;
+};

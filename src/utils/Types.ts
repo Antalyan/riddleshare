@@ -31,6 +31,7 @@ export type RiddleDisplayDetailSimple = Omit<
 	RiddleUpsertDetail,
 	'questions' | 'solvedText' | 'solvedImage'
 > & {
+	creatorEmail: string;
 	numberOfQuestions: number;
 	state: RiddleStatus;
 	solvedQuestions: number;

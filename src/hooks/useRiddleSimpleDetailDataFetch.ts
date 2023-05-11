@@ -19,10 +19,12 @@ export const useRiddleSimpleDetailDataFetch = (
 	const user = useLoggedInUser();
 
 	const [riddle, setRiddle] = useState<RiddleDisplayDetailSimple>({
+		creatorEmail: user?.email ?? '',
 		name: '',
 		description: '',
 		language: 'uk',
 		difficulty: getDifficultyObject(1),
+		difficultyValue: 1,
 		linkId,
 		sharingInformation: { visibility: 'public' },
 		numberOfQuestions: -1,

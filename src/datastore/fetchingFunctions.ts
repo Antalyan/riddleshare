@@ -1,6 +1,5 @@
 import type { User } from 'firebase/auth';
 import type { QueryConstraint } from 'firebase/firestore';
-import { query, where } from 'firebase/firestore';
 
 import type {
 	RiddleDisplayDetail,
@@ -19,7 +18,6 @@ import {
 	fetchUserRiddleInfo,
 	fetchUserRiddleInfos
 } from './fetchingQueries';
-import { riddlesCollection, userRiddleInfoCollection } from './firebase';
 
 // TODO: Extract common parts with simple detail fetch
 export const fetchRiddleComplexDetail = async (
@@ -33,6 +31,7 @@ export const fetchRiddleComplexDetail = async (
 
 	const {
 		name,
+		creatorEmail,
 		description,
 		image,
 		language,
@@ -51,6 +50,7 @@ export const fetchRiddleComplexDetail = async (
 		id: riddleRes.id,
 		name,
 		linkId,
+		creatorEmail,
 		description,
 		image,
 		language,
@@ -148,16 +148,17 @@ export const fetchRiddleSimpleDetail = async (
 	linkId: string,
 	user: User
 ): Promise<RiddleDisplayDetailSimple> => {
-	const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
-	const qSolveInfo = query(
-		userRiddleInfoCollection,
-		where('riddleLinkId', '==', linkId),
-		where('userEmail', '==', user?.email)
-	);
+	// const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
+	// const qSolveInfo = query(
+	// 	userRiddleInfoCollection,
+	// 	where('riddleLinkId', '==', linkId),
+	// 	where('userEmail', '==', user?.email)
+	// );
 
 	const riddleDoc = await fetchRiddle(linkId);
 	const {
 		name,
+		creatorEmail,
 		description,
 		image,
 		language,
@@ -180,6 +181,7 @@ export const fetchRiddleSimpleDetail = async (
 	return {
 		linkId,
 		name,
+		creatorEmail,
 		description,
 		image,
 		language,

@@ -1,6 +1,6 @@
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { RiddleDetail } from '../components/RiddleDetail';
 import type { RiddleDisplayDetailSimple } from '../utils/Types';
@@ -10,6 +10,7 @@ import useLoggedInUser from '../hooks/useLoggedInUser';
 //TODO: Add similar page with is creator view = false => (Figma: My riddles - detail)
 const RiddleDetailPage: FC = () => {
 	const { id } = useParams();
+	const navigate = useNavigate();
 	const user = useLoggedInUser();
 
 	const [riddleData, setRiddleData] = useState<RiddleDisplayDetailSimple>();
@@ -17,6 +18,14 @@ const RiddleDetailPage: FC = () => {
 		const loadAndSetRiddle = async () => {
 			try {
 				const riddle = await fetchRiddleSimpleDetail(id ?? '', user!);
+				// Protect private riddle
+				if (
+					riddle.sharingInformation.visibility === 'private' &&
+					!riddle.sharingInformation.sharedUsers?.includes(user?.email ?? '') &&
+					riddle.creatorEmail !== (user?.email ?? '')
+				) {
+					navigate('/not-found');
+				}
 				setRiddleData(riddle);
 			} catch (error) {
 				console.log(error);
@@ -27,9 +36,7 @@ const RiddleDetailPage: FC = () => {
 
 	return riddleData !== undefined ? (
 		<RiddleDetail isCreatorView={false} riddleDetail={riddleData} />
-	) : (
-		<></>
-	);
+	) : null;
 };
 
 export default RiddleDetailPage;

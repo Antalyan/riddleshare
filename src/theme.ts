@@ -74,7 +74,8 @@ export const theme = createTheme(
 						borderRadius: 8,
 						fontSize: '1rem',
 						fontWeight: 'bold',
-						textTransform: 'none'
+						textTransform: 'none',
+						whiteSpace: 'nowrap'
 					},
 					outlined: {
 						color: '#ffffff'

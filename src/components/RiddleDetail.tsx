@@ -5,6 +5,8 @@ import LensIcon from '@mui/icons-material/Lens';
 
 import type { RiddleDisplayDetailSimple } from '../utils/Types';
 import { RiddleStatus } from '../utils/Statuses';
+import { deleteUserRiddleInfo } from '../datastore/deletingQueries';
+import useLoggedInUser from '../hooks/useLoggedInUser';
 
 type Props = {
 	isCreatorView: boolean;
@@ -14,6 +16,7 @@ type Props = {
 //TODO: Update component with details and variant for creator
 export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 	const navigate = useNavigate();
+	const user = useLoggedInUser();
 
 	if (!riddleDetail) {
 		return <Navigate to="/not-found" replace />;
@@ -108,20 +111,37 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 			>
 				<Button
 					variant="contained"
-					sx={{ backgroundColor: 'primary.light', flex: 1, maxWidth: '200px' }}
+					sx={{ backgroundColor: 'primary.light', maxWidth: '200px' }}
 					onClick={() => navigate(-1)}
 				>
 					Back
 				</Button>
-				<Button
-					variant="contained"
-					sx={{ flex: 1, maxWidth: '200px' }}
-					onClick={() => {
-						navigate(`/riddle-detail/${linkId}/solve`);
-					}}
-				>
-					{state === RiddleStatus.Untouched ? 'Try to solve' : 'Continue'}
-				</Button>
+				<Stack direction="row" gap={2}>
+					{state === RiddleStatus.Solved && (
+						<Button
+							variant="contained"
+							sx={{ maxWidth: '200px' }}
+							onClick={() => {
+								deleteUserRiddleInfo(linkId, user?.email ?? '').then(
+									() => navigate(0) // Refreshing the page
+								);
+							}}
+						>
+							Reset
+						</Button>
+					)}
+					<Button
+						variant="contained"
+						sx={{ maxWidth: '200px' }}
+						onClick={() => {
+							navigate(`/riddle-detail/${linkId}/solve`);
+						}}
+					>
+						{state === RiddleStatus.Untouched && 'Try to solve'}
+						{state === RiddleStatus.Unfinished && 'Continue solving'}
+						{state === RiddleStatus.Solved && 'See answers'}
+					</Button>
+				</Stack>
 			</Box>
 		</Stack>
 	);

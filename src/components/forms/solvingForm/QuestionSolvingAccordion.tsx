@@ -184,7 +184,7 @@ export const QuestionSolvingAccordion = ({
 			{/*//Dialog is displayed on correct solution*/}
 			<AlertDialog
 				name="Congratulations"
-				text={`Your answer ${answer.toUpperCase()} is correct!`}
+				content={`Your answer ${answer.toUpperCase()} is correct!`}
 				open={dialogOpen}
 				handleClose={handleClose}
 			/>

@@ -2,19 +2,30 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
+import { useCallback, useEffect, useState } from 'react';
 
 import type { RiddleDisplayDetailSimple } from '../utils/Types';
 import { RiddleStatus } from '../utils/Statuses';
 import { deleteUserRiddleInfo } from '../datastore/deletingQueries';
 import useLoggedInUser from '../hooks/useLoggedInUser';
+import { fetchRiddleSolvers } from '../datastore/fetchingQueries';
+import type { UserRiddleInfoDb } from '../utils/DbTypes';
+
+import { InfoLine } from './riddleDetail/_components/InfoLine';
+import { InfoAccordion } from './riddleDetail/_components/InfoAccordion';
 
 type Props = {
 	isCreatorView: boolean;
 	riddleDetail: RiddleDisplayDetailSimple;
 };
 
-//TODO: Update component with details and variant for creator
 export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
+	const [successfulSolversData, setSuccessfulSolversData] = useState<
+		UserRiddleInfoDb[]
+	>([]);
+	const [unsuccessfulSolversData, setUnsuccessfulSolversData] = useState<
+		UserRiddleInfoDb[]
+	>([]);
 	const navigate = useNavigate();
 	const user = useLoggedInUser();
 
@@ -31,8 +42,33 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 		name,
 		numberOfQuestions,
 		solvedQuestions,
-		state
+		state,
+		sharingInformation
 	} = riddleDetail;
+
+	const fetchSolvers = useCallback(async () => {
+		const solvers = await fetchRiddleSolvers(linkId);
+		const successfulSolvers: UserRiddleInfoDb[] = [];
+		const unsuccessfulSolvers: UserRiddleInfoDb[] = [];
+		solvers.docs
+			.map(doc => doc.data())
+			.forEach(solver => {
+				if (solver.state === RiddleStatus.Solved) {
+					successfulSolvers.push(solver);
+				} else {
+					unsuccessfulSolvers.push(solver);
+				}
+			});
+		setSuccessfulSolversData(successfulSolvers);
+		setUnsuccessfulSolversData(unsuccessfulSolvers);
+	}, []);
+
+	useEffect(() => {
+		if (!isCreatorView) {
+			return;
+		}
+		fetchSolvers();
+	}, []);
 
 	return (
 		<Stack gap={2}>
@@ -41,47 +77,42 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 			</Typography>
 
 			<Box>
-				<Box sx={{ display: 'flex', columnGap: 2 }}>
-					<Typography variant="h6" fontWeight="bold">
-						Language:
-					</Typography>
-					<Typography
-						variant="h6"
-						sx={{ display: 'flex', alignItems: 'center' }}
-					>
-						<CircleFlag countryCode={language} height={20} />
-						&nbsp;
-						{language}
-					</Typography>
-				</Box>
-				<Box sx={{ display: 'flex', columnGap: 2 }}>
-					<Typography variant="h6" fontWeight="bold">
-						Expected difficulty:
-					</Typography>
-					<Typography
-						variant="h6"
-						sx={{ display: 'flex', alignItems: 'center' }}
-					>
-						<LensIcon color="disabled" sx={{ color: difficulty.color }} />
-						&nbsp;
-						{difficulty?.name}
-					</Typography>
-				</Box>
-				<Box sx={{ display: 'flex', columnGap: 2 }}>
-					<Typography variant="h6" fontWeight="bold">
-						{state === RiddleStatus.Untouched
-							? 'Number of questions:'
-							: 'Solved questions:'}
-					</Typography>
-					<Typography
-						variant="h6"
-						sx={{ display: 'flex', alignItems: 'center' }}
-					>
-						{`${
-							state === RiddleStatus.Untouched ? '' : `${solvedQuestions}/`
-						}${numberOfQuestions}`}
-					</Typography>
-				</Box>
+				<InfoLine
+					label="Language"
+					value={
+						<>
+							<CircleFlag countryCode={language} height={20} />
+							&nbsp;
+							{language}
+						</>
+					}
+				/>
+				<InfoLine
+					label="Expected difficulty"
+					value={
+						<>
+							<LensIcon color="disabled" sx={{ color: difficulty.color }} />
+							&nbsp;
+							{difficulty?.name}
+						</>
+					}
+				/>
+				<InfoLine
+					label={
+						state === RiddleStatus.Untouched
+							? 'Number of questions'
+							: 'Solved questions'
+					}
+					value={`${
+						state === RiddleStatus.Untouched ? '' : `${solvedQuestions}/`
+					}${numberOfQuestions}`}
+				/>
+				{isCreatorView && (
+					<InfoLine
+						label="Availability"
+						value={sharingInformation.visibility}
+					/>
+				)}
 			</Box>
 
 			{image && (
@@ -99,6 +130,45 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 			)}
 
 			<Typography>{description}</Typography>
+
+			{isCreatorView && (
+				<>
+					<br />
+					{(successfulSolversData.length > 0 ||
+						unsuccessfulSolversData.length > 0) && (
+						<InfoLine
+							label="Success rate"
+							value={`${
+								(successfulSolversData.length /
+									(successfulSolversData.length +
+										unsuccessfulSolversData.length)) *
+								100
+							} % (${successfulSolversData.length}/${
+								successfulSolversData.length + unsuccessfulSolversData.length
+							})`}
+						/>
+					)}
+
+					{sharingInformation.sharedUsers && (
+						<InfoAccordion
+							label="Shared with"
+							solvers={sharingInformation.sharedUsers}
+						/>
+					)}
+					{successfulSolversData.length > 0 && (
+						<InfoAccordion
+							label="Successful solvers"
+							solvers={successfulSolversData}
+						/>
+					)}
+					{unsuccessfulSolversData.length > 0 && (
+						<InfoAccordion
+							label="Unsuccessful solvers"
+							solvers={unsuccessfulSolversData}
+						/>
+					)}
+				</>
+			)}
 
 			<Box
 				sx={{

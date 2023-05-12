@@ -61,6 +61,16 @@ export const theme = createTheme(
 					}
 				}
 			},
+			MuiAvatar: {
+				styleOverrides: {
+					root: {
+						width: '20px',
+						height: '20px',
+						fontSize: '1rem',
+						backgroundColor: globalTheme.palette.primary.main
+					}
+				}
+			},
 			MuiBackdrop: {
 				styleOverrides: {
 					root: {

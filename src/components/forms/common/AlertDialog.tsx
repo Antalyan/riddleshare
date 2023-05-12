@@ -9,17 +9,17 @@ import {
 
 type Props = {
 	name: string;
-	text: string;
+	content: React.ReactNode;
 	open: boolean;
 	handleClose: () => void;
 };
 
-export const AlertDialog = ({ name, text, open, handleClose }: Props) => (
+export const AlertDialog = ({ name, content, open, handleClose }: Props) => (
 	<Dialog open={open} onClose={handleClose}>
 		<DialogTitle sx={{ fontWeight: 'bold' }}>{name}</DialogTitle>
 		<DialogContent>
 			<DialogContentText sx={{ color: 'text.primary' }}>
-				{text}
+				{content}
 			</DialogContentText>
 		</DialogContent>
 		<DialogActions>

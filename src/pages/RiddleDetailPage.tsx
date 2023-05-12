@@ -35,7 +35,10 @@ const RiddleDetailPage: FC = () => {
 	}, []);
 
 	return riddleData !== undefined ? (
-		<RiddleDetail isCreatorView={false} riddleDetail={riddleData} />
+		<RiddleDetail
+			isCreatorView={riddleData.creatorEmail === user?.email}
+			riddleDetail={riddleData}
+		/>
 	) : null;
 };
 

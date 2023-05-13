@@ -44,8 +44,16 @@ export const RiddleBasicInformationForm = ({
 					control={control}
 					label="Riddle preview picture"
 				/>
-				<AutocompleteLanguages />
-				<AutocompleteDifficulties />
+				<AutocompleteLanguages
+					control={control}
+					label="Language"
+					name="language"
+				/>
+				<AutocompleteDifficulties
+					control={control}
+					label="Expected difficulty"
+					name="difficultyValue"
+				/>
 				<TextFieldElement
 					label="Riddle solved text"
 					multiline

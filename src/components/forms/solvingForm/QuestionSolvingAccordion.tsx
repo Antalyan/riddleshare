@@ -47,8 +47,8 @@ export const QuestionSolvingAccordion = ({
 	const user = useLoggedInUser();
 
 	const [dialogOpen, setDialogOpen] = useState(false);
-
 	const [answer, setAnswer] = useState('');
+
 	const handleSubmitAnswer = useCallback(() => {
 		console.log(answer);
 		const answerIsCorrect = correctAnswers
@@ -61,25 +61,25 @@ export const QuestionSolvingAccordion = ({
 			correct: answerIsCorrect
 		});
 		if (answerIsCorrect) {
+			setIsSolved(true);
 			setDialogOpen(true);
-			const riddleDataCopy: RiddleDisplayDetail = { ...riddleData };
-			riddleDataCopy.solvedQuestions++;
-			riddleDataCopy.state =
-				riddleDataCopy.solvedQuestions === riddleDataCopy.numberOfQuestions
+			riddleData.solvedQuestions++;
+			riddleData.state =
+				riddleData.solvedQuestions === riddleData.numberOfQuestions
 					? RiddleStatus.Solved
 					: RiddleStatus.Unfinished;
-			riddleDataCopy.questions[questionNumber - 1].solved = true;
+			riddleData.questions[questionNumber - 1].solved = true;
 			if (
-				riddleDataCopy.questionOrder === 'sequence' &&
-				riddleDataCopy.solvedQuestions !== riddleDataCopy.numberOfQuestions
+				riddleData.questionOrder === 'sequence' &&
+				riddleData.solvedQuestions !== riddleData.numberOfQuestions
 			) {
-				riddleDataCopy.questions[questionNumber].available = true; // Make next question available
+				riddleData.questions[questionNumber].available = true; // Make next question available
 			}
-			setRiddleData(riddleDataCopy);
 		} else {
 			riddleData.state = RiddleStatus.Unfinished;
 			setShowError(true);
 		}
+		setRiddleData({ ...riddleData }); //Force rerender
 		storeRiddleAnswerInfo(riddleData, user!);
 	}, [answer]);
 
@@ -89,12 +89,11 @@ export const QuestionSolvingAccordion = ({
 
 	const handleClose = () => {
 		setDialogOpen(false);
-		setIsSolved(true);
 	};
 
 	return (
 		<>
-			<Accordion>
+			<Accordion disabled={!available}>
 				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 					<Stack
 						direction="row"
@@ -185,7 +184,7 @@ export const QuestionSolvingAccordion = ({
 			{/*//Dialog is displayed on correct solution*/}
 			<AlertDialog
 				name="Congratulations"
-				text={`Your answer ${answer.toUpperCase()} is correct!`}
+				content={`Your answer ${answer.toUpperCase()} is correct!`}
 				open={dialogOpen}
 				handleClose={handleClose}
 			/>

@@ -16,7 +16,7 @@ import {
 	userRiddleInfoCollection,
 	userRiddleInfoDocument
 } from './firebase';
-import { fetchUserRiddleInfo } from './fetchingFunctions';
+import { fetchUserRiddleInfo } from './fetchingQueries';
 
 export const storeRiddle = async (
 	data: RiddleUpsertDetail,
@@ -28,12 +28,17 @@ export const storeRiddle = async (
 
 	const batch = writeBatch(db);
 
-	const { questions, questionOrder, sharingInformation, difficulty, ...rest } =
-		data;
+	const {
+		questions,
+		questionOrder,
+		sharingInformation,
+		difficultyValue,
+		...rest
+	} = data;
 	const riddleDoc = doc(riddlesCollection);
 	batch.set(riddleDoc, {
 		...rest,
-		difficultyValue: difficulty.value,
+		difficultyValue,
 		isSequential: questionOrder === 'sequence',
 		sharingInformation: {
 			isPublic: sharingInformation.visibility === 'public',
@@ -67,6 +72,7 @@ export const storeRiddleAnswerInfo = async (
 	riddleData: RiddleDisplayDetail,
 	user: User
 ) => {
+	console.log(`Storing: ${riddleData}`);
 	const { linkId } = riddleData;
 	const userAnswerDoc = await fetchUserRiddleInfo(linkId, user.email ?? '');
 	const questionsForUpdate: Record<

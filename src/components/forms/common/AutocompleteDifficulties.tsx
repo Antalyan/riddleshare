@@ -1,38 +1,70 @@
-import { Box } from '@mui/material';
+import type { FC } from 'react';
+import { Box, Autocomplete, TextField } from '@mui/material';
 import LensIcon from '@mui/icons-material/Lens';
-import { AutocompleteElement } from 'react-hook-form-mui';
+import { Controller, type Control } from 'react-hook-form';
 
-import type { Difficulty } from '../../../utils/Difficulty';
-import { Difficulties } from '../../../utils/Difficulty';
+import { Difficulties, type Difficulty } from '../../../utils/Difficulty';
+
+type Props = {
+	control: Control<any>;
+	label: string;
+	name: string;
+};
+
+const getColor = (value: number) =>
+	[...Difficulties].find(difficulty => value === difficulty.value)?.color;
 
 const getOptionLabel = (option: Difficulty) =>
 	`${option.name} (${option.value}/${Difficulties.length})`;
 
-export const AutocompleteDifficulties = () => (
-	<AutocompleteElement
-		name="difficulty"
-		// required
-		label="Expected difficulty"
-		options={[...Difficulties]}
-		autocompleteProps={{
-			getOptionLabel,
-			renderOption: (props, option: Difficulty) => (
-				<Box
-					component="li"
-					sx={{
-						'& > svg': { mr: 1 }
+export const AutocompleteDifficulties: FC<Props> = ({
+	control,
+	label,
+	name
+}) => (
+	<Controller
+		name={name}
+		control={control}
+		render={({ field }) => {
+			const { onChange, value, ref } = field;
+			return (
+				<Autocomplete
+					value={[...Difficulties].find(
+						difficulty => value === difficulty.value
+					)}
+					options={[...Difficulties]}
+					getOptionLabel={option => getOptionLabel(option)}
+					// eslint-disable-next-line @typescript-eslint/no-unused-vars
+					onChange={(event, newValue) => {
+						onChange(newValue ? newValue.value : null);
 					}}
-					{...props}
-				>
-					<LensIcon color="disabled" sx={{ color: option.color }} />
-					{getOptionLabel(option)}
-				</Box>
-			)
-		}}
-		textFieldProps={{
-			InputProps: {
-				startAdornment: <LensIcon color="disabled" sx={{ color: '#4caf50' }} />
-			}
+					renderOption={(props, option: Difficulty) => (
+						<Box
+							component="li"
+							sx={{
+								'& > svg': { mr: 1 }
+							}}
+							{...props}
+						>
+							<LensIcon color="disabled" sx={{ color: option.color }} />
+							{getOptionLabel(option)}
+						</Box>
+					)}
+					renderInput={params => (
+						<TextField
+							{...params}
+							label={label}
+							inputRef={ref}
+							InputProps={{
+								...params.InputProps,
+								startAdornment: (
+									<LensIcon color="disabled" sx={{ color: getColor(value) }} />
+								)
+							}}
+						/>
+					)}
+				/>
+			);
 		}}
 	/>
 );

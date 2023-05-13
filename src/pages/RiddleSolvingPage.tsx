@@ -1,16 +1,24 @@
 import type { FC } from 'react';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Card, CardContent, CardMedia, Stack, Typography } from '@mui/material';
+import { useNavigate, useParams } from 'react-router-dom';
+import {
+	Button,
+	Card,
+	CardContent,
+	CardMedia,
+	Stack,
+	Typography
+} from '@mui/material';
 
 import { QuestionSolvingAccordion } from '../components/forms/solvingForm/QuestionSolvingAccordion';
-import { fetchComplexRiddleDetail } from '../datastore/fetchingFunctions';
+import { fetchRiddleComplexDetail } from '../datastore/fetchingFunctions';
 import type { RiddleDisplayDetail } from '../utils/Types';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { RiddleStatus } from '../utils/Statuses';
 
 export const RiddleSolvingPage: FC = () => {
 	const { id } = useParams();
+	const navigate = useNavigate();
 	const user = useLoggedInUser();
 
 	if (!user) {
@@ -19,25 +27,38 @@ export const RiddleSolvingPage: FC = () => {
 
 	const [riddleData, setRiddleData] = useState<RiddleDisplayDetail>();
 	useEffect(() => {
-		const loadRiddle = async () => {
-			const riddle = await fetchComplexRiddleDetail(id ?? '', user);
-			setRiddleData(riddle);
+		const loadAndSetRiddle = async () => {
+			try {
+				const riddle = await fetchRiddleComplexDetail(id ?? '', user);
+				// Protect private riddle
+				if (
+					riddle.sharingInformation.visibility === 'private' &&
+					!riddle.sharingInformation.sharedUsers?.includes(user?.email ?? '') &&
+					riddle.creatorEmail !== (user?.email ?? '')
+				) {
+					navigate('/not-found');
+				}
+				setRiddleData(riddle);
+			} catch (error) {
+				console.log(error);
+			}
 		};
-		loadRiddle();
+		loadAndSetRiddle();
 	}, []);
+
 	return riddleData ? (
 		<Stack gap={2}>
 			<Typography variant="h4" fontWeight="bold">
 				{riddleData.name}
 			</Typography>
 
-			{riddleData.questions.map((question, index) => (
+			{riddleData.questions.map(question => (
 				<QuestionSolvingAccordion
 					riddleData={riddleData}
 					// @ts-ignore
 					setRiddleData={setRiddleData}
-					questionNumber={question.order!}
-					key={question.order!}
+					questionNumber={question.order}
+					key={question.order}
 				/>
 			))}
 			{riddleData.state === RiddleStatus.Solved && (
@@ -49,7 +70,8 @@ export const RiddleSolvingPage: FC = () => {
 							alt="Riddle solution image"
 							sx={{
 								p: 2,
-								objectFit: 'contain'
+								objectFit: 'contain',
+								maxHeight: '300px'
 							}}
 						/>
 					)}
@@ -61,8 +83,14 @@ export const RiddleSolvingPage: FC = () => {
 					</CardContent>
 				</Card>
 			)}
+
+			<Button
+				variant="contained"
+				sx={{ backgroundColor: 'primary.light', maxWidth: 200 }}
+				onClick={() => navigate(-1)}
+			>
+				Back to detail
+			</Button>
 		</Stack>
-	) : (
-		<></>
-	);
+	) : null;
 };

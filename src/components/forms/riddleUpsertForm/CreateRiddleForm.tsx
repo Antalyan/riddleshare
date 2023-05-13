@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import type { RiddleUpsertDetail } from '../../../utils/Types';
-import { getDifficultyObject } from '../../../utils/Difficulty';
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
 import { storeRiddle } from '../../../datastore/storingFunctions';
 import { storage } from '../../../datastore/firebase';
@@ -33,7 +32,7 @@ export const CreateRiddleForm = () => {
 		defaultValues: {
 			linkId: uuidv4(),
 			language: 'uk',
-			difficulty: getDifficultyObject(3),
+			difficultyValue: 3,
 			questions: [
 				{
 					hints: [],

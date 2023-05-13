@@ -5,15 +5,21 @@ import LensIcon from '@mui/icons-material/Lens';
 
 import type { RiddleDisplayDetailSimple } from '../utils/Types';
 import { RiddleStatus } from '../utils/Statuses';
+import { deleteUserRiddleInfo } from '../datastore/deletingQueries';
+import useLoggedInUser from '../hooks/useLoggedInUser';
+import { useRiddleSolversDataFetch } from '../hooks/useRiddleSolversDataFetch';
+
+import { InfoLine } from './riddleDetail/InfoLine';
+import { InfoAccordion } from './riddleDetail/InfoAccordion';
 
 type Props = {
 	isCreatorView: boolean;
 	riddleDetail: RiddleDisplayDetailSimple;
 };
 
-//TODO: Update component with details and variant for creator
 export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 	const navigate = useNavigate();
+	const user = useLoggedInUser();
 
 	if (!riddleDetail) {
 		return <Navigate to="/not-found" replace />;
@@ -28,72 +34,112 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 		name,
 		numberOfQuestions,
 		solvedQuestions,
-		state
+		state,
+		sharingInformation
 	} = riddleDetail;
 
+	const { successfulSolversData, unsuccessfulSolversData } =
+		useRiddleSolversDataFetch(linkId, isCreatorView);
+
 	return (
-		<Stack gap={2} flexGrow={1}>
+		<Stack gap={2}>
 			<Typography variant="h4" fontWeight="bold">
 				{name}
 			</Typography>
 
 			<Box>
-				<Box sx={{ display: 'flex', columnGap: 2 }}>
-					<Typography variant="h6" fontWeight="bold">
-						Language:
-					</Typography>
-					<Typography
-						variant="h6"
-						sx={{ display: 'flex', alignItems: 'center' }}
-					>
-						<CircleFlag countryCode={language} height={20} />
-						&nbsp;
-						{language}
-					</Typography>
-				</Box>
-				<Box sx={{ display: 'flex', columnGap: 2 }}>
-					<Typography variant="h6" fontWeight="bold">
-						Expected difficulty:
-					</Typography>
-					<Typography
-						variant="h6"
-						sx={{ display: 'flex', alignItems: 'center' }}
-					>
-						<LensIcon color="disabled" sx={{ color: difficulty.color }} />
-						&nbsp;
-						{difficulty?.name}
-					</Typography>
-				</Box>
-				<Box sx={{ display: 'flex', columnGap: 2 }}>
-					<Typography variant="h6" fontWeight="bold">
-						{state === RiddleStatus.Untouched
-							? 'Number of questions:'
-							: 'Solved questions:'}
-					</Typography>
-					<Typography
-						variant="h6"
-						sx={{ display: 'flex', alignItems: 'center' }}
-					>
-						{`${
-							state === RiddleStatus.Untouched ? '' : `${solvedQuestions}/`
-						}${numberOfQuestions}`}
-					</Typography>
-				</Box>
+				<InfoLine
+					label="Language"
+					value={
+						<>
+							<CircleFlag countryCode={language} height={20} />
+							&nbsp;
+							{language}
+						</>
+					}
+				/>
+				<InfoLine
+					label="Expected difficulty"
+					value={
+						<>
+							<LensIcon color="disabled" sx={{ color: difficulty.color }} />
+							&nbsp;
+							{difficulty?.name}
+						</>
+					}
+				/>
+				<InfoLine
+					label={
+						state === RiddleStatus.Untouched
+							? 'Number of questions'
+							: 'Solved questions'
+					}
+					value={`${
+						state === RiddleStatus.Untouched ? '' : `${solvedQuestions}/`
+					}${numberOfQuestions}`}
+				/>
+				{isCreatorView && (
+					<InfoLine
+						label="Availability"
+						value={sharingInformation.visibility}
+					/>
+				)}
 			</Box>
 
-			{/*//TODO: make conditional if img not compulsory*/}
-			<Box
-				component="img"
-				alt={name}
-				src={image}
-				sx={{
-					maxWidth: '100%',
-					maxHeight: '300px',
-					objectFit: 'contain'
-				}}
-			/>
+			{image && (
+				<Box
+					component="img"
+					alt={name}
+					src={image}
+					sx={{
+						maxWidth: '100%',
+						maxHeight: '300px',
+						objectFit: 'contain',
+						objectPosition: 'left'
+					}}
+				/>
+			)}
 
 			<Typography>{description}</Typography>
+
+			{isCreatorView && (
+				<>
+					<br />
+					{(successfulSolversData.length > 0 ||
+						unsuccessfulSolversData.length > 0) && (
+						<InfoLine
+							label="Success rate"
+							value={`${
+								(successfulSolversData.length /
+									(successfulSolversData.length +
+										unsuccessfulSolversData.length)) *
+								100
+							} % (${successfulSolversData.length}/${
+								successfulSolversData.length + unsuccessfulSolversData.length
+							})`}
+						/>
+					)}
+
+					{sharingInformation.sharedUsers && (
+						<InfoAccordion
+							label="Shared with"
+							solvers={sharingInformation.sharedUsers}
+						/>
+					)}
+					{successfulSolversData.length > 0 && (
+						<InfoAccordion
+							label="Successful solvers"
+							solvers={successfulSolversData}
+						/>
+					)}
+					{unsuccessfulSolversData.length > 0 && (
+						<InfoAccordion
+							label="Unsuccessful solvers"
+							solvers={unsuccessfulSolversData}
+						/>
+					)}
+				</>
+			)}
 
 			<Box
 				sx={{
@@ -105,23 +151,38 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 				}}
 			>
 				<Button
-					type="submit"
 					variant="contained"
-					sx={{ backgroundColor: 'primary.light', flex: 1, maxWidth: '200px' }}
+					sx={{ backgroundColor: 'primary.light', maxWidth: '200px' }}
 					onClick={() => navigate(-1)}
 				>
 					Back
 				</Button>
-				<Button
-					type="submit"
-					variant="contained"
-					sx={{ flex: 1, maxWidth: '200px' }}
-					onClick={() => {
-						navigate(`/riddle-detail/${linkId}/solve`);
-					}}
-				>
-					{state === RiddleStatus.Untouched ? 'Try to solve' : 'Continue'}
-				</Button>
+				<Stack direction="row" gap={2}>
+					{state === RiddleStatus.Solved && (
+						<Button
+							variant="contained"
+							sx={{ maxWidth: '200px' }}
+							onClick={() => {
+								deleteUserRiddleInfo(linkId, user?.email ?? '').then(
+									() => navigate(0) // Refreshing the page
+								);
+							}}
+						>
+							Reset
+						</Button>
+					)}
+					<Button
+						variant="contained"
+						sx={{ maxWidth: '200px' }}
+						onClick={() => {
+							navigate(`/riddle-detail/${linkId}/solve`);
+						}}
+					>
+						{state === RiddleStatus.Untouched && 'Try to solve'}
+						{state === RiddleStatus.Unfinished && 'Continue solving'}
+						{state === RiddleStatus.Solved && 'See answers'}
+					</Button>
+				</Stack>
 			</Box>
 		</Stack>
 	);

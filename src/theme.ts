@@ -61,6 +61,16 @@ export const theme = createTheme(
 					}
 				}
 			},
+			MuiAvatar: {
+				styleOverrides: {
+					root: {
+						width: '20px',
+						height: '20px',
+						fontSize: '1rem',
+						backgroundColor: globalTheme.palette.primary.main
+					}
+				}
+			},
 			MuiBackdrop: {
 				styleOverrides: {
 					root: {
@@ -74,7 +84,8 @@ export const theme = createTheme(
 						borderRadius: 8,
 						fontSize: '1rem',
 						fontWeight: 'bold',
-						textTransform: 'none'
+						textTransform: 'none',
+						whiteSpace: 'nowrap'
 					},
 					outlined: {
 						color: '#ffffff'
@@ -186,6 +197,13 @@ export const theme = createTheme(
 				styleOverrides: {
 					label: {
 						color: globalTheme.palette.text.primary
+					}
+				}
+			},
+			MuiSvgIcon: {
+				styleOverrides: {
+					root: {
+						backgroundColor: 'initial !important'
 					}
 				}
 			}

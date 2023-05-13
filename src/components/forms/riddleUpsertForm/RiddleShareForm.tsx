@@ -23,7 +23,7 @@ export const RiddleShareForm = ({
 	handleBack,
 	onCancel
 }: Props) => {
-	const { watch } = formContext;
+	const { watch, control } = formContext;
 	const watchIsPublic = watch('sharingInformation.visibility');
 	const watchLink = watch('linkId');
 
@@ -64,7 +64,11 @@ export const RiddleShareForm = ({
 						}}
 					/>
 				) : (
-					<AutocompleteUsers />
+					<AutocompleteUsers
+						label="Users to share with"
+						name="sharingInformation.sharedUsers"
+						control={control}
+					/>
 				)}
 				<Box sx={{ width: '100%', display: 'flex', gap: '8px' }}>
 					<Button

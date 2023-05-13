@@ -1,6 +1,6 @@
 import type { RiddleStatus } from './Statuses';
 import type { CountryCode } from './CountryCodes';
-import type { Difficulty } from './Difficulty';
+import type { Difficulty, DifficultyType } from './Difficulty';
 
 export type QuestionOrder = 'sequence' | 'parallel';
 export type Visibility = 'public' | 'private';
@@ -9,18 +9,18 @@ export type Visibility = 'public' | 'private';
 
 export type RiddlePreview = {
 	id?: string;
-	//TODO: Make displays based on linkId instead of dbId
 	linkId: string;
 	name: string;
 	image?: string;
 	imageFile?: Blob;
-	state?: RiddleStatus; //Not needed for My riddles
+	state?: RiddleStatus;
 	language: CountryCode;
 	difficulty: Difficulty;
 };
 
 export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 	description: string;
+	difficultyValue: DifficultyType;
 	solvedText: string;
 	solvedImage?: string;
 	solvedImageFile?: Blob;
@@ -31,16 +31,18 @@ export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 
 export type RiddleDisplayDetailSimple = Omit<
 	RiddleUpsertDetail,
-	'questions'
+	'questions' | 'solvedText' | 'solvedImage'
 > & {
+	creatorEmail: string;
 	numberOfQuestions: number;
 	state: RiddleStatus;
 	solvedQuestions: number;
 };
 
-export type RiddleDisplayDetail = RiddleDisplayDetailSimple & {
-	questions: QuestionDisplayDetail[];
-};
+export type RiddleDisplayDetail = Omit<RiddleUpsertDetail, 'questions'> &
+	RiddleDisplayDetailSimple & {
+		questions: QuestionDisplayDetail[];
+	};
 
 type TextType = {
 	text: string;
@@ -57,8 +59,9 @@ export type QuestionUpsertDetail = {
 
 export type QuestionDisplayDetail = Omit<
 	QuestionUpsertDetail,
-	'hints' | 'correctAnswers'
+	'hints' | 'correctAnswers' | 'order'
 > & {
+	order: number;
 	solved: boolean;
 	available: boolean;
 	answers: UserAnswer[];

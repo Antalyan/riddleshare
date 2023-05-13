@@ -34,6 +34,14 @@ export const fetchUserRiddleInfos = async (
 	return infoRes.docs.length > 0 ? infoRes.docs : undefined; //User may not have answered yet, so there is no record
 };
 
+export const fetchRiddleSolvers = async (linkId: string) => {
+	const qSolvers = query(
+		userRiddleInfoCollection,
+		where('riddleLinkId', '==', linkId)
+	);
+	return await getDocs(qSolvers);
+};
+
 //TODO: add paging and filtering to arguments
 export const fetchRiddles = async (...queryConstraints: QueryConstraint[]) => {
 	const qRiddle = query(riddlesCollection, ...queryConstraints);

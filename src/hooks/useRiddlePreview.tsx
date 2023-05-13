@@ -3,7 +3,6 @@ import type { QueryConstraint } from 'firebase/firestore';
 
 import type { RiddlePreview } from '../utils/Types';
 import { fetchRiddlePreviews } from '../datastore/fetchingFunctions';
-import { fetchUserRiddleInfo } from '../datastore/fetchingQueries';
 
 import useLoggedInUser from './useLoggedInUser';
 

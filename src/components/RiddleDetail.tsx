@@ -26,16 +26,17 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 	}
 
 	const {
-		linkId,
-		language,
+		creatorEmail,
 		description,
 		difficulty,
 		image,
+		language,
+		linkId,
 		name,
 		numberOfQuestions,
+		sharingInformation,
 		solvedQuestions,
-		state,
-		sharingInformation
+		state
 	} = riddleDetail;
 
 	const { successfulSolversData, unsuccessfulSolversData } =
@@ -48,6 +49,7 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 			</Typography>
 
 			<Box>
+				<InfoLine label="Author" value={creatorEmail} />
 				<InfoLine
 					label="Language"
 					value={

@@ -4,10 +4,12 @@ import { useCallback, useState } from 'react';
 import { Box, Step, StepLabel, Stepper } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import type { RiddleUpsertDetail } from '../../../utils/Types';
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
 import { storeRiddle } from '../../../datastore/storingFunctions';
+import { storage } from '../../../datastore/firebase';
 
 import { RiddleBasicInformationForm } from './RiddleBasicInformationForm';
 import { RiddleQuestionForm } from './RiddleQuestionForm';
@@ -44,10 +46,42 @@ export const CreateRiddleForm = () => {
 
 	const user = useLoggedInUser();
 
+	const uploadAllImages = useCallback(async (data: RiddleUpsertDetail) => {
+		// Riddle image
+		if (data.imageFile) {
+			const imageRef = ref(storage, `images/${data.imageFile.name + uuidv4()}`);
+			const url = await uploadBytes(imageRef, data.imageFile)
+				.then(snapshot => snapshot.metadata.fullPath)
+				.then(() => getDownloadURL(imageRef));
+			data.image = url;
+			delete data.imageFile;
+		}
+
+		// Solved image
+		if (data.solvedImageFile) {
+			const solvedImageRef = ref(
+				storage,
+				`images/${data.solvedImageFile.name + uuidv4()}`
+			);
+			const url = await uploadBytes(solvedImageRef, data.solvedImageFile)
+				.then(snapshot => snapshot.metadata.fullPath)
+				.then(() => getDownloadURL(solvedImageRef));
+			data.solvedImage = url;
+			delete data.solvedImageFile;
+		}
+
+		// Questions images
+		// TODO?
+
+		return data;
+	}, []);
+
 	const onSubmitFinal = useCallback(
 		async (data: RiddleUpsertDetail) => {
 			try {
-				console.log(data);
+				console.log('before images upload', data);
+				data = await uploadAllImages(data);
+				console.log('after images upload', data);
 				await storeRiddle(data, user);
 				console.log('Riddle added successfully');
 				navigate('/');

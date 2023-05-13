@@ -18,6 +18,7 @@ import {
 	getFirestore,
 	initializeFirestore
 } from 'firebase/firestore';
+import { getStorage } from 'firebase/storage';
 
 import type {
 	QuestionDb,
@@ -37,6 +38,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const storage = getStorage(app);
 
 initializeFirestore(app, {
 	ignoreUndefinedProperties: true

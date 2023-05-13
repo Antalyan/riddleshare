@@ -36,7 +36,14 @@ export const App = () => (
 				>
 					<Routes>
 						<Route path="/" element={<HomePage />} />
-						<Route path="/riddle-detail/:id" element={<RiddleDetailPage />} />
+						<Route
+							path="/riddle-detail/:id"
+							element={
+								<PrivateRoute>
+									<RiddleDetailPage />
+								</PrivateRoute>
+							}
+						/>
 						<Route
 							path="/riddle-detail/:id/solve"
 							element={
@@ -45,12 +52,11 @@ export const App = () => (
 								</PrivateRoute>
 							}
 						/>
-						<Route path="/public-riddles" element={<PublicRiddlesPage />} />
 						<Route
-							path="/my-riddles"
+							path="/public-riddles"
 							element={
 								<PrivateRoute>
-									<MyRiddlesPage />
+									<PublicRiddlesPage />
 								</PrivateRoute>
 							}
 						/>
@@ -59,6 +65,14 @@ export const App = () => (
 							element={
 								<PrivateRoute>
 									<ReceivedRiddlesPage />
+								</PrivateRoute>
+							}
+						/>
+						<Route
+							path="/my-riddles"
+							element={
+								<PrivateRoute>
+									<MyRiddlesPage />
 								</PrivateRoute>
 							}
 						/>

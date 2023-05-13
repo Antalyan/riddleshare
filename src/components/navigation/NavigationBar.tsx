@@ -1,4 +1,12 @@
-import { AppBar, Box, MenuItem, Toolbar, Typography } from '@mui/material';
+import {
+	AppBar,
+	Box,
+	MenuItem,
+	Toolbar,
+	Tooltip,
+	Typography
+} from '@mui/material';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import useLoggedInUser from '../../hooks/useLoggedInUser';
 import { signOut } from '../../datastore/firebase';
@@ -9,27 +17,27 @@ import { NavigationItem } from './NavigationItem';
 const navigationItems = [
 	{
 		name: 'Home',
-		public: true,
+		private: false,
 		route: '/'
 	},
 	{
 		name: 'Public riddles',
-		public: true,
+		private: true,
 		route: '/public-riddles'
 	},
 	{
 		name: 'Received riddles',
-		public: false,
+		private: true,
 		route: '/received-riddles'
 	},
 	{
 		name: 'My riddles',
-		public: false,
+		private: true,
 		route: '/my-riddles'
 	},
 	{
 		name: 'Create riddle',
-		public: false,
+		private: true,
 		route: '/create-riddle'
 	}
 ];
@@ -37,10 +45,16 @@ const navigationItems = [
 export const NavigationBar = () => {
 	const user = useLoggedInUser();
 	const pageItems = navigationItems
-		.filter(i => (!user ? i.public : true))
+		.filter(i => (!user ? !i.private : true))
 		.map(item => (
 			<NavigationItem key={item.name} name={item.name} route={item.route} />
 		));
+
+	const currentUserItem = user ? (
+		<Tooltip title={user.email} placement="bottom">
+			<AccountCircleIcon />
+		</Tooltip>
+	) : null;
 
 	const authenticationItem = !user ? (
 		<NavigationItem name="Login" route="/login" />
@@ -56,7 +70,11 @@ export const NavigationBar = () => {
 				<Typography color="primary" variant="h5" fontWeight="bold">
 					RiddleShare
 				</Typography>
-				<Box display={{ xs: 'block', md: 'none' }}>
+				<Box
+					display={{ xs: 'flex', md: 'none' }}
+					sx={{ alignItems: 'center', gap: 1 }}
+				>
+					{currentUserItem}
 					<PageMenu>
 						{pageItems}
 						{authenticationItem}
@@ -66,10 +84,12 @@ export const NavigationBar = () => {
 					display={{ xs: 'none', md: 'flex' }}
 					sx={{ color: 'secondary.light' }}
 					flexDirection="row"
+					alignItems="center"
 					gap={2}
 				>
 					{pageItems}
 					{authenticationItem}
+					{currentUserItem}
 				</Box>
 			</Toolbar>
 		</AppBar>

@@ -23,7 +23,12 @@ export const HomePage: FC = () => {
 						Create a riddle
 					</Button>
 				)}
-				<Button variant="contained" onClick={() => navigate('/public-riddles')}>
+				<Button
+					variant="contained"
+					onClick={() =>
+						user ? navigate('/public-riddles') : navigate('/login')
+					}
+				>
 					Try to solve a riddle
 				</Button>
 			</Box>

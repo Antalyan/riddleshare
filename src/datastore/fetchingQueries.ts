@@ -30,8 +30,7 @@ export const fetchUserRiddleInfos = async (
 		where('riddleLinkId', 'in', linkIds),
 		where('userEmail', '==', userEmail)
 	);
-	const infoRes = await getDocs(qSolveInfo);
-	return infoRes.docs.length > 0 ? infoRes.docs : undefined; //User may not have answered yet, so there is no record
+	return (await getDocs(qSolveInfo)).docs;
 };
 
 export const fetchRiddleSolvers = async (linkId: string) => {

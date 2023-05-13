@@ -30,7 +30,11 @@ export const CreateRiddleForm = () => {
 
 	const formContext = useForm<RiddleUpsertDetail>({
 		defaultValues: {
-			linkId: uuidv4(),
+			// Link id is set together with the whole url for display-and-copy (will be cropped on store)
+			linkId: `${window.location.href.replace(
+				'create-riddle',
+				''
+			)}riddle-detail/${uuidv4()}`,
 			language: 'uk',
 			difficultyValue: 3,
 			questions: [
@@ -63,10 +67,9 @@ export const CreateRiddleForm = () => {
 				storage,
 				`images/${data.solvedImageFile.name + uuidv4()}`
 			);
-			const url = await uploadBytes(solvedImageRef, data.solvedImageFile)
+			data.solvedImage = await uploadBytes(solvedImageRef, data.solvedImageFile)
 				.then(snapshot => snapshot.metadata.fullPath)
 				.then(() => getDownloadURL(solvedImageRef));
-			data.solvedImage = url;
 			delete data.solvedImageFile;
 		}
 
@@ -82,6 +85,10 @@ export const CreateRiddleForm = () => {
 				console.log('before images upload', data);
 				data = await uploadAllImages(data);
 				console.log('after images upload', data);
+
+				//Crop url out
+				data.linkId = data.linkId.split('/').slice(-1)[0];
+
 				await storeRiddle(data, user);
 				console.log('Riddle added successfully');
 				navigate('/');

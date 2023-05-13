@@ -35,11 +35,14 @@ export const QuestionUpsertAccordion = ({ index, control }: Props) => (
 					// required
 					placeholder="Text of the question"
 				/>
-				<FileUploader
-					name={`questions.${index}.questionImage`}
-					control={control}
-					label="Question picture"
-				/>
+
+				{/* Questions can be later accompanied by pictures as well* /}
+
+				{/*<FileUploader*/}
+				{/*	name={`questions.${index}.questionImage`}*/}
+				{/*	control={control}*/}
+				{/*	label="Question picture"*/}
+				{/*/>*/}
 				<HintsUpsert control={control} questionIndex={index} />
 				<AnswersUpsert control={control} questionIndex={index} />
 			</Stack>

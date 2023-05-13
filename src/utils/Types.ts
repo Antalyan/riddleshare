@@ -5,17 +5,16 @@ import type { Difficulty, DifficultyType } from './Difficulty';
 export type QuestionOrder = 'sequence' | 'parallel';
 export type Visibility = 'public' | 'private';
 
-//TODO: Add author to riddle preview & detail
-
 export type RiddlePreview = {
+	creatorEmail: string;
+	difficulty: Difficulty;
 	id?: string;
-	linkId: string;
-	name: string;
 	image?: string;
 	imageFile?: Blob;
-	state?: RiddleStatus;
 	language: CountryCode;
-	difficulty: Difficulty;
+	linkId: string;
+	name: string;
+	state?: RiddleStatus;
 };
 
 export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {

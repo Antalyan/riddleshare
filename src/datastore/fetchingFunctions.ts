@@ -112,13 +112,15 @@ export const fetchRiddlePreviews = async (
 ): Promise<RiddlePreview[]> => {
 	const riddleDbData = await fetchRiddles(...queryConstraints);
 	const previews: RiddlePreview[] = riddleDbData.map(riddle => {
-		const { linkId, name, image, language, difficultyValue } = riddle.data();
+		const { creatorEmail, linkId, name, image, language, difficultyValue } =
+			riddle.data();
 		return {
-			linkId,
-			name,
+			creatorEmail,
+			difficulty: getDifficultyObject(difficultyValue),
 			image,
 			language,
-			difficulty: getDifficultyObject(difficultyValue),
+			linkId,
+			name,
 			state: RiddleStatus.Untouched
 		};
 	});

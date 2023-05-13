@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import type { FC } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -18,12 +19,13 @@ import { getRiddleStateIcon } from '../utils/Statuses';
 import type { RiddlePreview } from '../utils/Types';
 
 export const RiddleCard: FC<RiddlePreview> = ({
-	name,
-	linkId,
+	creatorEmail,
+	difficulty,
 	image,
-	state,
 	language,
-	difficulty
+	linkId,
+	name,
+	state
 }) => (
 	<Card
 		sx={{
@@ -87,7 +89,12 @@ export const RiddleCard: FC<RiddlePreview> = ({
 								}}
 							>
 								<Chip
-									icon={<CircleFlag countryCode={language} />}
+									icon={<AccountCircleIcon />}
+									label={creatorEmail.split('@')[0]}
+									variant="outlined"
+								/>
+								<Chip
+									icon={<CircleFlag countryCode={language} height={18} />}
 									label="Language" //TODO: Replace with localized language
 									variant="outlined"
 								/>

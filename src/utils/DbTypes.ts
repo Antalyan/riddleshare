@@ -43,5 +43,4 @@ export type UserRiddleInfoDb = {
 
 export type UserDb = {
 	email: string;
-	password: string;
 };

@@ -50,7 +50,7 @@ const auth = getAuth();
 // Sign up handler
 export const signUp = (email: string, password: string) => {
 	createUserWithEmailAndPassword(auth, email, password);
-	setDoc(doc(usersCollection), { email, password });
+	setDoc(doc(usersCollection), { email });
 };
 
 // Sign in handler

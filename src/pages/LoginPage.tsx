@@ -1,19 +1,23 @@
 import { Box, Button, Paper, Typography } from '@mui/material';
 import type { FormEvent } from 'react';
 import { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 import { FormTextField } from '../components/forms/common/FormTextField';
 import { signIn, signUp } from '../datastore/firebase';
+import useLoggedInUser from '../hooks/useLoggedInUser';
 
 export const LoginPage = () => {
 	const navigate = useNavigate();
+	const user = useLoggedInUser();
+
+	if (user) {
+		return <Navigate to="/" replace />;
+	}
 
 	const [isSignUp, setSignUp] = useState(false);
-
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
-
 	const [submitError, setSubmitError] = useState<string>();
 
 	return (

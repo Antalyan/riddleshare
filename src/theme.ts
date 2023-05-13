@@ -206,6 +206,13 @@ export const theme = createTheme(
 						backgroundColor: 'initial !important'
 					}
 				}
+			},
+			MuiTooltip: {
+				styleOverrides: {
+					tooltip: {
+						fontSize: '1rem'
+					}
+				}
 			}
 		}
 	},

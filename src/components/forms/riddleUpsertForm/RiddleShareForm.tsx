@@ -59,7 +59,14 @@ export const RiddleShareForm = ({
 						label="Riddle link"
 						// required
 						InputProps={{
-							endAdornment: <CopyContentButton content={watchLink ?? ''} />,
+							endAdornment: (
+								<CopyContentButton
+									content={`${window.location.href.replace(
+										'create-riddle',
+										''
+									)}riddle-detail/${watchLink}`}
+								/>
+							),
 							readOnly: true
 						}}
 					/>

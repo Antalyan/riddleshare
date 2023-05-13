@@ -80,7 +80,7 @@ export const InfoAccordion = ({ label, solvers }: Props) => {
 									</Typography>
 									<Divider sx={{ mb: 1 }} />
 									<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
-										{solver.questions[questionNumber].answers.map(
+										{solver.questions[parseInt(questionNumber)].answers.map(
 											(answer: string) => (
 												<Chip key={answer} label={answer} />
 											)

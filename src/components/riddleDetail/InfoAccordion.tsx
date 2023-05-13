@@ -12,8 +12,8 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useCallback, useState } from 'react';
 
-import { AlertDialog } from '../../forms/common/AlertDialog';
-import type { UserRiddleInfoDb } from '../../../utils/DbTypes';
+import { AlertDialog } from '../forms/common/AlertDialog';
+import type { UserRiddleInfoDb } from '../../utils/DbTypes';
 
 type Props = {
 	label: string;

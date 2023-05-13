@@ -2,17 +2,15 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
-import { useCallback, useEffect, useState } from 'react';
 
 import type { RiddleDisplayDetailSimple } from '../utils/Types';
 import { RiddleStatus } from '../utils/Statuses';
 import { deleteUserRiddleInfo } from '../datastore/deletingQueries';
 import useLoggedInUser from '../hooks/useLoggedInUser';
-import { fetchRiddleSolvers } from '../datastore/fetchingQueries';
-import type { UserRiddleInfoDb } from '../utils/DbTypes';
+import { useRiddleSolversDataFetch } from '../hooks/useRiddleSolversDataFetch';
 
-import { InfoLine } from './riddleDetail/_components/InfoLine';
-import { InfoAccordion } from './riddleDetail/_components/InfoAccordion';
+import { InfoLine } from './riddleDetail/InfoLine';
+import { InfoAccordion } from './riddleDetail/InfoAccordion';
 
 type Props = {
 	isCreatorView: boolean;
@@ -20,12 +18,6 @@ type Props = {
 };
 
 export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
-	const [successfulSolversData, setSuccessfulSolversData] = useState<
-		UserRiddleInfoDb[]
-	>([]);
-	const [unsuccessfulSolversData, setUnsuccessfulSolversData] = useState<
-		UserRiddleInfoDb[]
-	>([]);
 	const navigate = useNavigate();
 	const user = useLoggedInUser();
 
@@ -46,29 +38,8 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 		sharingInformation
 	} = riddleDetail;
 
-	const fetchSolvers = useCallback(async () => {
-		const solvers = await fetchRiddleSolvers(linkId);
-		const successfulSolvers: UserRiddleInfoDb[] = [];
-		const unsuccessfulSolvers: UserRiddleInfoDb[] = [];
-		solvers.docs
-			.map(doc => doc.data())
-			.forEach(solver => {
-				if (solver.state === RiddleStatus.Solved) {
-					successfulSolvers.push(solver);
-				} else {
-					unsuccessfulSolvers.push(solver);
-				}
-			});
-		setSuccessfulSolversData(successfulSolvers);
-		setUnsuccessfulSolversData(unsuccessfulSolvers);
-	}, []);
-
-	useEffect(() => {
-		if (!isCreatorView) {
-			return;
-		}
-		fetchSolvers();
-	}, []);
+	const { successfulSolversData, unsuccessfulSolversData } =
+		useRiddleSolversDataFetch(linkId, isCreatorView);
 
 	return (
 		<Stack gap={2}>

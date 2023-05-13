@@ -1,9 +1,10 @@
+import type { ReactNode } from 'react';
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
 type Props = {
 	label: string;
-	value: string | React.ReactNode;
+	value: string | ReactNode;
 };
 
 export const InfoLine = ({ label, value }: Props) => (

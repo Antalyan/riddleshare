@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import {
 	Button,
 	Dialog,
@@ -9,7 +10,7 @@ import {
 
 type Props = {
 	name: string;
-	content: React.ReactNode;
+	content: ReactNode;
 	open: boolean;
 	handleClose: () => void;
 };

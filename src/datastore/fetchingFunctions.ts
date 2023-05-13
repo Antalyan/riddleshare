@@ -130,7 +130,7 @@ export const fetchRiddlePreviews = async (
 			riddleLinkIds,
 			user.email!
 		);
-		if (answerDataDoc.length > 1) {
+		if (answerDataDoc.length > 0) {
 			previews.forEach(p => {
 				const answer = answerDataDoc.find(
 					doc => doc.data().riddleLinkId === p.linkId

@@ -1,4 +1,3 @@
-import { getDifficultyObject } from '../src/utils/Difficulty';
 import { RiddleStatus } from '../src/utils/Statuses';
 import type {
 	QuestionDisplayDetail,

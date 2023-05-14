@@ -75,7 +75,7 @@ export const fetchRiddleComplexDetail = async (
 	}
 	const questionRes = await fetchQuestions(riddle.id);
 
-	questionRes.docs.forEach(doc => {
+	questionRes.forEach(doc => {
 		const { order, questionText, questionImage, hints, correctAnswers } =
 			doc.data();
 		const questionInfo = riddleInfo?.questions[order];

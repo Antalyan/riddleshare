@@ -1,19 +1,26 @@
 import { Navigate, useNavigate } from 'react-router-dom';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Button, Chip, Divider, Stack, Typography } from '@mui/material';
 import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
 import type { FC } from 'react';
 import { useMemo } from 'react';
+import { useCallback, useState } from 'react';
 
 import type { RiddleDisplayDetailSimple } from '../utils/Types';
 import { RiddleStatus } from '../utils/Statuses';
-import { deleteUserRiddleInfo } from '../datastore/deletingQueries';
+import {
+	deleteRiddle,
+	deleteUserRiddleInfo
+} from '../datastore/deletingFunctions';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { useRiddleSolversDataFetch } from '../hooks/useRiddleSolversDataFetch';
 import { getDifficultyObject } from '../utils/Difficulty';
+import { UserRiddleInfoDb } from '../utils/DbTypes';
 
 import { InfoLine } from './riddleDetail/InfoLine';
 import { InfoAccordion } from './riddleDetail/InfoAccordion';
+import { AlertDialog } from './forms/common/AlertDialog';
+import { ChoiceDialog } from './forms/common/ChoiceDialog';
 
 type Props = {
 	isCreatorView: boolean;
@@ -49,6 +56,18 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 
 	const { successfulSolversData, unsuccessfulSolversData } =
 		useRiddleSolversDataFetch(linkId, isCreatorView);
+
+	const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
+	const handleOpen = useCallback(() => {
+		setIsDialogOpen(true);
+	}, []);
+	const handleClose = useCallback(() => {
+		setIsDialogOpen(false);
+	}, []);
+	const handleDelete = useCallback(async () => {
+		await deleteRiddle(linkId);
+		navigate('/');
+	}, []);
 
 	return (
 		<Stack gap={2}>
@@ -168,6 +187,25 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 					Back
 				</Button>
 				<Stack direction="row" gap={2}>
+					{isCreatorView && (
+						<>
+							<Button
+								variant="contained"
+								sx={{ backgroundColor: 'primary.light', maxWidth: '200px' }}
+								//TODO
+								// onClick={() => navigate(-1)}
+							>
+								Edit
+							</Button>
+							<Button
+								variant="contained"
+								sx={{ backgroundColor: 'primary.light', maxWidth: '200px' }}
+								onClick={() => setIsDialogOpen(true)}
+							>
+								Delete
+							</Button>
+						</>
+					)}
 					{state === RiddleStatus.Solved && (
 						<Button
 							variant="contained"
@@ -194,6 +232,21 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 					</Button>
 				</Stack>
 			</Box>
+
+			<ChoiceDialog
+				name="Confirm delete"
+				content={
+					<Typography variant="h6">
+						Are you sure you want to delete the riddle and all its questions?
+						The riddle will also disappear for all players and this action
+						cannot be reverted. After the riddle is deleted, you will be
+						redirected to the homepage.
+					</Typography>
+				}
+				open={isDialogOpen}
+				handleClose={handleClose}
+				handleActionOnYes={handleDelete}
+			/>
 		</Stack>
 	);
 };

@@ -38,7 +38,7 @@ export const fetchRiddleSolvers = async (linkId: string) => {
 		userRiddleInfoCollection,
 		where('riddleLinkId', '==', linkId)
 	);
-	return await getDocs(qSolvers);
+	return (await getDocs(qSolvers)).docs;
 };
 
 //TODO: add paging and filtering to arguments
@@ -52,9 +52,9 @@ export const fetchRiddle = async (linkId: string) => {
 };
 export const fetchQuestions = async (riddleDocId: string) => {
 	const qQuestions = query(questionsCollection(riddleDocId), orderBy('order'));
-	return await getDocs(qQuestions);
+	return (await getDocs(qQuestions)).docs;
 };
 export const fetchUsers = async () => {
 	const qUsers = query(usersCollection, orderBy('email'));
-	return await getDocs(qUsers);
+	return (await getDocs(qUsers)).docs;
 };

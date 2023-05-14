@@ -58,6 +58,12 @@ export const theme = createTheme(
 					listbox: {
 						backgroundColor: globalTheme.palette.background.light,
 						overflow: 'auto'
+					},
+					loading: {
+						color: globalTheme.palette.text.primary
+					},
+					paper: {
+						backgroundColor: globalTheme.palette.background.light
 					}
 				}
 			},

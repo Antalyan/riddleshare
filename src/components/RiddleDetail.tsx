@@ -197,7 +197,7 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 							<Button
 								variant="contained"
 								sx={{ backgroundColor: 'primary.light', maxWidth: '200px' }}
-								onClick={() => handleOpen}
+								onClick={handleOpen}
 							>
 								Delete
 							</Button>

@@ -2,6 +2,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import { Box, Button, Stack, Typography } from '@mui/material';
 import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
+import type { FC } from 'react';
 
 import type { RiddleDisplayDetailSimple } from '../utils/Types';
 import { RiddleStatus } from '../utils/Statuses';
@@ -17,7 +18,7 @@ type Props = {
 	riddleDetail: RiddleDisplayDetailSimple;
 };
 
-export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
+export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 	const navigate = useNavigate();
 	const user = useLoggedInUser();
 

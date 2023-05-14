@@ -9,7 +9,7 @@ import {
 	TextField,
 	Typography
 } from '@mui/material';
-import type { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import { useCallback, useState } from 'react';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -29,11 +29,11 @@ type Props = {
 
 // TODO: sequential variant (unlock next only when previous one is solved)
 
-export const QuestionSolvingAccordion = ({
+export const QuestionSolvingAccordion: FC<Props> = ({
 	setRiddleData,
 	riddleData,
 	questionNumber
-}: Props) => {
+}) => {
 	const {
 		order,
 		solved,

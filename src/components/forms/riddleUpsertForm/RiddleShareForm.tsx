@@ -1,6 +1,7 @@
 import { Box, Button, Stack, Typography } from '@mui/material';
 import type { UseFormReturn } from 'react-hook-form-mui';
 import { FormContainer, TextFieldElement } from 'react-hook-form-mui';
+import type { FC } from 'react';
 import React from 'react';
 
 import type { RiddleUpsertDetail } from '../../../utils/Types';
@@ -16,13 +17,13 @@ type Props = {
 	onCancel: () => void;
 };
 
-export const RiddleShareForm = ({
+export const RiddleShareForm: FC<Props> = ({
 	formContext,
 	riddleName,
 	onSubmitFinal,
 	handleBack,
 	onCancel
-}: Props) => {
+}) => {
 	const { watch, control } = formContext;
 	const watchIsPublic = watch('sharingInformation.visibility');
 	const watchLink = watch('linkId');

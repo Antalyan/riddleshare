@@ -1,5 +1,5 @@
 import type { FC } from 'react';
 
-import { CreateRiddleForm } from '../components/forms/riddleUpsertForm/CreateRiddleForm';
+import { UpsertRiddleForm } from '../components/forms/riddleUpsertForm/UpsertRiddleForm';
 
-export const CreateRiddlePage: FC = () => <CreateRiddleForm />;
+export const CreateRiddlePage: FC = () => <UpsertRiddleForm />;

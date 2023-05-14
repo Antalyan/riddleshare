@@ -48,7 +48,8 @@ export const fetchRiddles = async (...queryConstraints: QueryConstraint[]) => {
 };
 export const fetchRiddle = async (linkId: string) => {
 	const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
-	return (await getDocs(qRiddle)).docs[0];
+	const res = await getDocs(qRiddle);
+	return res.docs.length > 0 ? res.docs[0] : undefined;
 };
 export const fetchQuestions = async (riddleDocId: string) => {
 	const qQuestions = query(questionsCollection(riddleDocId), orderBy('order'));

@@ -1,5 +1,5 @@
 import { useForm } from 'react-hook-form-mui';
-import type { ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import { useCallback, useState } from 'react';
 import { Box, Step, StepLabel, Stepper } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
@@ -10,6 +10,8 @@ import type { RiddleUpsertDetail } from '../../../utils/Types';
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
 import { storeRiddle } from '../../../datastore/storingFunctions';
 import { storage } from '../../../datastore/firebase';
+import { fetchRiddleComplexDetail } from '../../../datastore/fetchingFunctions';
+import { useRiddleUpsert } from '../../../hooks/useRiddleUpsert';
 
 import { RiddleBasicInformationForm } from './RiddleBasicInformationForm';
 import { RiddleQuestionForm } from './RiddleQuestionForm';
@@ -17,38 +19,44 @@ import { RiddleShareForm } from './RiddleShareForm';
 
 const steps = ['Basic information', 'Questions', 'Sharing options'];
 
-export const CreateRiddleForm = () => {
-	const [activeStep, setActiveStep] = useState(0);
+type Props = {
+	linkId?: string; // Determines insert (unknown id) and update (already known id)
+};
 
+export const UpsertRiddleForm: FC<Props> = ({ linkId }) => {
+	const isCreate = !linkId;
+
+	const [activeStep, setActiveStep] = useState(0);
 	const handleNext = () => {
 		setActiveStep(prevActiveStep => prevActiveStep + 1);
 	};
-
 	const handleBack = () => {
 		setActiveStep(prevActiveStep => prevActiveStep - 1);
 	};
 
-	const formContext = useForm<RiddleUpsertDetail>({
-		defaultValues: {
-			// Link id is set together with the whole url for display-and-copy (will be cropped on store)
-			linkId: `${window.location.href.replace(
-				'create-riddle',
-				''
-			)}riddle-detail/${uuidv4()}`,
-			language: 'uk',
-			difficultyValue: 3,
-			questions: [
-				{
-					hints: [],
-					correctAnswers: [{}]
-				}
-			],
-			questionOrder: 'sequence',
-			sharingInformation: { visibility: 'public' }
-		}
-	});
-
 	const user = useLoggedInUser();
+
+	const formContext = useForm<RiddleUpsertDetail>({
+		defaultValues: isCreate
+			? {
+					// Link id is set together with the whole url for display-and-copy (will be cropped on store)
+					linkId: `${window.location.href.replace(
+						'create-riddle',
+						''
+					)}riddle-detail/${uuidv4()}`,
+					language: 'uk',
+					difficultyValue: 3,
+					questions: [
+						{
+							hints: [],
+							correctAnswers: [{}]
+						}
+					],
+					questionOrder: 'sequence',
+					sharingInformation: { visibility: 'public' }
+			  }
+			: useRiddleUpsert(linkId)
+	});
 
 	const uploadAllImages = useCallback(async (data: RiddleUpsertDetail) => {
 		// Riddle image

@@ -27,6 +27,11 @@ export const deleteUserRiddleInfo = async (
 // Warning: This solution does not scale well with a lot of data
 export const deleteRiddle = async (linkId: string) => {
 	const riddle = await fetchRiddle(linkId);
+	if (!riddle) {
+		console.log('Riddle does not exist.');
+		return;
+	}
+
 	const questions = await fetchQuestions(riddle.id);
 	questions.map(async q => await deleteDoc(questionsDocument(riddle.id, q.id)));
 	console.log('Questions deleted.');

@@ -5,7 +5,9 @@ import type {
 	RiddleDisplayDetail,
 	RiddleDisplayDetailSimple,
 	RiddlePreview,
+	RiddleUpsertDetail,
 	SharingInformationUpsert,
+	TextType,
 	UserAnswer
 } from '../utils/Types';
 import { RiddleStatus } from '../utils/Statuses';
@@ -200,4 +202,66 @@ export const fetchRiddleSimpleDetail = async (
 		solvedQuestions,
 		sharingInformation: newSharingInfo
 	};
+};
+
+export const fetchRiddleUpsert = async (
+	linkId: string
+): Promise<RiddleUpsertDetail | undefined> => {
+	const riddleRes = await fetchRiddle(linkId);
+	if (!riddleRes) {
+		return undefined;
+	}
+
+	const {
+		name,
+		creatorEmail,
+		description,
+		image,
+		language,
+		difficultyValue,
+		solvedText,
+		solvedImage,
+		sharingInformation,
+		isSequential
+	} = riddleRes.data();
+	const newSharingInfo: SharingInformationUpsert = {
+		visibility: sharingInformation.isPublic ? 'public' : 'private',
+		sharedUsers: sharingInformation.sharedUsers
+	};
+	const riddle: RiddleUpsertDetail = {
+		id: riddleRes.id,
+		name,
+		linkId,
+		creatorEmail,
+		description,
+		image,
+		language,
+		difficultyValue,
+		solvedText,
+		solvedImage,
+		sharingInformation: newSharingInfo,
+		questions: [],
+		questionOrder: isSequential ? 'sequence' : 'parallel'
+	};
+
+	const questionRes = await fetchQuestions(riddleRes.id);
+
+	questionRes.forEach(doc => {
+		const { order, questionText, questionImage, hints, correctAnswers } =
+			doc.data();
+		const newCorrectAnswers: TextType[] = correctAnswers.map(a => ({
+			text: a
+		}));
+
+		riddle.questions.push({
+			id: doc.id,
+			order,
+			questionText,
+			questionImage,
+			hints,
+			correctAnswers: newCorrectAnswers
+		});
+	});
+	console.log(riddle);
+	return riddle;
 };

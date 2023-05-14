@@ -9,11 +9,20 @@ export const HomePage: FC = () => {
 	const user = useLoggedInUser();
 
 	return (
-		<Stack gap={2} alignItems="center" justifyContent="center">
+		<Stack gap={2} alignItems="center" justifyContent="flex-start">
+			<Box
+				component="img"
+				src="/public/RiddleMeThis.jpeg"
+				sx={{
+					maxWidth: '100%',
+					objectFit: 'contain',
+					objectPosition: 'center'
+				}}
+			/>
 			<Typography variant="h3" textAlign="center">
 				Create riddles, share them with your friends and have fun.
 			</Typography>
-			<Box sx={{ display: 'flex', gap: 1, mt: 2 }}>
+			<Box sx={{ display: 'flex', gap: 2, mt: 2 }}>
 				{user && (
 					<Button
 						variant="contained"

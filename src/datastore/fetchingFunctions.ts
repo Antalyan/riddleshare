@@ -21,11 +21,16 @@ import {
 export const fetchRiddleComplexDetail = async (
 	linkId: string,
 	user: User
-): Promise<RiddleDisplayDetail> => {
+): Promise<RiddleDisplayDetail | undefined> => {
 	const riddleInfo = (
 		await fetchUserRiddleInfo(linkId, user?.email ?? '')
 	)?.data();
 	const riddleRes = await fetchRiddle(linkId);
+
+	if (!riddleRes) {
+		// Riddle with given linkId does not exist
+		return undefined;
+	}
 
 	const {
 		name,
@@ -146,7 +151,7 @@ export const fetchRiddlePreviews = async (
 export const fetchRiddleSimpleDetail = async (
 	linkId: string,
 	user: User
-): Promise<RiddleDisplayDetailSimple> => {
+): Promise<RiddleDisplayDetailSimple | undefined> => {
 	// const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
 	// const qSolveInfo = query(
 	// 	userRiddleInfoCollection,
@@ -155,6 +160,12 @@ export const fetchRiddleSimpleDetail = async (
 	// );
 
 	const riddleDoc = await fetchRiddle(linkId);
+
+	if (!riddleDoc) {
+		// Riddle with given linkId does not exist
+		return undefined;
+	}
+
 	const {
 		name,
 		creatorEmail,

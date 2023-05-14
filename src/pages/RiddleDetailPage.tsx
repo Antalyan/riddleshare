@@ -17,11 +17,15 @@ const RiddleDetailPage: FC = () => {
 		const loadAndSetRiddle = async () => {
 			try {
 				const riddle = await fetchRiddleSimpleDetail(id ?? '', user!);
-				// Protect private riddle
+
 				if (
-					riddle.sharingInformation.visibility === 'private' &&
-					!riddle.sharingInformation.sharedUsers?.includes(user?.email ?? '') &&
-					riddle.creatorEmail !== (user?.email ?? '')
+					// Redirect non-existent riddle and protect private riddle
+					!riddle ||
+					(riddle.sharingInformation.visibility === 'private' &&
+						!riddle.sharingInformation.sharedUsers?.includes(
+							user?.email ?? ''
+						) &&
+						riddle.creatorEmail !== (user?.email ?? ''))
 				) {
 					navigate('/not-found');
 				}

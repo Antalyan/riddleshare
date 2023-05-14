@@ -30,11 +30,14 @@ export const RiddleSolvingPage: FC = () => {
 		const loadAndSetRiddle = async () => {
 			try {
 				const riddle = await fetchRiddleComplexDetail(id ?? '', user);
-				// Protect private riddle
+				// Redirect non-existent riddle and protect private riddle
 				if (
-					riddle.sharingInformation.visibility === 'private' &&
-					!riddle.sharingInformation.sharedUsers?.includes(user?.email ?? '') &&
-					riddle.creatorEmail !== (user?.email ?? '')
+					!riddle ||
+					(riddle.sharingInformation.visibility === 'private' &&
+						!riddle.sharingInformation.sharedUsers?.includes(
+							user?.email ?? ''
+						) &&
+						riddle.creatorEmail !== (user?.email ?? ''))
 				) {
 					navigate('/not-found');
 				}

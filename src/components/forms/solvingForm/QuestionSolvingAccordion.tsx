@@ -46,6 +46,9 @@ export const QuestionSolvingAccordion: FC<Props> = ({
 
 	const [dialogOpen, setDialogOpen] = useState(false);
 	const [answer, setAnswer] = useState('');
+	const handleClose = () => {
+		setDialogOpen(false);
+	};
 
 	const handleSubmitAnswer = useCallback(() => {
 		console.log(answer);
@@ -84,10 +87,6 @@ export const QuestionSolvingAccordion: FC<Props> = ({
 	const [showError, setShowError] = useState(false);
 
 	const [isSolved, setIsSolved] = useState(solved);
-
-	const handleClose = () => {
-		setDialogOpen(false);
-	};
 
 	return (
 		<>

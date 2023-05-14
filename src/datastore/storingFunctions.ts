@@ -37,7 +37,9 @@ export const storeRiddle = async (
 		difficultyValue,
 		...rest
 	} = data;
-	const riddleDoc = data.id ? riddlesDocument(data.id) : doc(riddlesCollection);
+	const riddleDoc = data.id
+		? riddlesDocument(`${data.id}`)
+		: doc(riddlesCollection);
 	batch.set(riddleDoc, {
 		...rest,
 		difficultyValue,

@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form-mui';
 import type { FC, ReactNode } from 'react';
-import { useCallback, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Box, Step, StepLabel, Stepper } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import type { RiddleUpsertDetail } from '../../../utils/Types';
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
 import { storeRiddle } from '../../../datastore/storingFunctions';
 import { storage } from '../../../datastore/firebase';
+import { AlertDialog } from '../common/AlertDialog';
 
 import { RiddleBasicInformationForm } from './RiddleBasicInformationForm';
 import { RiddleQuestionForm } from './RiddleQuestionForm';
@@ -76,11 +77,13 @@ export const UpsertRiddleForm: FC<Props> = ({ isCreate, defaultValues }) => {
 				data.linkId = data.linkId.split('/').slice(-1)[0];
 
 				await storeRiddle(data, user);
-				console.log('Riddle added successfully');
-				navigate('/');
+				console.log('Riddle stored successfully');
+				setSubmitSuccessful(true);
+				setDialogOpen(true);
 			} catch (error) {
 				console.error('Error on adding riddles: ', error);
-				//TODO: show error to user
+				setSubmitSuccessful(false);
+				setDialogOpen(true);
 			}
 		},
 		[formContext]
@@ -93,6 +96,15 @@ export const UpsertRiddleForm: FC<Props> = ({ isCreate, defaultValues }) => {
 	}, []);
 
 	const [riddleName, setRiddleName] = useState<string | null>(null);
+
+	const [submitSuccessful, setSubmitSuccessful] = useState(false);
+	const [dialogOpen, setDialogOpen] = useState(false);
+	const handleClose = useCallback(() => {
+		setDialogOpen(false);
+		if (submitSuccessful) {
+			navigate('/');
+		}
+	}, [submitSuccessful]);
 
 	const firstStep = (
 		<RiddleBasicInformationForm
@@ -140,6 +152,16 @@ export const UpsertRiddleForm: FC<Props> = ({ isCreate, defaultValues }) => {
 					);
 				})}
 			</Stepper>
+			<AlertDialog
+				name={submitSuccessful ? 'Congratulations' : 'Error on saving riddle'}
+				content={
+					submitSuccessful
+						? 'Your riddle has been successfully stored!'
+						: 'The error could not be stored. Try to repeat the operation later!'
+				}
+				open={dialogOpen}
+				handleClose={handleClose}
+			/>
 
 			<br />
 

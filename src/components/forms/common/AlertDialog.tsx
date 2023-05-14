@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import {
 	Button,
 	Dialog,
@@ -15,7 +15,12 @@ type Props = {
 	handleClose: () => void;
 };
 
-export const AlertDialog = ({ name, content, open, handleClose }: Props) => (
+export const AlertDialog: FC<Props> = ({
+	name,
+	content,
+	open,
+	handleClose
+}) => (
 	<Dialog open={open} onClose={handleClose}>
 		<DialogTitle sx={{ fontWeight: 'bold' }}>{name}</DialogTitle>
 		<DialogContent>

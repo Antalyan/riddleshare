@@ -2,6 +2,7 @@ import type { Control } from 'react-hook-form';
 import { TextFieldElement, useFieldArray } from 'react-hook-form-mui';
 import { Button, IconButton, Stack, Typography } from '@mui/material';
 import { Cancel } from '@mui/icons-material';
+import type { FC } from 'react';
 import { useEffect, useState } from 'react';
 
 import type { RiddleUpsertDetail } from '../../../utils/Types';
@@ -13,7 +14,7 @@ type Props = {
 	questionIndex: number;
 };
 
-export const AnswersUpsert = ({ control, questionIndex }: Props) => {
+export const AnswersUpsert: FC<Props> = ({ control, questionIndex }) => {
 	const { fields, append, remove } = useFieldArray({
 		name: `questions.${questionIndex}.correctAnswers`,
 		control,

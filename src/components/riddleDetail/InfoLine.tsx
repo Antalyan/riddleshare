@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { FC, ReactNode } from 'react';
 import React from 'react';
 import { Box, Typography } from '@mui/material';
 
@@ -7,7 +7,7 @@ type Props = {
 	value: string | ReactNode;
 };
 
-export const InfoLine = ({ label, value }: Props) => (
+export const InfoLine: FC<Props> = ({ label, value }) => (
 	<Box sx={{ display: 'flex', columnGap: 2 }}>
 		<Typography variant="h6" fontWeight="bold">
 			{label}:

@@ -8,9 +8,9 @@ import {
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { TextFieldElement } from 'react-hook-form-mui';
 import type { Control } from 'react-hook-form';
+import type { FC } from 'react';
 
 import type { RiddleUpsertDetail } from '../../../utils/Types';
-import { FileUploader } from '../common/FileUploader';
 
 import { HintsUpsert } from './HintsUpsert';
 import { AnswersUpsert } from './AnswersUpsert';
@@ -20,7 +20,7 @@ type Props = {
 	control: Control<RiddleUpsertDetail>;
 };
 
-export const QuestionUpsertAccordion = ({ index, control }: Props) => (
+export const QuestionUpsertAccordion: FC<Props> = ({ index, control }) => (
 	<Accordion sx={{ flexGrow: 1 }}>
 		<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 			<Typography variant="h6">Question {index + 1}</Typography>

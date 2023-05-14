@@ -10,6 +10,7 @@ import {
 	Typography
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import type { FC } from 'react';
 import { useCallback, useState } from 'react';
 
 import { AlertDialog } from '../forms/common/AlertDialog';
@@ -20,7 +21,7 @@ type Props = {
 	solvers: string[] | UserRiddleInfoDb[];
 };
 
-export const InfoAccordion = ({ label, solvers }: Props) => {
+export const InfoAccordion: FC<Props> = ({ label, solvers }) => {
 	const [solver, setSolver] = useState<UserRiddleInfoDb | null>(null);
 	const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
 

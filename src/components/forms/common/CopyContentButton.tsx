@@ -1,3 +1,4 @@
+import type { FC } from 'react';
 import { useState } from 'react';
 import { ContentCopy } from '@mui/icons-material';
 import { Alert, IconButton, Snackbar } from '@mui/material';
@@ -6,7 +7,7 @@ type Props = {
 	content: string;
 };
 
-export const CopyContentButton = ({ content }: Props) => {
+export const CopyContentButton: FC<Props> = ({ content }) => {
 	const [open, setOpen] = useState(false);
 
 	const handleClick = () => {

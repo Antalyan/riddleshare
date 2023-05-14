@@ -1,7 +1,7 @@
 import { Box, Button, Stack } from '@mui/material';
 import type { UseFormReturn } from 'react-hook-form-mui';
 import { FormContainer, TextFieldElement } from 'react-hook-form-mui';
-import type { Dispatch, SetStateAction } from 'react';
+import type { Dispatch, FC, SetStateAction } from 'react';
 import React from 'react';
 
 import { FileUploader } from '../common/FileUploader';
@@ -16,12 +16,12 @@ type Props = {
 	onCancel: () => void;
 };
 
-export const RiddleBasicInformationForm = ({
+export const RiddleBasicInformationForm: FC<Props> = ({
 	formContext,
 	setRiddleName,
 	handleNext,
 	onCancel
-}: Props) => {
+}) => {
 	const { control } = formContext;
 	return (
 		<FormContainer formContext={formContext}>

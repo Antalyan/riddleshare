@@ -1,6 +1,6 @@
 import { Box, Button, Paper, Typography } from '@mui/material';
 import { Lightbulb } from '@mui/icons-material';
-import type { Dispatch, SetStateAction } from 'react';
+import type { FC } from 'react';
 import { useCallback, useState } from 'react';
 
 import type { Hint, RiddleDisplayDetail } from '../../../utils/Types';
@@ -13,7 +13,11 @@ type Props = {
 	riddleData: RiddleDisplayDetail;
 };
 
-export const HintsDisplay = ({ hints, riddleData, questionNumber }: Props) => {
+export const HintsDisplay: FC<Props> = ({
+	hints,
+	riddleData,
+	questionNumber
+}) => {
 	const user = useLoggedInUser();
 	const [hintsTaken, setHintsTaken] = useState(
 		riddleData.questions[questionNumber - 1].hintsTaken

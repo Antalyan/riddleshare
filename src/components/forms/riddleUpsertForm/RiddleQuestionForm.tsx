@@ -1,6 +1,7 @@
 import { Box, Button, IconButton, Stack, Typography } from '@mui/material';
 import type { UseFormReturn } from 'react-hook-form-mui';
 import { FormContainer, useFieldArray } from 'react-hook-form-mui';
+import type { FC } from 'react';
 import React, { useEffect, useState } from 'react';
 import { Cancel } from '@mui/icons-material';
 
@@ -19,13 +20,13 @@ type Props = {
 
 const MIN_QUESTIONS_LENGTH = 1;
 
-export const RiddleQuestionForm = ({
+export const RiddleQuestionForm: FC<Props> = ({
 	formContext,
 	riddleName,
 	handleNext,
 	handleBack,
 	onCancel
-}: Props) => {
+}) => {
 	const { watch, control } = formContext;
 	const { fields, append, remove } = useFieldArray({
 		name: 'questions',

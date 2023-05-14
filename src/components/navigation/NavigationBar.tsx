@@ -22,7 +22,7 @@ const navigationItems = [
 	},
 	{
 		name: 'Public riddles',
-		private: true,
+		private: false,
 		route: '/public-riddles'
 	},
 	{

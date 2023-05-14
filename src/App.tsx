@@ -61,14 +61,7 @@ export const App = () => (
 								</PrivateRoute>
 							}
 						/>
-						<Route
-							path="/public-riddles"
-							element={
-								<PrivateRoute>
-									<PublicRiddlesPage />
-								</PrivateRoute>
-							}
-						/>
+						<Route path="/public-riddles" element={<PublicRiddlesPage />} />
 						<Route
 							path="/received-riddles"
 							element={

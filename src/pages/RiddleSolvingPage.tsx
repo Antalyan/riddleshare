@@ -19,29 +19,29 @@ export const RiddleSolvingPage: FC = () => {
 	const navigate = useNavigate();
 	const user = useLoggedInUser();
 
-	const riddle = useRiddleComplexDetailFetch(id ?? '', user?.email ?? '');
+	const {riddleData, setRiddleData} = useRiddleComplexDetailFetch(id ?? '', user?.email ?? '');
 
-	return riddle ? (
+	return riddleData ? (
 		<Stack gap={2}>
 			<Typography variant="h4" fontWeight="bold">
-				{riddle.name}
+				{riddleData.name}
 			</Typography>
 
-			{riddle.questions.map(question => (
+			{riddleData.questions.map(question => (
 				<QuestionSolvingAccordion
-					riddleData={riddle}
+					riddleData={riddleData}
 					// @ts-ignore
 					setRiddleData={setRiddleData}
 					questionNumber={question.order}
 					key={question.order}
 				/>
 			))}
-			{riddle.state === RiddleStatus.Solved && (
+			{riddleData.state === RiddleStatus.Solved && (
 				<Card sx={{ backgroundColor: 'background.default' }}>
-					{riddle.solvedImage && (
+					{riddleData.solvedImage && (
 						<CardMedia
 							component="img"
-							image={riddle.solvedImage}
+							image={riddleData.solvedImage}
 							alt="Riddle solution image"
 							sx={{
 								p: 2,
@@ -54,7 +54,7 @@ export const RiddleSolvingPage: FC = () => {
 						<Typography variant="h5" color="secondary.main">
 							The riddle has been solved!
 						</Typography>
-						{riddle.solvedText}
+						{riddleData.solvedText}
 					</CardContent>
 				</Card>
 			)}

@@ -33,5 +33,5 @@ export const useRiddleComplexDetailFetch = (
 		fetchRiddle();
 	}, []);
 
-	return riddleData;
+	return { riddleData, setRiddleData };
 };

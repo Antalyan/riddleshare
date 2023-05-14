@@ -24,7 +24,7 @@ export const RiddleBasicInformationForm = ({
 }: Props) => {
 	const { control } = formContext;
 	return (
-		<FormContainer formContext={formContext}>
+		<FormContainer formContext={formContext} onSuccess={handleNext}>
 			<Stack gap={2} sx={{ minWidth: { md: 500 } }}>
 				<TextFieldElement
 					name="name"
@@ -82,7 +82,6 @@ export const RiddleBasicInformationForm = ({
 						color="primary"
 						variant="contained"
 						sx={{ flex: 1 }}
-						onClick={handleNext}
 					>
 						Proceed
 					</Button>

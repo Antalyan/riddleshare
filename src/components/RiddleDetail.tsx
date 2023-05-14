@@ -102,7 +102,7 @@ export const RiddleDetail = ({ isCreatorView, riddleDetail }: Props) => {
 				/>
 			)}
 
-			<Typography>{description}</Typography>
+			<Typography variant="h6">{description}</Typography>
 
 			{isCreatorView && (
 				<>

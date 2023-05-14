@@ -10,7 +10,6 @@ import { TextFieldElement } from 'react-hook-form-mui';
 import type { Control } from 'react-hook-form';
 
 import type { RiddleUpsertDetail } from '../../../utils/Types';
-import { FileUploader } from '../common/FileUploader';
 
 import { HintsUpsert } from './HintsUpsert';
 import { AnswersUpsert } from './AnswersUpsert';
@@ -28,12 +27,12 @@ export const QuestionUpsertAccordion = ({ index, control }: Props) => (
 		<AccordionDetails>
 			<Stack gap={2} sx={{ minWidth: { md: 400 } }}>
 				<TextFieldElement
-					label="Question text"
-					multiline
 					name={`questions.${index}.questionText`}
-					rows={5}
-					// required
+					label="Question text"
 					placeholder="Text of the question"
+					required
+					multiline
+					rows={5}
 				/>
 
 				{/* Questions can be later accompanied by pictures as well* /}
@@ -43,6 +42,7 @@ export const QuestionUpsertAccordion = ({ index, control }: Props) => (
 				{/*	control={control}*/}
 				{/*	label="Question picture"*/}
 				{/*/>*/}
+
 				<HintsUpsert control={control} questionIndex={index} />
 				<AnswersUpsert control={control} questionIndex={index} />
 			</Stack>

@@ -20,10 +20,10 @@ export const HintsUpsert = ({ control, questionIndex }: Props) => {
 			{fields.map((hint, index) => (
 				<Stack key={hint.id} direction="row">
 					<TextFieldElement
-						label="Hint"
 						name={`questions.${questionIndex}.hints.${index}.hintText`}
+						label="Hint"
+						required
 						fullWidth
-						// required
 					/>
 					<IconButton onClick={() => remove(index)} sx={{ m: 1 }}>
 						<Cancel />

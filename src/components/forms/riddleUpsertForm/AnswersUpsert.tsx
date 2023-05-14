@@ -29,10 +29,10 @@ export const AnswersUpsert = ({ control, questionIndex }: Props) => {
 			{fields.map((answer, index) => (
 				<Stack key={answer.id} direction="row">
 					<TextFieldElement
-						label="Correct answer"
 						name={`questions.${questionIndex}.correctAnswers.${index}.text`}
+						label="Correct answer"
+						required
 						fullWidth
-						// required
 					/>
 					<IconButton
 						sx={{ m: 1 }}

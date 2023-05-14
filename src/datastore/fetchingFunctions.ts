@@ -1,4 +1,5 @@
 import type { QueryConstraint } from 'firebase/firestore';
+import { getCountFromServer } from 'firebase/firestore';
 
 import type {
 	RiddleDisplayDetail,
@@ -18,6 +19,7 @@ import {
 	fetchUserRiddleInfo,
 	fetchUserRiddleInfos
 } from './fetchingQueries';
+import { riddlesCollection } from './firebase';
 
 export const fetchRiddleComplexDetail = async (
 	linkId: string,
@@ -253,4 +255,9 @@ export const fetchRiddleUpsert = async (
 	});
 	console.log(riddle);
 	return riddle;
+};
+
+export const fetchRiddleCount = async () => {
+	const snapshot = await getCountFromServer(riddlesCollection);
+	return snapshot.data().count;
 };

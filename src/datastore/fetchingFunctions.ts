@@ -20,11 +20,9 @@ import {
 
 export const fetchRiddleComplexDetail = async (
 	linkId: string,
-	user: User
+	userEmail: string
 ): Promise<RiddleDisplayDetail | undefined> => {
-	const riddleInfo = (
-		await fetchUserRiddleInfo(linkId, user?.email ?? '')
-	)?.data();
+	const riddleInfo = (await fetchUserRiddleInfo(linkId, userEmail))?.data();
 	const riddleRes = await fetchRiddle(linkId);
 
 	if (!riddleRes) {
@@ -150,7 +148,7 @@ export const fetchRiddlePreviews = async (
 
 export const fetchRiddleSimpleDetail = async (
 	linkId: string,
-	user: User
+	userEmail: string
 ): Promise<RiddleDisplayDetailSimple | undefined> => {
 	// const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
 	// const qSolveInfo = query(
@@ -181,7 +179,7 @@ export const fetchRiddleSimpleDetail = async (
 		sharedUsers: sharingInformation.sharedUsers
 	};
 
-	const solvingInfo = await fetchUserRiddleInfo(linkId, user?.email ?? '');
+	const solvingInfo = await fetchUserRiddleInfo(linkId, userEmail);
 	const solvedQuestions = solvingInfo
 		? Object.entries(solvingInfo.data().questions).filter(
 				([, value]) => value.solved

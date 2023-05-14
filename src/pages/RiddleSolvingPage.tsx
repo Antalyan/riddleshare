@@ -1,5 +1,4 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
 	Button,
@@ -11,65 +10,38 @@ import {
 } from '@mui/material';
 
 import { QuestionSolvingAccordion } from '../components/forms/solvingForm/QuestionSolvingAccordion';
-import { fetchRiddleComplexDetail } from '../datastore/fetchingFunctions';
-import type { RiddleDisplayDetail } from '../utils/Types';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { RiddleStatus } from '../utils/Statuses';
+import { useRiddleComplexDetailFetch } from '../hooks/useRiddleComplexDetailFetch';
 
 export const RiddleSolvingPage: FC = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const user = useLoggedInUser();
 
-	if (!user) {
-		throw new Error('Undefined user accesses protected page');
-	}
+	const riddle = useRiddleComplexDetailFetch(id ?? '', user?.email ?? '');
 
-	const [riddleData, setRiddleData] = useState<RiddleDisplayDetail>();
-	useEffect(() => {
-		const loadAndSetRiddle = async () => {
-			try {
-				const riddle = await fetchRiddleComplexDetail(id ?? '', user);
-				// Redirect non-existent riddle and protect private riddle
-				if (
-					!riddle ||
-					(riddle.sharingInformation.visibility === 'private' &&
-						!riddle.sharingInformation.sharedUsers?.includes(
-							user?.email ?? ''
-						) &&
-						riddle.creatorEmail !== (user?.email ?? ''))
-				) {
-					navigate('/not-found');
-				}
-				setRiddleData(riddle);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		loadAndSetRiddle();
-	}, []);
-
-	return riddleData ? (
+	return riddle ? (
 		<Stack gap={2}>
 			<Typography variant="h4" fontWeight="bold">
-				{riddleData.name}
+				{riddle.name}
 			</Typography>
 
-			{riddleData.questions.map(question => (
+			{riddle.questions.map(question => (
 				<QuestionSolvingAccordion
-					riddleData={riddleData}
+					riddleData={riddle}
 					// @ts-ignore
 					setRiddleData={setRiddleData}
 					questionNumber={question.order}
 					key={question.order}
 				/>
 			))}
-			{riddleData.state === RiddleStatus.Solved && (
+			{riddle.state === RiddleStatus.Solved && (
 				<Card sx={{ backgroundColor: 'background.default' }}>
-					{riddleData.solvedImage && (
+					{riddle.solvedImage && (
 						<CardMedia
 							component="img"
-							image={riddleData.solvedImage}
+							image={riddle.solvedImage}
 							alt="Riddle solution image"
 							sx={{
 								p: 2,
@@ -82,7 +54,7 @@ export const RiddleSolvingPage: FC = () => {
 						<Typography variant="h5" color="secondary.main">
 							The riddle has been solved!
 						</Typography>
-						{riddleData.solvedText}
+						{riddle.solvedText}
 					</CardContent>
 				</Card>
 			)}

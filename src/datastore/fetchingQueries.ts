@@ -18,7 +18,7 @@ export const fetchUserRiddleInfo = async (
 		where('userEmail', '==', userEmail)
 	);
 	const infoRes = await getDocs(qSolveInfo);
-	return infoRes.docs.length > 0 ? infoRes.docs[0] : undefined; //User may not have answered yet, so there is no record
+	return infoRes.docs.length > 0 ? infoRes.docs[0] : null; //User may not have answered yet, so there is no record
 };
 
 export const fetchUserRiddleInfos = async (
@@ -49,7 +49,7 @@ export const fetchRiddles = async (...queryConstraints: QueryConstraint[]) => {
 export const fetchRiddle = async (linkId: string) => {
 	const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
 	const res = await getDocs(qRiddle);
-	return res.docs.length > 0 ? res.docs[0] : undefined;
+	return res.docs.length > 0 ? res.docs[0] : null;
 };
 export const fetchQuestions = async (riddleDocId: string) => {
 	const qQuestions = query(questionsCollection(riddleDocId), orderBy('order'));

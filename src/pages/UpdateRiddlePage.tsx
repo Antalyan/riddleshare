@@ -1,9 +1,19 @@
 import type { FC } from 'react';
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 import { UpsertRiddleForm } from '../components/forms/riddleUpsertForm/UpsertRiddleForm';
+import { useRiddleUpsert } from '../hooks/useRiddleUpsert';
 
-export const CreateRiddlePage: FC = () => {
+export const UpdateRiddlePage: FC = () => {
 	const { id } = useParams();
-	return <UpsertRiddleForm linkId={id} />;
+
+	const riddle = useRiddleUpsert(id ?? '');
+	if (riddle === null) {
+		return <Navigate to="/notfound" replace />;
+	}
+	return riddle ? (
+		<UpsertRiddleForm isCreate={false} defaultValues={riddle} />
+	) : (
+		<></>
+	);
 };

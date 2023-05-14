@@ -11,6 +11,7 @@ import { AutocompleteUsers } from '../common/AutocompleteUsers';
 
 type Props = {
 	formContext: UseFormReturn<RiddleUpsertDetail>;
+	isCreate: boolean;
 	riddleName: string | null;
 	onSubmitFinal: (data: RiddleUpsertDetail) => void;
 	handleBack: () => void;
@@ -19,6 +20,7 @@ type Props = {
 
 export const RiddleShareForm: FC<Props> = ({
 	formContext,
+	isCreate,
 	riddleName,
 	onSubmitFinal,
 	handleBack,
@@ -91,7 +93,7 @@ export const RiddleShareForm: FC<Props> = ({
 						variant="contained"
 						sx={{ flex: 1 }}
 					>
-						Create
+						{isCreate ? 'Create' : 'Update'}
 					</Button>
 				</Box>
 			</Stack>

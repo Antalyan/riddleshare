@@ -4,10 +4,8 @@ import { where } from 'firebase/firestore';
 
 import { RiddleCard } from '../components/RiddleCard';
 import { useRiddlePreview } from '../hooks/useRiddlePreview';
-import useLoggedInUser from '../hooks/useLoggedInUser';
 
 export const PublicRiddlesPage: FC = () => {
-	const user = useLoggedInUser();
 	const riddles = useRiddlePreview(
 		where('sharingInformation.isPublic', '==', true)
 	);

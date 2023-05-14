@@ -10,8 +10,6 @@ import type { RiddleUpsertDetail } from '../../../utils/Types';
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
 import { storeRiddle } from '../../../datastore/storingFunctions';
 import { storage } from '../../../datastore/firebase';
-import { fetchRiddleComplexDetail } from '../../../datastore/fetchingFunctions';
-import { useRiddleUpsert } from '../../../hooks/useRiddleUpsert';
 
 import { RiddleBasicInformationForm } from './RiddleBasicInformationForm';
 import { RiddleQuestionForm } from './RiddleQuestionForm';
@@ -20,12 +18,11 @@ import { RiddleShareForm } from './RiddleShareForm';
 const steps = ['Basic information', 'Questions', 'Sharing options'];
 
 type Props = {
-	linkId?: string; // Determines insert (unknown id) and update (already known id)
+	isCreate: boolean;
+	defaultValues: RiddleUpsertDetail;
 };
 
-export const UpsertRiddleForm: FC<Props> = ({ linkId }) => {
-	const isCreate = !linkId;
-
+export const UpsertRiddleForm: FC<Props> = ({ isCreate, defaultValues }) => {
 	const [activeStep, setActiveStep] = useState(0);
 	const handleNext = () => {
 		setActiveStep(prevActiveStep => prevActiveStep + 1);
@@ -37,25 +34,7 @@ export const UpsertRiddleForm: FC<Props> = ({ linkId }) => {
 	const user = useLoggedInUser();
 
 	const formContext = useForm<RiddleUpsertDetail>({
-		defaultValues: isCreate
-			? {
-					// Link id is set together with the whole url for display-and-copy (will be cropped on store)
-					linkId: `${window.location.href.replace(
-						'create-riddle',
-						''
-					)}riddle-detail/${uuidv4()}`,
-					language: 'uk',
-					difficultyValue: 3,
-					questions: [
-						{
-							hints: [],
-							correctAnswers: [{}]
-						}
-					],
-					questionOrder: 'sequence',
-					sharingInformation: { visibility: 'public' }
-			  }
-			: useRiddleUpsert(linkId)
+		defaultValues
 	});
 
 	const uploadAllImages = useCallback(async (data: RiddleUpsertDetail) => {
@@ -127,6 +106,7 @@ export const UpsertRiddleForm: FC<Props> = ({ linkId }) => {
 	const secondStep = (
 		<RiddleQuestionForm
 			formContext={formContext}
+			isCreate={isCreate}
 			riddleName={riddleName}
 			handleNext={handleNext}
 			handleBack={handleBack}
@@ -137,6 +117,7 @@ export const UpsertRiddleForm: FC<Props> = ({ linkId }) => {
 	const thirdStep = (
 		<RiddleShareForm
 			formContext={formContext}
+			isCreate={isCreate}
 			handleBack={handleBack}
 			onCancel={onCancel}
 			onSubmitFinal={onSubmitFinal}

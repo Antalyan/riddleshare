@@ -12,7 +12,9 @@ import type { RiddleDisplayDetail, RiddleUpsertDetail } from '../utils/Types';
 import {
 	db,
 	questionsCollection,
+	questionsDocument,
 	riddlesCollection,
+	riddlesDocument,
 	userRiddleInfoCollection,
 	userRiddleInfoDocument
 } from './firebase';
@@ -35,7 +37,7 @@ export const storeRiddle = async (
 		difficultyValue,
 		...rest
 	} = data;
-	const riddleDoc = doc(riddlesCollection);
+	const riddleDoc = data.id ? riddlesDocument(data.id) : doc(riddlesCollection);
 	batch.set(riddleDoc, {
 		...rest,
 		difficultyValue,
@@ -57,12 +59,17 @@ export const storeRiddle = async (
 			hintText: h.hintText
 		}));
 		const updatedCorrectAnswers = correctAnswers.map(a => a.text);
-		batch.set(doc(questionCollection), {
-			...rest,
-			order: index + 1,
-			hints: updatedHints,
-			correctAnswers: updatedCorrectAnswers
-		});
+		batch.set(
+			question.id
+				? questionsDocument(data.id!, question.id)
+				: doc(questionCollection),
+			{
+				...rest,
+				order: index + 1,
+				hints: updatedHints,
+				correctAnswers: updatedCorrectAnswers
+			}
+		);
 	});
 
 	await batch.commit();

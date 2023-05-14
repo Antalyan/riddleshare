@@ -1,16 +1,10 @@
 import { useEffect, useState } from 'react';
-import type { QueryConstraint } from 'firebase/firestore';
 
-import type { RiddlePreview, RiddleUpsertDetail } from '../utils/Types';
-import {
-	fetchRiddlePreviews,
-	fetchRiddleUpsert
-} from '../datastore/fetchingFunctions';
-
-import useLoggedInUser from './useLoggedInUser';
+import type { RiddleUpsertDetail } from '../utils/Types';
+import { fetchRiddleUpsert } from '../datastore/fetchingFunctions';
 
 export const useRiddleUpsert = (linkId: string) => {
-	const [riddle, setRiddle] = useState<RiddleUpsertDetail>();
+	const [riddle, setRiddle] = useState<RiddleUpsertDetail | null>();
 	useEffect(() => {
 		const loadAndSetRiddle = async () => {
 			try {
@@ -20,7 +14,7 @@ export const useRiddleUpsert = (linkId: string) => {
 				console.log(error);
 			}
 		};
-		setRiddle(riddle);
+		loadAndSetRiddle();
 	}, []);
 	return riddle;
 };

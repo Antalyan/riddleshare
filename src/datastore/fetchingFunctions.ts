@@ -1,4 +1,3 @@
-import type { User } from 'firebase/auth';
 import type { QueryConstraint } from 'firebase/firestore';
 
 import type {
@@ -23,12 +22,12 @@ import {
 export const fetchRiddleComplexDetail = async (
 	linkId: string,
 	userEmail: string
-): Promise<RiddleDisplayDetail | undefined> => {
+): Promise<RiddleDisplayDetail | null> => {
 	const riddleRes = await fetchRiddle(linkId);
 
 	if (!riddleRes) {
 		// Riddle with given linkId does not exist
-		return undefined;
+		return null;
 	}
 
 	const riddleInfo = (await fetchUserRiddleInfo(linkId, userEmail))?.data();
@@ -110,7 +109,7 @@ export const fetchRiddleComplexDetail = async (
 };
 
 export const fetchRiddlePreviews = async (
-	user: User | undefined,
+	userEmail: string | undefined,
 	...queryConstraints: QueryConstraint[]
 ): Promise<RiddlePreview[]> => {
 	const riddleDbData = await fetchRiddles(...queryConstraints);
@@ -129,12 +128,9 @@ export const fetchRiddlePreviews = async (
 	});
 
 	// Fetch answer info for preview icon
-	if (user) {
+	if (userEmail) {
 		const riddleLinkIds = previews.map(riddle => riddle.linkId);
-		const answerDataDoc = await fetchUserRiddleInfos(
-			riddleLinkIds,
-			user.email!
-		);
+		const answerDataDoc = await fetchUserRiddleInfos(riddleLinkIds, userEmail);
 		if (answerDataDoc.length > 0) {
 			previews.forEach(p => {
 				const answer = answerDataDoc.find(
@@ -152,19 +148,12 @@ export const fetchRiddlePreviews = async (
 export const fetchRiddleSimpleDetail = async (
 	linkId: string,
 	userEmail: string
-): Promise<RiddleDisplayDetailSimple | undefined> => {
-	// const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
-	// const qSolveInfo = query(
-	// 	userRiddleInfoCollection,
-	// 	where('riddleLinkId', '==', linkId),
-	// 	where('userEmail', '==', user?.email)
-	// );
-
+): Promise<RiddleDisplayDetailSimple | null> => {
 	const riddleDoc = await fetchRiddle(linkId);
 
 	if (!riddleDoc) {
 		// Riddle with given linkId does not exist
-		return undefined;
+		return null;
 	}
 
 	const {
@@ -206,10 +195,10 @@ export const fetchRiddleSimpleDetail = async (
 
 export const fetchRiddleUpsert = async (
 	linkId: string
-): Promise<RiddleUpsertDetail | undefined> => {
+): Promise<RiddleUpsertDetail | null> => {
 	const riddleRes = await fetchRiddle(linkId);
 	if (!riddleRes) {
-		return undefined;
+		return null;
 	}
 
 	const {

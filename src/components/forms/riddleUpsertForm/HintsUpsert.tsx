@@ -9,9 +9,14 @@ import type { RiddleUpsertDetail } from '../../../utils/Types';
 type Props = {
 	control: Control<RiddleUpsertDetail>;
 	questionIndex: number;
+	isCreate: boolean;
 };
 
-export const HintsUpsert: FC<Props> = ({ control, questionIndex }) => {
+export const HintsUpsert: FC<Props> = ({
+	control,
+	questionIndex,
+	isCreate
+}) => {
 	const { fields, append, remove } = useFieldArray({
 		name: `questions.${questionIndex}.hints`,
 		control
@@ -26,7 +31,11 @@ export const HintsUpsert: FC<Props> = ({ control, questionIndex }) => {
 						required
 						fullWidth
 					/>
-					<IconButton onClick={() => remove(index)} sx={{ m: 1 }}>
+					<IconButton
+						onClick={() => remove(index)}
+						sx={{ m: 1 }}
+						disabled={!isCreate}
+					>
 						<Cancel />
 					</IconButton>
 				</Stack>

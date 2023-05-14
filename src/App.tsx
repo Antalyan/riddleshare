@@ -14,6 +14,7 @@ import { CreateRiddlePage } from './pages/CreateRiddlePage';
 import RiddleDetailPage from './pages/RiddleDetailPage';
 import { NavigationBar } from './components/navigation/NavigationBar';
 import { RiddleSolvingPage } from './pages/RiddleSolvingPage';
+import { UpdateRiddlePage } from './pages/UpdateRiddlePage';
 
 export const App = () => (
 	<UserProvider>
@@ -49,6 +50,14 @@ export const App = () => (
 							element={
 								<PrivateRoute>
 									<RiddleSolvingPage />
+								</PrivateRoute>
+							}
+						/>
+						<Route
+							path="/riddle-detail/:id/edit"
+							element={
+								<PrivateRoute>
+									<UpdateRiddlePage />
 								</PrivateRoute>
 							}
 						/>

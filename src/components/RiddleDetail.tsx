@@ -1,10 +1,9 @@
-import { Navigate, useNavigate } from 'react-router-dom';
-import { Box, Button, Chip, Divider, Stack, Typography } from '@mui/material';
+import { Navigate, useLocation, useNavigate } from 'react-router-dom';
+import { Box, Button, Stack, Typography } from '@mui/material';
 import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
 import type { FC } from 'react';
-import { useMemo } from 'react';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 
 import type { RiddleDisplayDetailSimple } from '../utils/Types';
 import { RiddleStatus } from '../utils/Statuses';
@@ -15,11 +14,9 @@ import {
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { useRiddleSolversDataFetch } from '../hooks/useRiddleSolversDataFetch';
 import { getDifficultyObject } from '../utils/Difficulty';
-import { UserRiddleInfoDb } from '../utils/DbTypes';
 
 import { InfoLine } from './riddleDetail/InfoLine';
 import { InfoAccordion } from './riddleDetail/InfoAccordion';
-import { AlertDialog } from './forms/common/AlertDialog';
 import { ChoiceDialog } from './forms/common/ChoiceDialog';
 
 type Props = {
@@ -29,6 +26,7 @@ type Props = {
 
 export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const user = useLoggedInUser();
 
 	if (!riddleDetail) {
@@ -192,8 +190,7 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 							<Button
 								variant="contained"
 								sx={{ backgroundColor: 'primary.light', maxWidth: '200px' }}
-								//TODO
-								// onClick={() => navigate(-1)}
+								onClick={() => navigate(`${location.pathname}/edit`)}
 							>
 								Edit
 							</Button>

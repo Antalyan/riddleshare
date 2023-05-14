@@ -9,7 +9,7 @@ export const useRiddleComplexDetailFetch = (
 	userEmail: string
 ) => {
 	const navigate = useNavigate();
-	const [riddleData, setRiddleData] = useState<RiddleDisplayDetail>();
+	const [riddleData, setRiddleData] = useState<RiddleDisplayDetail | null>();
 
 	useEffect(() => {
 		const fetchRiddle = async () => {

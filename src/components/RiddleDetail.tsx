@@ -3,12 +3,14 @@ import { Box, Button, Stack, Typography } from '@mui/material';
 import { CircleFlag } from 'react-circle-flags';
 import LensIcon from '@mui/icons-material/Lens';
 import type { FC } from 'react';
+import { useMemo } from 'react';
 
 import type { RiddleDisplayDetailSimple } from '../utils/Types';
 import { RiddleStatus } from '../utils/Statuses';
 import { deleteUserRiddleInfo } from '../datastore/deletingQueries';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { useRiddleSolversDataFetch } from '../hooks/useRiddleSolversDataFetch';
+import { getDifficultyObject } from '../utils/Difficulty';
 
 import { InfoLine } from './riddleDetail/InfoLine';
 import { InfoAccordion } from './riddleDetail/InfoAccordion';
@@ -29,7 +31,7 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 	const {
 		creatorEmail,
 		description,
-		difficulty,
+		difficultyValue,
 		image,
 		language,
 		linkId,
@@ -39,6 +41,11 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 		solvedQuestions,
 		state
 	} = riddleDetail;
+
+	const difficulty = useMemo(
+		() => getDifficultyObject(difficultyValue),
+		[difficultyValue]
+	);
 
 	const { successfulSolversData, unsuccessfulSolversData } =
 		useRiddleSolversDataFetch(linkId, isCreatorView);
@@ -103,7 +110,7 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 				/>
 			)}
 
-			<Typography>{description}</Typography>
+			<Typography variant="h6">{description}</Typography>
 
 			{isCreatorView && (
 				<>

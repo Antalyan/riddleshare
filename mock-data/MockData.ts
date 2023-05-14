@@ -1,4 +1,3 @@
-import { getDifficultyObject } from '../src/utils/Difficulty';
 import { RiddleStatus } from '../src/utils/Statuses';
 import type {
 	QuestionDisplayDetail,
@@ -70,48 +69,53 @@ export const MockDisplayQuestions: QuestionDisplayDetail[] =
 export const MockRiddlesPreviews: RiddlePreview[] = [
 	{
 		id: '1',
+		creatorEmail: 'a@gmail.com',
 		linkId: 'd0b73059-e4cd-4c30-a2e1-0670aef1ab11',
 		name: 'Anagram - Really long riddle name',
 		image: '/public/vite.svg',
 		state: RiddleStatus.Solved,
 		language: 'cz',
-		difficulty: getDifficultyObject(1)
+		difficultyValue: 1
 	},
 	{
 		id: '2',
+		creatorEmail: 'a@gmail.com',
 		linkId: 'a0b73059-e4cd-4c30-a2e1-0670aef1ab22',
 		name: 'Monogram',
 		image: '/public/RiddleMeThis.jpeg',
 		state: RiddleStatus.Unfinished,
 		language: 'uk',
-		difficulty: getDifficultyObject(3)
+		difficultyValue: 3
 	},
 	{
 		id: '3',
+		creatorEmail: 'b@gmail.com',
 		linkId: 'e4b73059-e4cd-4c30-a2e1-0670aef1ab22',
 		name: 'Diagram',
 		state: RiddleStatus.Untouched,
 		language: 'de',
-		difficulty: getDifficultyObject(4)
+		difficultyValue: 4
 	},
 	{
 		id: '4',
+		creatorEmail: 'milujememalinybaostruziny123@gmail.com',
 		name: 'Panorama',
 		linkId: 'ab216804-1863-42bd-882a-6503e894c09f',
 		state: RiddleStatus.Untouched,
 		language: 'es',
-		difficulty: getDifficultyObject(5)
+		difficultyValue: 5
 	}
 ];
 
 export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 	{
 		id: '1',
+		creatorEmail: 'honzazlesa@gmail.com',
 		linkId: 'b1b73059-e4cd-4c30-a2e1-0670aef1ab11',
 		name: 'Anagram - Really long riddle name',
 		image: '/public/vite.svg',
 		language: 'cz',
-		difficulty: getDifficultyObject(1),
+		difficultyValue: 1,
 		description:
 			'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Integer tempor. Quisque tincidunt scelerisque libero. Duis viverra diam non justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.',
 		solvedImage: '/public/RiddleMeThis.jpeg',
@@ -124,11 +128,12 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 	},
 	{
 		id: '2',
+		creatorEmail: 'feelthemagic5@gmail.com',
 		linkId: '73059b1b-e4cd-4c30-a2e1-0670aef1ab11',
 		name: 'Monogram',
 		language: 'uk',
 		image: '/public/RiddleMeThis.jpeg',
-		difficulty: getDifficultyObject(3),
+		difficultyValue: 3,
 		description:
 			'\n' +
 			'\n' +

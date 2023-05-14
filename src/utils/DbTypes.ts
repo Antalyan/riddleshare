@@ -1,7 +1,7 @@
 import type { Timestamp } from 'firebase/firestore';
 
 import type { CountryCode } from './CountryCodes';
-import type { DifficultyType } from './Difficulty';
+import type { DifficultyValueType } from './Difficulty';
 import type { RiddleStatus } from './Statuses';
 
 export type RiddleDb = {
@@ -10,7 +10,7 @@ export type RiddleDb = {
 	description: string;
 	image?: string;
 	language: CountryCode;
-	difficultyValue: DifficultyType;
+	difficultyValue: DifficultyValueType;
 	creatorEmail: string;
 	createTime: Timestamp;
 	solvedText: string;

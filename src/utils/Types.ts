@@ -1,13 +1,13 @@
 import type { RiddleStatus } from './Statuses';
 import type { CountryCode } from './CountryCodes';
-import type { Difficulty, DifficultyType } from './Difficulty';
+import type { DifficultyValueType } from './Difficulty';
 
 export type QuestionOrder = 'sequence' | 'parallel';
 export type Visibility = 'public' | 'private';
 
 export type RiddlePreview = {
 	creatorEmail: string;
-	difficulty: Difficulty;
+	difficultyValue: DifficultyValueType;
 	id?: string;
 	image?: string;
 	imageFile?: Blob;
@@ -19,7 +19,6 @@ export type RiddlePreview = {
 
 export type RiddleUpsertDetail = Omit<RiddlePreview, 'state'> & {
 	description: string;
-	difficultyValue: DifficultyType;
 	solvedText: string;
 	solvedImage?: string;
 	solvedImageFile?: Blob;

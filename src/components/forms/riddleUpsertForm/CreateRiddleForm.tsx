@@ -54,10 +54,9 @@ export const CreateRiddleForm = () => {
 		// Riddle image
 		if (data.imageFile) {
 			const imageRef = ref(storage, `images/${data.imageFile.name + uuidv4()}`);
-			const url = await uploadBytes(imageRef, data.imageFile)
+			data.image = await uploadBytes(imageRef, data.imageFile)
 				.then(snapshot => snapshot.metadata.fullPath)
 				.then(() => getDownloadURL(imageRef));
-			data.image = url;
 			delete data.imageFile;
 		}
 

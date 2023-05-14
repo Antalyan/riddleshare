@@ -7,7 +7,6 @@ import type { RiddleDisplayDetailSimple } from '../utils/Types';
 import { fetchRiddleSimpleDetail } from '../datastore/fetchingFunctions';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 
-//TODO: Add similar page with is creator view = false => (Figma: My riddles - detail)
 const RiddleDetailPage: FC = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();

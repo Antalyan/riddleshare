@@ -1,6 +1,6 @@
 export type Difficulty = {
 	name: string;
-	value: DifficultyType;
+	value: DifficultyValueType;
 	color: string;
 };
 
@@ -12,10 +12,10 @@ export const Difficulties = [
 	{ name: 'Extreme', value: 5, color: '#bf360c' }
 ] as const;
 
-export type DifficultyType = (typeof Difficulties)[number]['value'];
+export type DifficultyValueType = (typeof Difficulties)[number]['value'];
 
 export const getDifficultyObject = (
-	difficultyValue: DifficultyType
+	difficultyValue: DifficultyValueType
 ): Difficulty => {
 	const diff = Difficulties.find(diff => diff.value === difficultyValue);
 	if (diff === undefined) {

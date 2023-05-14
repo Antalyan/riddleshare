@@ -28,12 +28,12 @@ export const QuestionUpsertAccordion: FC<Props> = ({ index, control }) => (
 		<AccordionDetails>
 			<Stack gap={2} sx={{ minWidth: { md: 400 } }}>
 				<TextFieldElement
-					label="Question text"
-					multiline
 					name={`questions.${index}.questionText`}
-					rows={5}
-					// required
+					label="Question text"
 					placeholder="Text of the question"
+					required
+					multiline
+					rows={5}
 				/>
 
 				{/* Questions can be later accompanied by pictures as well* /}
@@ -43,6 +43,7 @@ export const QuestionUpsertAccordion: FC<Props> = ({ index, control }) => (
 				{/*	control={control}*/}
 				{/*	label="Question picture"*/}
 				{/*/>*/}
+
 				<HintsUpsert control={control} questionIndex={index} />
 				<AnswersUpsert control={control} questionIndex={index} />
 			</Stack>

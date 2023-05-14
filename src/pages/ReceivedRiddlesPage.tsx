@@ -21,5 +21,3 @@ export const ReceivedRiddlesPage: FC = () => {
 		</Stack>
 	);
 };
-
-//TODO!

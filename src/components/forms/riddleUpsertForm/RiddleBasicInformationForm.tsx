@@ -24,43 +24,45 @@ export const RiddleBasicInformationForm: FC<Props> = ({
 }) => {
 	const { control } = formContext;
 	return (
-		<FormContainer formContext={formContext}>
+		<FormContainer formContext={formContext} onSuccess={handleNext}>
 			<Stack gap={2} sx={{ minWidth: { md: 500 } }}>
 				<TextFieldElement
 					name="name"
 					label="Riddle name"
-					// required
+					required
 					onChange={e => setRiddleName(e.target.value)}
 				/>
 				<TextFieldElement
-					label="Description"
-					multiline
 					name="description"
+					label="Description"
+					required
+					multiline
 					rows={5}
 					// required
 				/>
 				<FileUploader
 					name="imageFile"
-					control={control}
 					label="Riddle preview picture"
+					control={control}
 				/>
 				<AutocompleteLanguages
-					control={control}
-					label="Language"
 					name="language"
+					label="Language"
+					control={control}
 				/>
 				<AutocompleteDifficulties
-					control={control}
-					label="Expected difficulty"
 					name="difficultyValue"
+					label="Expected difficulty"
+					control={control}
 				/>
 				<TextFieldElement
-					label="Riddle solved text"
-					multiline
 					name="solvedText"
+					label="Riddle solved text"
+					placeholder="Text displayed to the user when the riddle is solved"
+					required
+					multiline
 					rows={5}
 					// required
-					placeholder="Text displayed to the user when the riddle is solved"
 				/>
 				<FileUploader
 					name="solvedImageFile"
@@ -80,7 +82,6 @@ export const RiddleBasicInformationForm: FC<Props> = ({
 						color="primary"
 						variant="contained"
 						sx={{ flex: 1 }}
-						onClick={handleNext}
 					>
 						Proceed
 					</Button>

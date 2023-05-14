@@ -41,7 +41,7 @@ export const RiddleQuestionForm: FC<Props> = ({
 	}, [fields.length]);
 
 	return (
-		<FormContainer formContext={formContext}>
+		<FormContainer formContext={formContext} onSuccess={handleNext}>
 			<Stack gap={2} sx={{ minWidth: { md: 500 } }}>
 				<Typography variant="h2">{riddleName}</Typography>
 				{fields.map((field, index) => (
@@ -105,7 +105,6 @@ export const RiddleQuestionForm: FC<Props> = ({
 						color="primary"
 						variant="contained"
 						sx={{ flex: 1 }}
-						onClick={handleNext}
 					>
 						Proceed
 					</Button>

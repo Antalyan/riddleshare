@@ -20,12 +20,16 @@ import {
 
 export const fetchRiddleComplexDetail = async (
 	linkId: string,
-	user: User
-): Promise<RiddleDisplayDetail> => {
-	const riddleInfo = (
-		await fetchUserRiddleInfo(linkId, user?.email ?? '')
-	)?.data();
+	userEmail: string
+): Promise<RiddleDisplayDetail | undefined> => {
 	const riddleRes = await fetchRiddle(linkId);
+
+	if (!riddleRes) {
+		// Riddle with given linkId does not exist
+		return undefined;
+	}
+
+	const riddleInfo = (await fetchUserRiddleInfo(linkId, userEmail))?.data();
 
 	const {
 		name,
@@ -145,8 +149,8 @@ export const fetchRiddlePreviews = async (
 
 export const fetchRiddleSimpleDetail = async (
 	linkId: string,
-	user: User
-): Promise<RiddleDisplayDetailSimple> => {
+	userEmail: string
+): Promise<RiddleDisplayDetailSimple | undefined> => {
 	// const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
 	// const qSolveInfo = query(
 	// 	userRiddleInfoCollection,
@@ -155,6 +159,12 @@ export const fetchRiddleSimpleDetail = async (
 	// );
 
 	const riddleDoc = await fetchRiddle(linkId);
+
+	if (!riddleDoc) {
+		// Riddle with given linkId does not exist
+		return undefined;
+	}
+
 	const {
 		name,
 		creatorEmail,
@@ -170,7 +180,7 @@ export const fetchRiddleSimpleDetail = async (
 		sharedUsers: sharingInformation.sharedUsers
 	};
 
-	const solvingInfo = await fetchUserRiddleInfo(linkId, user?.email ?? '');
+	const solvingInfo = await fetchUserRiddleInfo(linkId, userEmail);
 	const solvedQuestions = solvingInfo
 		? Object.entries(solvingInfo.data().questions).filter(
 				([, value]) => value.solved

@@ -1,5 +1,4 @@
 import type { FC } from 'react';
-import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import {
 	Button,
@@ -11,40 +10,16 @@ import {
 } from '@mui/material';
 
 import { QuestionSolvingAccordion } from '../components/forms/solvingForm/QuestionSolvingAccordion';
-import { fetchRiddleComplexDetail } from '../datastore/fetchingFunctions';
-import type { RiddleDisplayDetail } from '../utils/Types';
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { RiddleStatus } from '../utils/Statuses';
+import { useRiddleComplexDetailFetch } from '../hooks/useRiddleComplexDetailFetch';
 
 export const RiddleSolvingPage: FC = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	const user = useLoggedInUser();
 
-	if (!user) {
-		throw new Error('Undefined user accesses protected page');
-	}
-
-	const [riddleData, setRiddleData] = useState<RiddleDisplayDetail>();
-	useEffect(() => {
-		const loadAndSetRiddle = async () => {
-			try {
-				const riddle = await fetchRiddleComplexDetail(id ?? '', user);
-				// Protect private riddle
-				if (
-					riddle.sharingInformation.visibility === 'private' &&
-					!riddle.sharingInformation.sharedUsers?.includes(user?.email ?? '') &&
-					riddle.creatorEmail !== (user?.email ?? '')
-				) {
-					navigate('/not-found');
-				}
-				setRiddleData(riddle);
-			} catch (error) {
-				console.log(error);
-			}
-		};
-		loadAndSetRiddle();
-	}, []);
+	const {riddleData, setRiddleData} = useRiddleComplexDetailFetch(id ?? '', user?.email ?? '');
 
 	return riddleData ? (
 		<Stack gap={2}>

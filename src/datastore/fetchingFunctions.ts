@@ -22,13 +22,14 @@ export const fetchRiddleComplexDetail = async (
 	linkId: string,
 	userEmail: string
 ): Promise<RiddleDisplayDetail | undefined> => {
-	const riddleInfo = (await fetchUserRiddleInfo(linkId, userEmail))?.data();
 	const riddleRes = await fetchRiddle(linkId);
 
 	if (!riddleRes) {
 		// Riddle with given linkId does not exist
 		return undefined;
 	}
+
+	const riddleInfo = (await fetchUserRiddleInfo(linkId, userEmail))?.data();
 
 	const {
 		name,

@@ -57,7 +57,6 @@ export const RiddleCard: FC<RiddlePreview> = ({
 							objectFit: 'contain'
 						}}
 					/>
-					{/*//TODO: image fetching from db*/}
 				</Grid>
 				<Grid item xs={12} sm={6}>
 					<CardContent sx={{ height: { sm: '300px' } }}>

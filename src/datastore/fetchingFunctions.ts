@@ -8,7 +8,6 @@ import type {
 	SharingInformationUpsert,
 	UserAnswer
 } from '../utils/Types';
-import { getDifficultyObject } from '../utils/Difficulty';
 import { RiddleStatus } from '../utils/Statuses';
 
 import {
@@ -19,7 +18,6 @@ import {
 	fetchUserRiddleInfos
 } from './fetchingQueries';
 
-// TODO: Extract common parts with simple detail fetch
 export const fetchRiddleComplexDetail = async (
 	linkId: string,
 	user: User
@@ -177,7 +175,7 @@ export const fetchRiddleSimpleDetail = async (
 		? Object.entries(solvingInfo.data().questions).filter(
 				([, value]) => value.solved
 		  ).length
-		: 0; //TODO: change solvedQuestions format in the whole file from number to array because of parallel scoping
+		: 0;
 
 	return {
 		linkId,

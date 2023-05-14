@@ -27,8 +27,6 @@ type Props = {
 	questionNumber: number;
 };
 
-// TODO: sequential variant (unlock next only when previous one is solved)
-
 export const QuestionSolvingAccordion = ({
 	setRiddleData,
 	riddleData,

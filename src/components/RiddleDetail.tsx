@@ -236,12 +236,19 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 			<ChoiceDialog
 				name="Confirm delete"
 				content={
-					<Typography variant="h6">
-						Are you sure you want to delete the riddle and all its questions?
-						The riddle will also disappear for all players and this action
-						cannot be reverted. After the riddle is deleted, you will be
-						redirected to the homepage.
-					</Typography>
+					<Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+						<Typography variant="h6" display="block">
+							Are you sure you want to delete the riddle and all its questions?
+						</Typography>
+						<Typography variant="h6" display="block">
+							The riddle will also disappear for all players and this action
+							cannot be reverted.
+						</Typography>
+						<Typography variant="h6" display="block">
+							After the riddle is deleted, you will be redirected to the
+							homepage.
+						</Typography>
+					</Box>
 				}
 				open={isDialogOpen}
 				handleClose={handleClose}

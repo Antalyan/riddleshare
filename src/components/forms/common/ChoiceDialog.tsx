@@ -31,7 +31,11 @@ export const ChoiceDialog: FC<Props> = ({
 			</DialogContentText>
 		</DialogContent>
 		<DialogActions>
-			<Button variant="contained" onClick={handleActionOnYes}>
+			<Button
+				variant="contained"
+				sx={{ backgroundColor: 'primary.light' }}
+				onClick={handleActionOnYes}
+			>
 				Yes
 			</Button>
 			<Button variant="contained" onClick={handleClose}>

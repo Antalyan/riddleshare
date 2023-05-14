@@ -54,7 +54,6 @@ export const fetchRiddleComplexDetail = async (
 		description,
 		image,
 		language,
-		difficulty: getDifficultyObject(difficultyValue),
 		difficultyValue,
 		numberOfQuestions,
 		solvedText,
@@ -116,7 +115,7 @@ export const fetchRiddlePreviews = async (
 			riddle.data();
 		return {
 			creatorEmail,
-			difficulty: getDifficultyObject(difficultyValue),
+			difficultyValue,
 			image,
 			language,
 			linkId,
@@ -187,7 +186,6 @@ export const fetchRiddleSimpleDetail = async (
 		description,
 		image,
 		language,
-		difficulty: getDifficultyObject(difficultyValue),
 		difficultyValue,
 		numberOfQuestions,
 		state: solvingInfo ? solvingInfo.data().state : RiddleStatus.Untouched,

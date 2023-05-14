@@ -13,15 +13,17 @@ type Props = {
 	content: ReactNode;
 	open: boolean;
 	handleClose: () => void;
-	handleActionOnYes: () => void;
+	handleAction: () => void;
+	actionButtonLabel: string;
 };
 
 export const ChoiceDialog: FC<Props> = ({
-	name,
+	actionButtonLabel,
 	content,
-	open,
 	handleClose,
-	handleActionOnYes
+	handleAction,
+	name,
+	open
 }) => (
 	<Dialog open={open} onClose={handleClose}>
 		<DialogTitle sx={{ fontWeight: 'bold' }}>{name}</DialogTitle>
@@ -34,12 +36,12 @@ export const ChoiceDialog: FC<Props> = ({
 			<Button
 				variant="contained"
 				sx={{ backgroundColor: 'primary.light' }}
-				onClick={handleActionOnYes}
+				onClick={handleClose}
 			>
-				Yes
+				Cancel
 			</Button>
-			<Button variant="contained" onClick={handleClose}>
-				No
+			<Button variant="contained" onClick={handleAction}>
+				{actionButtonLabel}
 			</Button>
 		</DialogActions>
 	</Dialog>

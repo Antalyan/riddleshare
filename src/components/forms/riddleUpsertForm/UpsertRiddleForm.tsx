@@ -10,7 +10,7 @@ import type { RiddleUpsertDetail } from '../../../utils/Types';
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
 import { storeRiddle } from '../../../datastore/storingFunctions';
 import { storage } from '../../../datastore/firebase';
-import { AlertDialog } from '../common/AlertDialog';
+import { AlertDialog } from '../../dialogs/AlertDialog';
 
 import { RiddleBasicInformationForm } from './RiddleBasicInformationForm';
 import { RiddleQuestionForm } from './RiddleQuestionForm';
@@ -73,7 +73,7 @@ export const UpsertRiddleForm: FC<Props> = ({ isCreate, defaultValues }) => {
 				data = await uploadAllImages(data);
 				console.log('after images upload', data);
 
-				//Crop url out
+				// Crop url out
 				data.linkId = data.linkId.split('/').slice(-1)[0];
 
 				await storeRiddle(data, user);

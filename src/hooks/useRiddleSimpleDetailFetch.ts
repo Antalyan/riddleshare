@@ -10,7 +10,7 @@ export const useRiddleSimpleDetailFetch = (
 ) => {
 	const navigate = useNavigate();
 	const [riddleData, setRiddleData] =
-		useState<RiddleDisplayDetailSimple | null>();
+		useState<RiddleDisplayDetailSimple | null>(null);
 
 	useEffect(() => {
 		const fetchRiddle = async () => {

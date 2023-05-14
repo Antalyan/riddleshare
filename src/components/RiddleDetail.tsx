@@ -17,7 +17,7 @@ import { getDifficultyObject } from '../utils/Difficulty';
 
 import { InfoLine } from './riddleDetail/InfoLine';
 import { InfoAccordion } from './riddleDetail/InfoAccordion';
-import { ChoiceDialog } from './forms/common/ChoiceDialog';
+import { ChoiceDialog } from './dialogs/ChoiceDialog';
 
 type Props = {
 	isCreatorView: boolean;
@@ -249,7 +249,8 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 				}
 				open={isDialogOpen}
 				handleClose={handleClose}
-				handleActionOnYes={handleDelete}
+				actionButtonLabel="Delete"
+				handleAction={handleDelete}
 			/>
 		</Stack>
 	);

@@ -15,7 +15,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import type { RiddleDisplayDetail } from '../../../utils/Types';
 import { getQuestionStateIcon, RiddleStatus } from '../../../utils/Statuses';
-import { AlertDialog } from '../common/AlertDialog';
+import { AlertDialog } from '../../dialogs/AlertDialog';
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
 import { storeRiddleAnswerInfo } from '../../../datastore/storingFunctions';
 

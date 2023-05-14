@@ -217,10 +217,12 @@ export const fetchRiddleUpsert = async (
 		visibility: sharingInformation.isPublic ? 'public' : 'private',
 		sharedUsers: sharingInformation.sharedUsers
 	};
+
 	const riddle: RiddleUpsertDetail = {
 		id: riddleRes.id,
 		name,
-		linkId,
+		// Link id is set together with the whole url for display-and-copy (will be cropped on store)
+		linkId: `${window.location.href.replace('/edit', '')}`,
 		creatorEmail,
 		description,
 		image,

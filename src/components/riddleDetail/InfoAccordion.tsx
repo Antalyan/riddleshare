@@ -13,7 +13,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import type { FC } from 'react';
 import { useCallback, useState } from 'react';
 
-import { AlertDialog } from '../forms/common/AlertDialog';
+import { AlertDialog } from '../dialogs/AlertDialog';
 import type { UserRiddleInfoDb } from '../../utils/DbTypes';
 
 type Props = {

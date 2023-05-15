@@ -37,7 +37,7 @@ export const InfoAccordion: FC<Props> = ({ label, solvers }) => {
 
 	return (
 		<>
-			<Accordion sx={{ maxWidth: { xs: '300px', sm: 'none' } }}>
+			<Accordion>
 				<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 					<Stack
 						direction="row"

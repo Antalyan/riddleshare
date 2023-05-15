@@ -206,13 +206,6 @@ export const theme = createTheme(
 					}
 				}
 			},
-			MuiSvgIcon: {
-				styleOverrides: {
-					root: {
-						backgroundColor: 'initial !important'
-					}
-				}
-			},
 			MuiTooltip: {
 				styleOverrides: {
 					tooltip: {

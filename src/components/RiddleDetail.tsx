@@ -177,8 +177,9 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 				sx={{
 					display: 'flex',
 					justifyContent: 'space-between',
+					alignItems: 'end',
 					width: '100%',
-					columnGap: 1,
+					columnGap: 4,
 					mt: 2
 				}}
 			>
@@ -186,14 +187,13 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 					variant="contained"
 					sx={{
 						backgroundColor: 'primary.light',
-						maxWidth: '200px',
-						maxHeight: '40px'
+						maxWidth: '200px'
 					}}
 					onClick={() => navigate(-1)}
 				>
 					Back
 				</Button>
-				<Stack direction="row" gap={2} flexWrap="wrap">
+				<Stack direction="row" gap={2} flexWrap="wrap" justifyContent="end">
 					{isCreatorView && (
 						<>
 							<Button

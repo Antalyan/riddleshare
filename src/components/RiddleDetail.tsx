@@ -63,12 +63,17 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 		setIsDialogOpen(false);
 	}, []);
 	const handleDelete = useCallback(async () => {
-		await deleteRiddle(linkId);
-		navigate('/');
+		try {
+			await deleteRiddle(linkId);
+			console.log('Deletion successful.');
+			navigate('/');
+		} catch (error) {
+			console.log(`Error on delete: ${error}`);
+		}
 	}, []);
 
 	return (
-		<Stack gap={2}>
+		<Stack gap={2} sx={{ pl: 1, pr: 1 }}>
 			<Typography variant="h4" fontWeight="bold">
 				{name}
 			</Typography>
@@ -172,19 +177,23 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 				sx={{
 					display: 'flex',
 					justifyContent: 'space-between',
+					alignItems: 'end',
 					width: '100%',
-					columnGap: 1,
+					columnGap: 4,
 					mt: 2
 				}}
 			>
 				<Button
 					variant="contained"
-					sx={{ backgroundColor: 'primary.light', maxWidth: '200px' }}
+					sx={{
+						backgroundColor: 'primary.light',
+						maxWidth: '200px'
+					}}
 					onClick={() => navigate(-1)}
 				>
 					Back
 				</Button>
-				<Stack direction="row" gap={2}>
+				<Stack direction="row" gap={2} flexWrap="wrap" justifyContent="end">
 					{isCreatorView && (
 						<>
 							<Button

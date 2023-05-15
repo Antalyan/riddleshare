@@ -12,7 +12,7 @@ const MockUpsertQuestions: QuestionUpsertDetail[] = [
 		id: '123',
 		order: 1,
 		questionText: 'It is blue and annoying, what is it?',
-		questionImage: '/public/RiddleMeThis.jpeg',
+		questionImage: '/RiddleMeThis.jpeg',
 		hints: [],
 		correctAnswers: [{ text: 'Smurf' }]
 	},
@@ -72,7 +72,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 		creatorEmail: 'a@gmail.com',
 		linkId: 'd0b73059-e4cd-4c30-a2e1-0670aef1ab11',
 		name: 'Anagram - Really long riddle name',
-		image: '/public/vite.svg',
+		image: '/vite.svg',
 		state: RiddleStatus.Solved,
 		language: 'cz',
 		difficultyValue: 1
@@ -82,7 +82,7 @@ export const MockRiddlesPreviews: RiddlePreview[] = [
 		creatorEmail: 'a@gmail.com',
 		linkId: 'a0b73059-e4cd-4c30-a2e1-0670aef1ab22',
 		name: 'Monogram',
-		image: '/public/RiddleMeThis.jpeg',
+		image: '/RiddleMeThis.jpeg',
 		state: RiddleStatus.Unfinished,
 		language: 'uk',
 		difficultyValue: 3
@@ -113,12 +113,12 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 		creatorEmail: 'honzazlesa@gmail.com',
 		linkId: 'b1b73059-e4cd-4c30-a2e1-0670aef1ab11',
 		name: 'Anagram - Really long riddle name',
-		image: '/public/vite.svg',
+		image: '/vite.svg',
 		language: 'cz',
 		difficultyValue: 1,
 		description:
 			'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Integer tempor. Quisque tincidunt scelerisque libero. Duis viverra diam non justo. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.',
-		solvedImage: '/public/RiddleMeThis.jpeg',
+		solvedImage: '/RiddleMeThis.jpeg',
 		solvedText: 'SOLVED!',
 		questions: MockUpsertQuestions,
 		sharingInformation: {
@@ -132,7 +132,7 @@ export const MockRiddleUpsertDetails: RiddleUpsertDetail[] = [
 		linkId: '73059b1b-e4cd-4c30-a2e1-0670aef1ab11',
 		name: 'Monogram',
 		language: 'uk',
-		image: '/public/RiddleMeThis.jpeg',
+		image: '/RiddleMeThis.jpeg',
 		difficultyValue: 3,
 		description:
 			'\n' +

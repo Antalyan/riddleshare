@@ -49,7 +49,7 @@ export const RiddleCard: FC<RiddlePreview> = ({
 				<Grid item xs={12} sm={6} justifyContent="center" alignItems="center">
 					<CardMedia
 						component="img"
-						image={image ?? '/public/RiddlePreview.svg'}
+						image={image ?? '/RiddlePreview.svg'}
 						alt={name}
 						sx={{
 							maxHeight: { xs: '200px', sm: '300px' },

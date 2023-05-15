@@ -3,7 +3,7 @@ import { Box, Autocomplete, TextField } from '@mui/material';
 import { CircleFlag } from 'react-circle-flags';
 import { Controller, type Control } from 'react-hook-form';
 
-import { CountryCodes } from '../../../utils/CountryCodes';
+import { Countries } from '../../../utils/CountryCodes';
 
 type Props = {
 	control: Control<any>;
@@ -19,12 +19,12 @@ export const AutocompleteLanguages: FC<Props> = ({ control, label, name }) => (
 			const { onChange, value, ref } = field;
 			return (
 				<Autocomplete
-					value={[...CountryCodes].find(country => value === country)}
-					options={[...CountryCodes]}
-					getOptionLabel={option => option}
+					value={[...Countries].find(country => value === country.code)}
+					options={[...Countries]}
+					getOptionLabel={option => option.language}
 					// eslint-disable-next-line @typescript-eslint/no-unused-vars
 					onChange={(event, newValue) => {
-						onChange(newValue ? newValue : null);
+						onChange(newValue ? newValue.code : null);
 					}}
 					renderOption={(props, option) => (
 						<Box
@@ -34,8 +34,8 @@ export const AutocompleteLanguages: FC<Props> = ({ control, label, name }) => (
 							}}
 							{...props}
 						>
-							<CircleFlag countryCode={option} height="20" />
-							{option}
+							<CircleFlag countryCode={option.code} height="20" />
+							{option.language}
 						</Box>
 					)}
 					renderInput={params => (

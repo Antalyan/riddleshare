@@ -73,7 +73,7 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 	}, []);
 
 	return (
-		<Stack gap={2}>
+		<Stack gap={2} sx={{ pl: 1, pr: 1 }}>
 			<Typography variant="h4" fontWeight="bold">
 				{name}
 			</Typography>
@@ -184,12 +184,16 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 			>
 				<Button
 					variant="contained"
-					sx={{ backgroundColor: 'primary.light', maxWidth: '200px' }}
+					sx={{
+						backgroundColor: 'primary.light',
+						maxWidth: '200px',
+						maxHeight: '40px'
+					}}
 					onClick={() => navigate(-1)}
 				>
 					Back
 				</Button>
-				<Stack direction="row" gap={2}>
+				<Stack direction="row" gap={2} flexWrap="wrap">
 					{isCreatorView && (
 						<>
 							<Button

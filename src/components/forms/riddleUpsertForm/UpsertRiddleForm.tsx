@@ -2,15 +2,13 @@ import { useForm } from 'react-hook-form-mui';
 import type { FC, ReactNode } from 'react';
 import React, { useCallback, useState } from 'react';
 import { Box, Step, StepLabel, Stepper } from '@mui/material';
-import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
-import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 
 import type { RiddleUpsertDetail } from '../../../utils/Types';
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
 import { storeRiddle } from '../../../datastore/storingFunctions';
-import { storage } from '../../../datastore/firebase';
 import { AlertDialog } from '../../dialogs/AlertDialog';
+import { uploadFile } from '../../../utils/FileHandling';
 
 import { RiddleBasicInformationForm } from './RiddleBasicInformationForm';
 import { RiddleQuestionForm } from './RiddleQuestionForm';
@@ -41,27 +39,18 @@ export const UpsertRiddleForm: FC<Props> = ({ isCreate, defaultValues }) => {
 	const uploadAllImages = useCallback(async (data: RiddleUpsertDetail) => {
 		// Riddle image
 		if (data.imageFile) {
-			const imageRef = ref(storage, `images/${data.imageFile.name + uuidv4()}`);
-			data.image = await uploadBytes(imageRef, data.imageFile)
-				.then(snapshot => snapshot.metadata.fullPath)
-				.then(() => getDownloadURL(imageRef));
+			data.image = await uploadFile(data.imageFile);
 			delete data.imageFile;
 		}
 
 		// Solved image
 		if (data.solvedImageFile) {
-			const solvedImageRef = ref(
-				storage,
-				`images/${data.solvedImageFile.name + uuidv4()}`
-			);
-			data.solvedImage = await uploadBytes(solvedImageRef, data.solvedImageFile)
-				.then(snapshot => snapshot.metadata.fullPath)
-				.then(() => getDownloadURL(solvedImageRef));
+			data.solvedImage = await uploadFile(data.solvedImageFile);
 			delete data.solvedImageFile;
 		}
 
 		// Questions images
-		// TODO?
+		// TODO in future
 
 		return data;
 	}, []);

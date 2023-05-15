@@ -13,7 +13,7 @@ export const HomePage: FC = () => {
 		<Stack gap={2} alignItems="center" justifyContent="flex-start">
 			<Box
 				component="img"
-				src="/public/RiddleMeThis.jpeg"
+				src="/RiddleMeThis.jpeg"
 				sx={{
 					maxWidth: '100%',
 					objectFit: 'contain',

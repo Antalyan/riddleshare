@@ -27,6 +27,8 @@ import type {
 	UserRiddleInfoDb
 } from '../utils/DbTypes';
 
+import { fetchUser } from './fetchingQueries';
+
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
 	authDomain: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebaseapp.com`,
@@ -48,7 +50,11 @@ initializeFirestore(app, {
 const auth = getAuth();
 
 // Sign up handler
-export const signUp = (email: string, password: string) => {
+export const signUp = async (email: string, password: string) => {
+	const user = await fetchUser(email);
+	if (user) {
+		throw new Error('User with given email already exists.');
+	}
 	createUserWithEmailAndPassword(auth, email, password);
 	setDoc(doc(usersCollection), { email });
 };

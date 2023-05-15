@@ -74,7 +74,7 @@ export const LoginPage = () => {
 			>
 				{submitError && (
 					<Typography
-						variant="caption"
+						variant="body1"
 						textAlign="right"
 						sx={{ color: 'error.main' }}
 					>

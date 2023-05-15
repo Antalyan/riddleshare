@@ -59,3 +59,8 @@ export const fetchUsers = async () => {
 	const qUsers = query(usersCollection, orderBy('email'));
 	return (await getDocs(qUsers)).docs;
 };
+export const fetchUser = async (userEmail: string) => {
+	const qUsers = query(usersCollection, where('email', '==', userEmail));
+	const res = await getDocs(qUsers);
+	return res.docs.length > 0 ? res.docs[0] : null;
+};

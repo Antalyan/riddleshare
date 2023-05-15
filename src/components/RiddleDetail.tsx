@@ -14,11 +14,11 @@ import {
 import useLoggedInUser from '../hooks/useLoggedInUser';
 import { useRiddleSolversDataFetch } from '../hooks/useRiddleSolversDataFetch';
 import { getDifficultyObject } from '../utils/Difficulty';
+import { getLanguage } from '../utils/CountryCodes';
 
 import { InfoLine } from './riddleDetail/InfoLine';
 import { InfoAccordion } from './riddleDetail/InfoAccordion';
 import { ChoiceDialog } from './dialogs/ChoiceDialog';
-import { getLanguage } from '../utils/CountryCodes';
 
 type Props = {
 	isCreatorView: boolean;

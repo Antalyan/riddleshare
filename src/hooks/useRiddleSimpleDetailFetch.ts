@@ -9,30 +9,32 @@ export const useRiddleSimpleDetailFetch = (
 	userEmail: string
 ) => {
 	const navigate = useNavigate();
-	const [riddleData, setRiddleData] =
-		useState<RiddleDisplayDetailSimple | null>(null);
+	const [isLoading, setIsLoading] = useState(true);
+	const [riddle, setRiddle] = useState<RiddleDisplayDetailSimple | null>(null);
 
 	useEffect(() => {
 		const fetchRiddle = async () => {
 			try {
-				const riddle = await fetchRiddleSimpleDetail(linkId, userEmail);
+				const riddleData = await fetchRiddleSimpleDetail(linkId, userEmail);
 
 				if (
 					// Redirect non-existent riddle and protect private riddle
-					!riddle ||
-					(riddle.sharingInformation.visibility === 'private' &&
-						!riddle.sharingInformation.sharedUsers?.includes(userEmail) &&
-						riddle.creatorEmail !== userEmail)
+					!riddleData ||
+					(riddleData.sharingInformation.visibility === 'private' &&
+						!riddleData.sharingInformation.sharedUsers?.includes(userEmail) &&
+						riddleData.creatorEmail !== userEmail)
 				) {
 					navigate('/not-found');
 				}
-				setRiddleData(riddle);
+				setRiddle(riddleData);
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setIsLoading(false);
 			}
 		};
 		fetchRiddle();
 	}, []);
 
-	return riddleData;
+	return { riddle, isLoading };
 };

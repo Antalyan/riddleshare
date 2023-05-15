@@ -6,6 +6,7 @@ import { fetchRiddleUpsert } from '../datastore/fetchingFunctions';
 
 export const useRiddleUpsert = (linkId: string, userEmail: string) => {
 	const navigate = useNavigate();
+	const [isLoading, setIsLoading] = useState(true);
 	const [riddle, setRiddle] = useState<RiddleUpsertDetail | null>(null);
 
 	useEffect(() => {
@@ -23,9 +24,11 @@ export const useRiddleUpsert = (linkId: string, userEmail: string) => {
 				setRiddle(riddleUpsert);
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setIsLoading(false);
 			}
 		};
 		loadAndSetRiddle();
 	}, []);
-	return riddle;
+	return { riddle, isLoading };
 };

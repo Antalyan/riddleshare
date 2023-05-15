@@ -9,6 +9,7 @@ import useLoggedInUser from './useLoggedInUser';
 //TODO: add filtering and paging
 
 export const useRiddlePreview = (...queryConstraints: QueryConstraint[]) => {
+	const [isLoading, setIsLoading] = useState(true);
 	const [riddles, setRiddles] = useState<RiddlePreview[]>([]);
 	const user = useLoggedInUser();
 	useEffect(() => {
@@ -21,9 +22,11 @@ export const useRiddlePreview = (...queryConstraints: QueryConstraint[]) => {
 				setRiddles(riddlePreviews);
 			} catch (error) {
 				console.log(error);
+			} finally {
+				setIsLoading(false);
 			}
 		};
 		loadAndSetRiddle();
 	}, []);
-	return riddles;
+	return { riddles, isLoading };
 };

@@ -18,6 +18,7 @@ import { getDifficultyObject } from '../utils/Difficulty';
 import { InfoLine } from './riddleDetail/InfoLine';
 import { InfoAccordion } from './riddleDetail/InfoAccordion';
 import { ChoiceDialog } from './dialogs/ChoiceDialog';
+import { getLanguage } from '../utils/CountryCodes';
 
 type Props = {
 	isCreatorView: boolean;
@@ -86,7 +87,7 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 						<>
 							<CircleFlag countryCode={language} height={20} />
 							&nbsp;
-							{language}
+							{getLanguage(language)}
 						</>
 					}
 				/>

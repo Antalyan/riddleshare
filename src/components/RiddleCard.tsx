@@ -19,6 +19,7 @@ import { useMemo } from 'react';
 import { getRiddleStateIcon } from '../utils/Statuses';
 import type { RiddlePreview } from '../utils/Types';
 import { getDifficultyObject } from '../utils/Difficulty';
+import { getLanguage } from '../utils/CountryCodes';
 
 export const RiddleCard: FC<RiddlePreview> = ({
 	creatorEmail,
@@ -101,7 +102,7 @@ export const RiddleCard: FC<RiddlePreview> = ({
 									/>
 									<Chip
 										icon={<CircleFlag countryCode={language} height={18} />}
-										label="Language" //TODO: Replace with localized language
+										label={getLanguage(language)}
 										variant="outlined"
 									/>
 									<Chip

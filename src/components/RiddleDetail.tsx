@@ -63,8 +63,13 @@ export const RiddleDetail: FC<Props> = ({ isCreatorView, riddleDetail }) => {
 		setIsDialogOpen(false);
 	}, []);
 	const handleDelete = useCallback(async () => {
-		await deleteRiddle(linkId);
-		navigate('/');
+		try {
+			await deleteRiddle(linkId);
+			console.log('Deletion successful.');
+			navigate('/');
+		} catch (error) {
+			console.log(`Error on delete: ${error}`);
+		}
 	}, []);
 
 	return (

@@ -18,7 +18,7 @@ export const fetchUserRiddleInfo = async (
 		where('userEmail', '==', userEmail)
 	);
 	const infoRes = await getDocs(qSolveInfo);
-	return infoRes.docs.length > 0 ? infoRes.docs[0] : undefined; //User may not have answered yet, so there is no record
+	return infoRes.docs.length > 0 ? infoRes.docs[0] : null; //User may not have answered yet, so there is no record
 };
 
 export const fetchUserRiddleInfos = async (
@@ -38,7 +38,7 @@ export const fetchRiddleSolvers = async (linkId: string) => {
 		userRiddleInfoCollection,
 		where('riddleLinkId', '==', linkId)
 	);
-	return await getDocs(qSolvers);
+	return (await getDocs(qSolvers)).docs;
 };
 
 //TODO: add paging and filtering to arguments
@@ -48,13 +48,14 @@ export const fetchRiddles = async (...queryConstraints: QueryConstraint[]) => {
 };
 export const fetchRiddle = async (linkId: string) => {
 	const qRiddle = query(riddlesCollection, where('linkId', '==', linkId));
-	return (await getDocs(qRiddle)).docs[0];
+	const res = await getDocs(qRiddle);
+	return res.docs.length > 0 ? res.docs[0] : null;
 };
 export const fetchQuestions = async (riddleDocId: string) => {
 	const qQuestions = query(questionsCollection(riddleDocId), orderBy('order'));
-	return await getDocs(qQuestions);
+	return (await getDocs(qQuestions)).docs;
 };
 export const fetchUsers = async () => {
 	const qUsers = query(usersCollection, orderBy('email'));
-	return await getDocs(qUsers);
+	return (await getDocs(qUsers)).docs;
 };

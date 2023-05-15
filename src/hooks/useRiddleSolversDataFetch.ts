@@ -24,7 +24,7 @@ export const useRiddleSolversDataFetch = (
 			const solvers = await fetchRiddleSolvers(linkId);
 			const successfulSolvers: UserRiddleInfoDb[] = [];
 			const unsuccessfulSolvers: UserRiddleInfoDb[] = [];
-			solvers.docs
+			solvers
 				.map(doc => doc.data())
 				.forEach(solver => {
 					if (solver.state === RiddleStatus.Solved) {

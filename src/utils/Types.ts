@@ -42,7 +42,7 @@ export type RiddleDisplayDetail = Omit<RiddleUpsertDetail, 'questions'> &
 		questions: QuestionDisplayDetail[];
 	};
 
-type TextType = {
+export type TextType = {
 	text: string;
 };
 

@@ -15,7 +15,7 @@ export const useRiddlePreview = (...queryConstraints: QueryConstraint[]) => {
 		const loadAndSetRiddle = async () => {
 			try {
 				const riddlePreviews = await fetchRiddlePreviews(
-					user,
+					user?.email ?? undefined,
 					...queryConstraints
 				);
 				setRiddles(riddlePreviews);

@@ -22,7 +22,7 @@ export const AutocompleteUsers: FC<Props> = ({ control, label, name }) => {
 	const loadUsers = useCallback(async () => {
 		const usersData = await fetchUsers();
 		setUsers(
-			usersData.docs
+			usersData
 				.map(doc => doc.data())
 				.filter(user => user.email !== loggedInUser?.email)
 		);

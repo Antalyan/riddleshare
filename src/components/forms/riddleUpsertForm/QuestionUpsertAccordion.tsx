@@ -18,9 +18,14 @@ import { AnswersUpsert } from './AnswersUpsert';
 type Props = {
 	index: number;
 	control: Control<RiddleUpsertDetail>;
+	isCreate: boolean;
 };
 
-export const QuestionUpsertAccordion: FC<Props> = ({ index, control }) => (
+export const QuestionUpsertAccordion: FC<Props> = ({
+	index,
+	control,
+	isCreate
+}) => (
 	<Accordion sx={{ flexGrow: 1 }}>
 		<AccordionSummary expandIcon={<ExpandMoreIcon />}>
 			<Typography variant="h6">Question {index + 1}</Typography>
@@ -44,7 +49,11 @@ export const QuestionUpsertAccordion: FC<Props> = ({ index, control }) => (
 				{/*	label="Question picture"*/}
 				{/*/>*/}
 
-				<HintsUpsert control={control} questionIndex={index} />
+				<HintsUpsert
+					control={control}
+					questionIndex={index}
+					isCreate={isCreate}
+				/>
 				<AnswersUpsert control={control} questionIndex={index} />
 			</Stack>
 		</AccordionDetails>

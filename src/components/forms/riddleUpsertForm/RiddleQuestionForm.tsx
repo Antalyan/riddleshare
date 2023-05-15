@@ -12,6 +12,7 @@ import { QuestionUpsertAccordion } from './QuestionUpsertAccordion';
 
 type Props = {
 	formContext: UseFormReturn<RiddleUpsertDetail>;
+	isCreate: boolean;
 	riddleName: string | null;
 	handleNext: () => void;
 	handleBack: () => void;
@@ -22,6 +23,7 @@ const MIN_QUESTIONS_LENGTH = 1;
 
 export const RiddleQuestionForm: FC<Props> = ({
 	formContext,
+	isCreate,
 	riddleName,
 	handleNext,
 	handleBack,
@@ -51,13 +53,17 @@ export const RiddleQuestionForm: FC<Props> = ({
 						width="100%"
 						key={field.id}
 					>
-						<QuestionUpsertAccordion control={control} index={index} />
+						<QuestionUpsertAccordion
+							control={control}
+							index={index}
+							isCreate={isCreate}
+						/>
 						<IconButton
 							onClick={() =>
 								fields.length > MIN_QUESTIONS_LENGTH && remove(index)
 							}
 							sx={{ m: 1 }}
-							disabled={disableQuestionDelete}
+							disabled={disableQuestionDelete || !isCreate}
 						>
 							<Cancel />
 						</IconButton>
@@ -73,6 +79,7 @@ export const RiddleQuestionForm: FC<Props> = ({
 							correctAnswers: [{ text: '' }]
 						})
 					}
+					disabled={!isCreate}
 				>
 					<Typography fontWeight="bold">+ Add question</Typography>
 				</Button>

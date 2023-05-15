@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form-mui';
-import type { ReactNode } from 'react';
-import { useCallback, useState } from 'react';
+import type { FC, ReactNode } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Box, Step, StepLabel, Stepper } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
 import { useNavigate } from 'react-router-dom';
@@ -10,6 +10,7 @@ import type { RiddleUpsertDetail } from '../../../utils/Types';
 import useLoggedInUser from '../../../hooks/useLoggedInUser';
 import { storeRiddle } from '../../../datastore/storingFunctions';
 import { storage } from '../../../datastore/firebase';
+import { AlertDialog } from '../../dialogs/AlertDialog';
 
 import { RiddleBasicInformationForm } from './RiddleBasicInformationForm';
 import { RiddleQuestionForm } from './RiddleQuestionForm';
@@ -17,38 +18,25 @@ import { RiddleShareForm } from './RiddleShareForm';
 
 const steps = ['Basic information', 'Questions', 'Sharing options'];
 
-export const CreateRiddleForm = () => {
-	const [activeStep, setActiveStep] = useState(0);
+type Props = {
+	isCreate: boolean;
+	defaultValues: RiddleUpsertDetail;
+};
 
+export const UpsertRiddleForm: FC<Props> = ({ isCreate, defaultValues }) => {
+	const [activeStep, setActiveStep] = useState(0);
 	const handleNext = () => {
 		setActiveStep(prevActiveStep => prevActiveStep + 1);
 	};
-
 	const handleBack = () => {
 		setActiveStep(prevActiveStep => prevActiveStep - 1);
 	};
 
-	const formContext = useForm<RiddleUpsertDetail>({
-		defaultValues: {
-			// Link id is set together with the whole url for display-and-copy (will be cropped on store)
-			linkId: `${window.location.href.replace(
-				'create-riddle',
-				''
-			)}riddle-detail/${uuidv4()}`,
-			language: 'uk',
-			difficultyValue: 3,
-			questions: [
-				{
-					hints: [],
-					correctAnswers: [{}]
-				}
-			],
-			questionOrder: 'sequence',
-			sharingInformation: { visibility: 'public' }
-		}
-	});
-
 	const user = useLoggedInUser();
+
+	const formContext = useForm<RiddleUpsertDetail>({
+		defaultValues
+	});
 
 	const uploadAllImages = useCallback(async (data: RiddleUpsertDetail) => {
 		// Riddle image
@@ -85,15 +73,17 @@ export const CreateRiddleForm = () => {
 				data = await uploadAllImages(data);
 				console.log('after images upload', data);
 
-				//Crop url out
+				// Crop url out
 				data.linkId = data.linkId.split('/').slice(-1)[0];
 
 				await storeRiddle(data, user);
-				console.log('Riddle added successfully');
-				navigate('/');
+				console.log('Riddle stored successfully');
+				setSubmitSuccessful(true);
+				setDialogOpen(true);
 			} catch (error) {
 				console.error('Error on adding riddles: ', error);
-				//TODO: show error to user
+				setSubmitSuccessful(false);
+				setDialogOpen(true);
 			}
 		},
 		[formContext]
@@ -107,6 +97,15 @@ export const CreateRiddleForm = () => {
 
 	const [riddleName, setRiddleName] = useState<string | null>(null);
 
+	const [submitSuccessful, setSubmitSuccessful] = useState(false);
+	const [dialogOpen, setDialogOpen] = useState(false);
+	const handleClose = useCallback(() => {
+		setDialogOpen(false);
+		if (submitSuccessful) {
+			navigate('/');
+		}
+	}, [submitSuccessful]);
+
 	const firstStep = (
 		<RiddleBasicInformationForm
 			formContext={formContext}
@@ -119,6 +118,7 @@ export const CreateRiddleForm = () => {
 	const secondStep = (
 		<RiddleQuestionForm
 			formContext={formContext}
+			isCreate={isCreate}
 			riddleName={riddleName}
 			handleNext={handleNext}
 			handleBack={handleBack}
@@ -129,6 +129,7 @@ export const CreateRiddleForm = () => {
 	const thirdStep = (
 		<RiddleShareForm
 			formContext={formContext}
+			isCreate={isCreate}
 			handleBack={handleBack}
 			onCancel={onCancel}
 			onSubmitFinal={onSubmitFinal}
@@ -151,6 +152,16 @@ export const CreateRiddleForm = () => {
 					);
 				})}
 			</Stepper>
+			<AlertDialog
+				name={submitSuccessful ? 'Congratulations' : 'Error on saving riddle'}
+				content={
+					submitSuccessful
+						? 'Your riddle has been successfully stored!'
+						: 'The error could not be stored. Try to repeat the operation later!'
+				}
+				open={dialogOpen}
+				handleClose={handleClose}
+			/>
 
 			<br />
 

@@ -50,7 +50,7 @@ export const UpsertRiddleForm: FC<Props> = ({ isCreate, defaultValues }) => {
 		}
 
 		// Questions images
-		// TODO in future
+		// May be implemented in the future
 
 		return data;
 	}, []);

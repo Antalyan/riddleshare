@@ -22,7 +22,7 @@ import { storeRiddleAnswerInfo } from '../../../datastore/storingFunctions';
 import { HintsDisplay } from './HintsDisplay';
 
 type Props = {
-	setRiddleData: Dispatch<SetStateAction<RiddleDisplayDetail>>;
+	setRiddleData: Dispatch<SetStateAction<RiddleDisplayDetail | null>>;
 	riddleData: RiddleDisplayDetail;
 	questionNumber: number;
 };

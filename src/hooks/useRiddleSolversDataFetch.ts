@@ -4,8 +4,6 @@ import { fetchRiddleSolvers } from '../datastore/fetchingQueries';
 import type { UserRiddleInfoDb } from '../utils/DbTypes';
 import { RiddleStatus } from '../utils/Statuses';
 
-//TODO: add filtering and paging
-
 export const useRiddleSolversDataFetch = (
 	linkId: string,
 	isCreatorView: boolean

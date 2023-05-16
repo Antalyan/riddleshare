@@ -41,7 +41,6 @@ export const fetchRiddleSolvers = async (linkId: string) => {
 	return (await getDocs(qSolvers)).docs;
 };
 
-//TODO: add paging and filtering to arguments
 export const fetchRiddles = async (...queryConstraints: QueryConstraint[]) => {
 	const qRiddle = query(riddlesCollection, ...queryConstraints);
 	return (await getDocs(qRiddle)).docs;

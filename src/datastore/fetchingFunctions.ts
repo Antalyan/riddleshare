@@ -104,7 +104,6 @@ export const fetchRiddleComplexDetail = async (
 			hintsTaken: questionInfo?.hintsTaken ?? 0
 		});
 	});
-	console.log(riddle);
 	return riddle;
 };
 
@@ -253,6 +252,5 @@ export const fetchRiddleUpsert = async (
 			correctAnswers: newCorrectAnswers
 		});
 	});
-	console.log(riddle);
 	return riddle;
 };

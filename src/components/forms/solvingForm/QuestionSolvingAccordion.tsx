@@ -51,7 +51,6 @@ export const QuestionSolvingAccordion: FC<Props> = ({
 	};
 
 	const handleSubmitAnswer = useCallback(() => {
-		console.log(answer);
 		const answerIsCorrect = correctAnswers
 			.map(a => a.toUpperCase())
 			.includes(answer.toUpperCase());

@@ -58,9 +58,8 @@ export const UpsertRiddleForm: FC<Props> = ({ isCreate, defaultValues }) => {
 	const onSubmitFinal = useCallback(
 		async (data: RiddleUpsertDetail) => {
 			try {
-				console.log('before images upload', data);
 				data = await uploadAllImages(data);
-				console.log('after images upload', data);
+				console.log('Images uploaded', data);
 
 				// Crop url out
 				data.linkId = data.linkId.split('/').slice(-1)[0];

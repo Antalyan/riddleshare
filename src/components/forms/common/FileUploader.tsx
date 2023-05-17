@@ -1,7 +1,5 @@
 import type { Control } from 'react-hook-form';
 import { Controller } from 'react-hook-form';
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-ignore TODO: fix import errors
 import { MuiFileInput } from 'mui-file-input';
 import type { FC } from 'react';
 

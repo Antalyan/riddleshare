@@ -38,7 +38,6 @@ export const RiddleSolvingPage: FC = () => {
 			{riddle.questions.map(question => (
 				<QuestionSolvingAccordion
 					riddleData={riddle}
-					// @ts-ignore
 					setRiddleData={setRiddle}
 					questionNumber={question.order}
 					key={question.order}

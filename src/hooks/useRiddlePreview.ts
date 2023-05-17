@@ -6,8 +6,6 @@ import { fetchRiddlePreviews } from '../datastore/fetchingFunctions';
 
 import useLoggedInUser from './useLoggedInUser';
 
-//TODO: add filtering and paging
-
 export const useRiddlePreview = (...queryConstraints: QueryConstraint[]) => {
 	const [isLoading, setIsLoading] = useState(true);
 	const [riddles, setRiddles] = useState<RiddlePreview[]>([]);

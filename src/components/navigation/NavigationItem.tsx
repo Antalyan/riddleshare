@@ -9,9 +9,18 @@ type NavigationItemProps = {
 
 export const NavigationItem: FC<NavigationItemProps> = ({ name, route }) => {
 	const navigate = useNavigate();
+	const handleNavigate = (e: any) => {
+		e.preventDefault();
+		navigate(route);
+	};
 
 	return (
-		<MenuItem onClick={() => navigate(route)} sx={{ borderRadius: 3 }}>
+		<MenuItem
+			component="a"
+			href={route}
+			onClick={handleNavigate}
+			sx={{ borderRadius: 3 }}
+		>
 			{name}
 		</MenuItem>
 	);

@@ -1,6 +1,6 @@
 import { Box, Button, Paper, Typography } from '@mui/material';
 import type { FormEvent } from 'react';
-import { useCallback, useState } from 'react';
+import { useEffect, useCallback, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import { FormTextField } from '../components/forms/common/FormTextField';
@@ -83,17 +83,17 @@ export const LoginPage = () => {
 				)}
 				<Button
 					type="submit"
-					variant="outlined"
-					onClick={() => setSignUp(true)}
-				>
-					Sign up
-				</Button>
-				<Button
-					type="submit"
 					variant="contained"
 					onClick={() => setSignUp(false)}
 				>
 					Log in
+				</Button>
+				<Button
+					type="submit"
+					variant="outlined"
+					onClick={() => setSignUp(true)}
+				>
+					Sign up
 				</Button>
 			</Box>
 		</Paper>
